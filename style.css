@@ -77,7 +77,7 @@ h5 {
 
 
 
-@media only screen and (max-width: 6000px) {
+@media only screen and (max-width: 600px) {
 
 .desktop_only{
     display: none;
@@ -89,7 +89,7 @@ main {
     padding: 0px 0px ;
     text-align: justify;
     font-family: 'Nunito', sans-serif;
-    background-color: red;
+    background-color: lightblue;
     color: #282828;
     }
 
