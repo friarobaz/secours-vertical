@@ -35,5 +35,6 @@ h5 {
             margin-bottom: 5px;
         }
 h1 {
-            font-family: 'Inter', sans-serif;   
+            font-family: 'Inter', serif;  
+            text-align: center; 
         } 
