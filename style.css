@@ -83,6 +83,7 @@ h5 {
     display: none;
     }
 
+
 *{
     margin: 0 0;
     padding: 0 0;
@@ -104,6 +105,12 @@ article>img {
     height: auto;
     max-width: 90%;
     max-height: 100%;
+    margin: 5px auto;
+    }
+.etapes{
+    height: 90%;
+    max-width: none;
+    max-height: none;
     margin: 5px auto;
     }
 
