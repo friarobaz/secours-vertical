@@ -92,7 +92,8 @@ h5 {
 article.scroll {
     margin: 0px;
     height: 100%;
-    overflow: auto;
+    overflow-x: auto;
+    overflow-y: hidden;
     }
 
 
