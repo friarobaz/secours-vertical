@@ -77,16 +77,16 @@ h5 {
 
 
 
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 600px) {
 
 .desktop_only{
     display: none;
     }
 
 main {
-    max-width: 800px;
     margin: 0 auto;
-    padding: 0px 30px ;
+    max-width: 600px;
+    padding: 0px 0px ;
     text-align: justify;
     font-family: 'Nunito', sans-serif;
     background-color: lightblue;
@@ -94,8 +94,15 @@ main {
     }
 
 article>img {
-    float: left;
-    margin-right: 30px;
+    float: none;
+    margin-right: 0px;
+    
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+
+    margin: 0 auto;
     }
 
 article {
@@ -141,7 +148,7 @@ h3 {
 
 h4 {
     font-family: 'Oswald', sans-serif; 
-    font-size: 2vw;  
+    font-size: 6vw;  
     margin: 0px;
     }
 
