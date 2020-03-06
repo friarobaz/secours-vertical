@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css?family=Inter|Nunito&display=swap');
+
+main {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: justify;
+            font-family: 'Nunito', sans-serif;
+        }
+
+article>img {
+            float: left;
+            margin-right: 30px;
+        }
+
+article {
+            overflow: auto;
+            margin-top: 40px;
+        }
+
+ul {
+            margin: 0;
+        }
+ul>li {
+            list-style: none;
+        }
+ol {
+            list-style-position: inside;
+        }
+li {
+            margin-top: 5px;
+        }
+
+h5 {
+            margin-top: 20px;
+            margin-bottom: 5px;
+        }
+h1 {
+            font-family: 'Inter', sans-serif;   
+        } 
