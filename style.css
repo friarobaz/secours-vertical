@@ -82,6 +82,18 @@ h5 {
 .desktop_only{
     display: none;
     }
+.scroll{
+	overflow: hidden;
+    width: auto;
+    height: 100%;
+    max-width: none;
+    max-height: none;
+    }
+article.scroll {
+    margin: 0px;
+    height: 100%;
+    overflow: auto;
+    }
 
 
 *{
@@ -107,16 +119,9 @@ article>img {
     max-height: 100%;
     margin: 5px auto;
     }
-.etapes{
-    height: 90%;
-    max-width: none;
-    max-height: none;
-    margin: 5px auto;
-    }
-
 article {
-    overflow: auto;
-    margin-top: 30px;
+    overflow: hidden;
+    margin-top: 40px;
     }
 
 ul {
