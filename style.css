@@ -68,3 +68,88 @@ h5 {
     }
 
 
+
+
+
+
+
+
+
+
+
+@media only screen and (max-width: 800px) {
+
+.desktop_only{
+    display: none;
+    }
+
+main {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0px 30px ;
+    text-align: justify;
+    font-family: 'Nunito', sans-serif;
+    background-color: lightblue;
+    color: #282828;
+    }
+
+article>img {
+    float: left;
+    margin-right: 30px;
+    }
+
+article {
+    overflow: auto;
+    margin-top: 40px;
+    }
+
+ul {
+    margin: 0;
+    }
+
+ul>li {
+    list-style: none;
+    }
+
+ol {
+    list-style-position: inside;
+    }
+
+li {
+    margin-top: 5px;
+    }
+
+
+h1 {
+    font-family: 'Oswald', sans-serif;  
+    font-size: 15vw;
+    text-align: center; 
+    margin: 0px;
+    }
+
+h2 {
+    font-family: 'Oswald', sans-serif;
+    font-size: 10vw;
+    margin: 0px;
+    }
+
+h3 {
+    font-family: 'Oswald', sans-serif; 
+    font-size: 8vw;
+    margin: 0px;
+    }
+
+h4 {
+    font-family: 'Oswald', sans-serif; 
+    font-size: 2vw;  
+    margin: 0px;
+    }
+
+h5 {
+    margin-top: 20px;
+    margin-bottom: 5px;
+    }
+
+}
+
+
