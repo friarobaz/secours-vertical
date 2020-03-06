@@ -99,18 +99,17 @@ main {
 
 article>img {
     float: none;
-    margin-right: 0px;
-    
+    display: block;
     width: auto;
     height: auto;
-    max-width: 100%;
+    max-width: 90%;
     max-height: 100%;
-    margin: 0 auto;
+    margin: 5px auto;
     }
 
 article {
     overflow: auto;
-    margin-top: 40px;
+    margin-top: 30px;
     }
 
 ul {
@@ -141,18 +140,21 @@ h2 {
     font-family: 'Oswald', sans-serif;
     font-size: 10vw;
     margin: 0px;
+    text-align: center; 
     }
 
 h3 {
     font-family: 'Oswald', sans-serif; 
     font-size: 8vw;
     margin: 0px;
+    text-align: center; 
     }
 
 h4 {
     font-family: 'Oswald', sans-serif; 
     font-size: 6vw;  
     margin: 0px;
+    text-align: center; 
     }
 
 h5 {
