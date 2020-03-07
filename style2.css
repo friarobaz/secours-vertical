@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=Nunito|Oswald&display=swap');
 
+html {
+  overflow: hidden;
+}
+
 .bg {
   background: url(imgs/cover_verdon.jpg) no-repeat center center fixed;
   background-size: cover;
