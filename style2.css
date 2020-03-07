@@ -18,13 +18,14 @@ body, html {
   background-size: cover;
 }
 
-h1 {
+a {
     font-family: 'Oswald', sans-serif;  
     font-size: 8vw;
     text-align: center; 
     margin: 0px;
     color:  white;
     text-shadow:  2px 2px 20px #404040;
+    text-decoration: none;
     }
 
 
