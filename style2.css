@@ -5,7 +5,6 @@
 .bg {
   background: url(imgs/cover_verdon.jpg) no-repeat center center fixed;
   background-size: cover;
-  overflow: hidden;
 }
 
 .flex-center {
@@ -57,8 +56,6 @@ display: none;
 
 #menu {
 display: none;
-height: 100%;
-overflow: scroll;
 }
 
 #SV {
