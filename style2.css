@@ -5,6 +5,7 @@
 .bg {
   background: url(imgs/cover_verdon.jpg) no-repeat center center fixed;
   background-size: cover;
+  overflow: hidden;
 }
 
 .flex-center {
@@ -34,8 +35,7 @@ ul li {
     font-family: 'Oswald', sans-serif;  
     color:  white;
     text-shadow:  1px 1px 20px #404040;
-    list-style-type: none;
-    
+    list-style-type: none;    
 }
 
 
@@ -57,6 +57,8 @@ display: none;
 
 #menu {
 display: none;
+height: 100%;
+overflow: scroll;
 }
 
 #SV {
