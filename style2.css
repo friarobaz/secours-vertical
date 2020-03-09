@@ -5,6 +5,7 @@
 .bg {
   background: url(imgs/cover_verdon.jpg) no-repeat center center fixed;
   background-size: cover;
+  overflow: hidden;
 }
 
 .flex-center {
@@ -16,6 +17,11 @@
 a {
   text-decoration: none;
   color:  white;
+  opacity: 0.8;
+}
+
+a:hover {
+  opacity: 1;
 }
 
 h1 {
@@ -33,10 +39,9 @@ h1 a:visited {
 ul li {
     font-family: 'Oswald', sans-serif;  
     color:  white;
-    text-shadow:  1px 1px 20px #404040;
+    text-shadow:  1px 1px 10px black;
     list-style-type: none;    
 }
-
 
 .titre {  
   font-size: 6vh;
@@ -56,6 +61,7 @@ display: none;
 
 #menu {
 display: none;
+padding: 0;
 }
 
 #SV {
