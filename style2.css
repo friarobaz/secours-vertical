@@ -1,8 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Nunito|Oswald&display=swap');
 
-html {
-  overflow: hidden;
-}
+
 
 .bg {
   background: url(imgs/cover_verdon.jpg) no-repeat center center fixed;
@@ -17,15 +15,50 @@ html {
 
 a {
   text-decoration: none;
+  color:  white;
 }
 
 h1 {
-  font-family: 'Oswald', sans-serif;  
-  font-size: 8vw;
-  color:  white;
-  text-shadow:  2px 2px 20px #404040;
+    font-family: 'Oswald', sans-serif;  
+    color:  white;
+    text-shadow:  1px 1px 20px #404040;
+    list-style-type: none;
+    font-size: 8vw;
 }
 
 h1 a:visited {
   color: white;
+}
+
+ul li {
+    font-family: 'Oswald', sans-serif;  
+    color:  white;
+    text-shadow:  1px 1px 20px #404040;
+    list-style-type: none;
+    
+}
+
+
+.titre {  
+  font-size: 6vh;
+}
+  
+.sous-titre { 
+  font-size: 4vh;
+}
+
+#cordes {
+display: none;
+}
+
+#secours {
+display: none;
+}
+
+#menu {
+display: none;
+}
+
+#SV {
+display: block;
 }
