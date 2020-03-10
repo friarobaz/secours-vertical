@@ -38,15 +38,15 @@ article {
     padding-bottom: 3vh;
     padding-right: 2vw;
     padding-left: 2vw;
-    border-style: solid;
+    /*border-style: solid;*/
     }
 
 section {
     overflow: auto;
     margin-top: 0;
     padding: 0;
-    border-style: solid;
-    border-color: red;
+    /*border-style: solid;
+    border-color: red;*/
     }   
 
 .scroll{
