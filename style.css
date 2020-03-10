@@ -10,7 +10,6 @@ main {
     padding: 0px 0px ;
     text-align: justify;
     font-family: 'Nunito', sans-serif;
-    
     color: #282828;
     }
 
@@ -26,7 +25,7 @@ article>img {
 
 article {
     overflow: auto;
-    margin-top: 40px;
+    margin-top: 4vh;
     border-radius: 10px;
     background-color: #fafafa;
     padding-top: 2vh;
@@ -37,7 +36,10 @@ article {
     }
 
 ul {
-    margin: 0;
+    margin-bottom: 0;
+    margin-top: 1vh;
+    margin-left: 0;
+    margin-right: 0;
     }
 
 ul>li {
@@ -49,9 +51,16 @@ ol {
     }
 
 li {
-    margin-top: 5px;
+    margin-top: 1vh;
     }
 
+p {
+    font-size: 1em;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+    margin-left: 0;
+    margin-right: 0;
+    }
 
 h1 {
     font-family: 'Oswald', sans-serif;  
