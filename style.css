@@ -2,37 +2,65 @@
 
 body {
     background-color: #eeeeee;
-    }
-
-main {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 0px 0px ;
     text-align: justify;
     font-family: 'Nunito', sans-serif;
     color: #282828;
     }
 
-article>img {
+main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0px 0px;
+    }
+
+img {
     float: left;
     margin-right: 2vw;
     border-radius: 10px;
     max-height: 80vh;
     max-width: 40%;
-    width: auto;
-    height: auto;
+    }
+
+iframe {
+    float: left;
+    margin-right: 2vw;
+    border-radius: 10px;
+    max-height: 80vh;
+    max-width: 100%;
     }
 
 article {
     overflow: auto;
-    margin-top: 4vh;
+    margin-top: 2vh;
     border-radius: 10px;
     background-color: #fafafa;
     padding-top: 2vh;
     padding-bottom: 3vh;
     padding-right: 2vw;
     padding-left: 2vw;
+    border-style: solid;
+    }
 
+section {
+    overflow: auto;
+    margin-top: 0;
+    padding: 0;
+    border-style: solid;
+    border-color: red;
+    }   
+
+.scroll{
+    max-width: none;
+    height: 100%;
+    max-height: none;
+    }
+
+section.scroll {
+    margin: 0;
+    padding: 0;
+    height: 80vh;
+    overflow-x: auto;
+    overflow-y: hidden;
     }
 
 ul {
@@ -40,13 +68,14 @@ ul {
     margin-top: 1vh;
     margin-left: 0;
     margin-right: 0;
+    list-style-position: inside;
     }
 
-ul>li {
-    list-style: none;
-    }
-
-ol {
+ol  {
+    margin-bottom: 0;
+    margin-top: 1vh;
+    margin-left: 0;
+    margin-right: 0;
     list-style-position: inside;
     }
 
@@ -58,25 +87,6 @@ p {
     font-size: 1em;
     margin-top: 2vh;
     margin-bottom: 2vh;
-    margin-left: 0;
-    margin-right: 0;
-    }
-
-h1 {
-    font-family: 'Oswald', sans-serif;  
-    font-size: 5em;
-    text-align: center;
-    margin-top: 0;
-    margin-bottom: 10vh;
-    margin-left: 0;
-    margin-right: 0;
-    }
-
-h2 {
-    font-family: 'Oswald', sans-serif;
-    font-size: 3em;
-    margin-top: 10vh;
-    margin-bottom: 0;
     margin-left: 0;
     margin-right: 0;
     }
@@ -102,7 +112,7 @@ h4 {
 
 h5 {
 	font-family: 'Oswald', sans-serif; 
-	font-size: 0.9em;
+	font-size: 1em;
     margin-top: 2vh;
     margin-bottom: 0;
     margin-left: 0;
@@ -114,7 +124,9 @@ h5 {
 
 
 
-
+/*#######################################################################################################################
+################################################   MOBILE   #############################################################
+#######################################################################################################################*/
 
 
 
@@ -122,49 +134,29 @@ h5 {
 
 @media only screen and (max-width: 600px) {
 
-.desktop_only{
-    display: none;
-    }
-.scroll{
-	/* overflow: hidden; */
-    width: auto;
-    height: 100%;
-    max-width: none;
-    max-height: none;
-    }
-article.scroll {
-    margin: 0;
-    height: 90vh;
-    overflow-x: auto;
-    overflow-y: hidden;
-    }
-
-
 *{
     margin: 0;
     padding: 0;
     }
 
-main {
-    margin: 0 auto;
-    padding: 0;
-    text-align: justify;
-    font-family: 'Nunito', sans-serif;
-    color: #282828;
+.desktop_only{
+    display: none;
     }
 
-article>img {
+section.scroll {
+    height: 90vh;
+    }
+
+img {
     float: none;
     display: block;
     margin: 1vh auto;
     max-height: 80vh;
     max-width: 100%;
     }
+
 article {
-    overflow: auto;
     margin-top: 1vh;
-    border-radius: 10px;
-    background-color: #fafafa;
     padding-top: 1vh;
     padding-bottom: 1vh;
     padding-right: 1vw;
@@ -175,68 +167,21 @@ ul {
     margin: 0;
     }
 
-ul>li {
-    list-style: none;
-    }
-
-ol {
-    list-style-position: inside;
-    }
-
-li {
-    margin-top: 1vh;
-    }
-
-
-h1 {
-    font-family: 'Oswald', sans-serif;  
-    font-size: 15vw;
-    margin-top: 0;
-    margin-bottom: 0;
-    margin-left: 0;
-    margin-right: 0;
-    text-align: center;
-    }
-
-h2 {
-    font-family: 'Oswald', sans-serif;
-    font-size: 10vw;
-    margin-top: 0;
-    margin-bottom: 0;
-    margin-left: 0;
-    margin-right: 0;
-    text-align: center;
-    }
-
 h3 {
-    font-family: 'Oswald', sans-serif; 
     font-size: 6vw;
     margin-top: 0;
-    margin-bottom: 0;
-    margin-left: 0;
-    margin-right: 0;
     text-align: center;
-    background-color: none;
     }
 
 h4 {
-    font-family: 'Oswald', sans-serif; 
     font-size: 5vw;  
-    margin-top: 0;
     margin-bottom: 0;
-    margin-left: 0;
-    margin-right: 0;
-    background-color: none;
     text-align: center;
     }
 
 h5 {
-	font-family: 'Oswald', sans-serif; 
 	font-size: 4vw; 
     margin-top: 0;
-    margin-bottom: 0;
-    margin-left: 0;
-    margin-right: 0;
     text-align: center;
     }
 
