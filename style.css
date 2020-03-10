@@ -133,8 +133,8 @@ h5 {
     max-height: none;
     }
 article.scroll {
-    margin: 0px;
-    height: 90%;
+    margin: 0;
+    height: 90vh;
     overflow-x: auto;
     overflow-y: hidden;
     }
@@ -147,23 +147,28 @@ article.scroll {
 
 main {
     margin: 0 auto;
-    padding: 0px 0px ;
+    padding: 0;
     text-align: justify;
     font-family: 'Nunito', sans-serif;
-    background-color: lightblue;
     color: #282828;
     }
 
 article>img {
     float: none;
     display: block;
-    margin: 5px auto;
+    margin: 1vh auto;
     max-height: 80vh;
-    max-width: 90vw;
+    max-width: 100%;
     }
 article {
-    /* overflow: hidden; */
-    margin-top: 40px;
+    overflow: auto;
+    margin-top: 1vh;
+    border-radius: 10px;
+    background-color: #fafafa;
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+    padding-right: 1vw;
+    padding-left: 1vw;
     }
 
 ul {
@@ -179,43 +184,60 @@ ol {
     }
 
 li {
-    margin-top: 5px;
+    margin-top: 1vh;
     }
 
 
 h1 {
     font-family: 'Oswald', sans-serif;  
     font-size: 15vw;
-    text-align: center; 
-    margin: 0px;
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    margin-right: 0;
+    text-align: center;
     }
 
 h2 {
     font-family: 'Oswald', sans-serif;
     font-size: 10vw;
-    margin: 0px;
-    text-align: center; 
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    margin-right: 0;
+    text-align: center;
     }
 
 h3 {
     font-family: 'Oswald', sans-serif; 
-    font-size: 8vw;
-    margin: 0px;
-    text-align: center; 
+    font-size: 6vw;
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    margin-right: 0;
+    text-align: center;
+    background-color: none;
     }
 
 h4 {
     font-family: 'Oswald', sans-serif; 
-    font-size: 6vw;  
-    margin: 0px;
-    text-align: center; 
+    font-size: 5vw;  
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    margin-right: 0;
+    background-color: none;
+    text-align: center;
     }
 
 h5 {
 	font-family: 'Oswald', sans-serif; 
-	font-size: 5vw; 
-    margin: 0px;
-    text-align: center; 
+	font-size: 4vw; 
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    margin-right: 0;
+    text-align: center;
     }
 
 }
