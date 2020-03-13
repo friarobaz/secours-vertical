@@ -1,0 +1,60 @@
+<html class="bg">
+<header>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Secours Vertical</title>
+    <link rel="stylesheet" href="style_verdon.css">
+</header>
+
+<body class="flex-center">
+
+<ul class="titre" id="menu">
+    <li><a href="#" onclick="toggle_visibility('cordes'); hide('secours');">Techniques de cordes</a></li>
+            <ul id="cordes" class="sous-titre">
+                <li><a href="referentiel/base.htm">Principes de base</a></li>
+                <li><a href="referentiel/noeuds.htm">Quelques noeuds</a></li>
+                <li><a href="referentiel/mouflages.htm">Les mouflages</a></li>
+                <li><a href="referentiel/rechappes.htm">Les réchappes</a></li>
+                <li><a href="referentiel/remontees.htm">Les remontées sur corde</a></li>
+                <li><a href="referentiel/rappel.htm">Le rappel</a></li>
+                <li><a href="referentiel/debrayer.htm">Faire redescendre un second</a></li>
+                <li><a href="referentiel/relais_espace.htm">Relais sur points espacés</a></li>
+            </ul>
+ <li><a href="#" onclick="toggle_visibility('secours'); hide('cordes');">Premiers secours</a></li>
+            <ul id="secours" class="sous-titre" style="display: none">
+                <li><a href="referentiel/hemorragie.htm">Hémorragie</a></li>
+                <li><a href="referentiel/inconscience.htm">Inconscience</a></li>
+                <li><a href="referentiel/alerte.htm">Alerte</a></li>
+                <li><a href="referentiel/plaies.htm">Plaies</a></li>
+                <li><a href="referentiel/entorses.htm">Entorses</a></li>
+                <li><a href="referentiel/brulures.htm">Brûlures</a></li>
+                <li><a href="referentiel/trousse.htm">Trousse de secours</a></li>
+            </ul>
+</ul>
+
+<script type="text/javascript">
+<!--
+    function toggle_visibility(id) {
+
+       var e = document.getElementById(id);
+       if(e.style.display == 'block')
+          e.style.display = 'none';
+       else
+          e.style.display = 'block';
+    }
+
+    function show(id) {
+
+       var e = document.getElementById(id);
+        e.style.display = 'block';
+    }
+
+    function hide(id) {
+
+       var e = document.getElementById(id);
+        e.style.display = 'none';
+    }
+//-->
+</script>
+
+</body>
+</html>
