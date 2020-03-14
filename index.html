@@ -1,9 +1,9 @@
-<html class="bg">
+<html class="bg_index">
 <header>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Secours Vertical</title>
     <script src="jquery-3.4.1.min.js"></script>
-    <link rel="stylesheet" href="style_verdon.css">
+    <link rel="stylesheet" href="style_full.css">
 </header>
 
 <body class="flex-center">
@@ -11,8 +11,9 @@
 <h1 id="SV"><a href="#">Secours Vertical</a></h1>
 
 <ul class="titre" id="menu" style="display: none;">
+    <li><a href="formation.htm">La formation</a></li>
     <li><a href="menu_referentiel.htm">Le réferentiel</a></li>
-    <li><a href="#">Contact</a></li>
+    <li><a href="contact.htm">Contact</a></li>
     <li><a href="#">Références</a></li>     
 </ul>
 
@@ -22,7 +23,7 @@
 
         $("#SV").click(function(){
             $("#menu").show();
-            $("#SV").hide();
+            $("#SV").remove();
         });
 
     });
