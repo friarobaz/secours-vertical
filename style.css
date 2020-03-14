@@ -16,7 +16,7 @@ main {
 img {
     float: left;
     margin-right: 2vw;
-    border-radius: 10px;
+    border-radius: 5px;
     max-height: 80vh;
     max-width: 40%;
     }
@@ -32,7 +32,7 @@ iframe {
 article {
     overflow: auto;
     margin-top: 2vh;
-    border-radius: 10px;
+    border-radius: 5px;
     background-color: #fafafa;
     padding-top: 2vh;
     padding-bottom: 3vh;
