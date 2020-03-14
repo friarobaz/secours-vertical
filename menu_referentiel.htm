@@ -8,7 +8,7 @@
 
 <body class="flex-center">
 
-<ul class="titre" id="menu">
+<ul class="titre" id="menu_referentiel">
     <li><a href="#" id="cordes">Techniques de cordes</a></li>
             <ul id="menu_cordes" class="sous-titre">
                 <li><a href="referentiel.htm#base">Principes de base</a></li>
@@ -32,6 +32,30 @@
             </ul>
 </ul>
 
+<ul class="titre" id="menu_referentiel_light">
+    <li><a href="#" id="cordes_light">Techniques de cordes</a></li>
+            <ul id="menu_cordes_light" class="sous-titre">
+                <li><a href="light.htm?var=base">Principes de base</a></li>
+                <li><a href="light.htm?var=noeuds">Quelques noeuds</a></li>
+                <li><a href="light.htm?var=mouflages">Les mouflages</a></li>
+                <li><a href="light.htm?var=rechappes">Les réchappes</a></li>
+                <li><a href="light.htm?var=remontees">Les remontées sur corde</a></li>
+                <li><a href="light.htm?var=rappel">Le rappel</a></li>
+                <li><a href="light.htm?var=debrayer">Faire redescendre un second</a></li>
+                <li><a href="light.htm?var=relais_espace">Relais sur points espacés</a></li>
+            </ul>
+ <li><a href="#" id="secours_light">Premiers secours</a></li>
+            <ul id="menu_secours_light" class="sous-titre" style="display: none">
+                <li><a href="light.htm?var=hemorragie">Hémorragie</a></li>
+                <li><a href="light.htm?var=inconscience">Inconscience</a></li>
+                <li><a href="light.htm?var=alerte">Alerte</a></li>
+                <li><a href="light.htm?var=plaies">Plaies</a></li>
+                <li><a href="light.htm?var=entorses">Entorses</a></li>
+                <li><a href="light.htm?var=brulures">Brûlures</a></li>
+                <li><a href="light.htm?var=trousse">Trousse de secours</a></li>
+            </ul>
+</ul>
+
 <script>
 <!--
     $(document).ready(function(){
@@ -44,6 +68,16 @@
         $("#secours").click(function(){
             $("#menu_cordes").hide();
             $("#menu_secours").toggle();
+        });
+
+        $("#cordes_light").click(function(){
+            $("#menu_cordes_light").toggle();
+            $("#menu_secours_light").hide();
+        });
+
+        $("#secours_light").click(function(){
+            $("#menu_cordes_light").hide();
+            $("#menu_secours_light").toggle();
         });
     });
 //-->

@@ -46,7 +46,7 @@ li {
   font-size: 4vh;
 }
 
-#SV_light { 
+#menu_referentiel_light { 
   display: none;
 }
 
@@ -61,11 +61,11 @@ a {
   opacity: 1;
 }
 
-#SV_light { 
+#menu_referentiel_light { 
   display: block;
 }
 
-#SV { 
+#menu_referentiel { 
   display: none;
 }
 

@@ -8,18 +8,10 @@
 
 <body class="flex-center">
 
-
 <h1 id="SV"><a href="#">Secours Vertical</a></h1>
-<h1 id="SV_light"><a href="#">Secours Vertical</a></h1>
 
 <ul class="titre" id="menu" style="display: none;">
-    <li><a href="menu_referentiel.htm">Le réferentiel</a></li>
-    <li><a href="#">Contact</a></li>
-    <li><a href="#">Références</a></li>     
-</ul>
-
-<ul class="titre" id="menu_light" style="display: none;">
-    <li><a href="menu_referentiel_light.htm">Le réferentiel</a></li>
+    <li id="referentiel"><a href="menu_referentiel.htm">Le réferentiel</a></li>
     <li><a href="#">Contact</a></li>
     <li><a href="#">Références</a></li>     
 </ul>
@@ -31,14 +23,8 @@
         $("#SV").click(function(){
             $("#menu").show();
             $("#SV").hide();
-            $("#SV_light").hide();
         });
 
-        $("#SV_light").click(function(){
-            $("#menu_light").show();
-            $("#SV").hide();
-            $("#SV_light").hide();
-        });
     });
 //-->
 </script>
