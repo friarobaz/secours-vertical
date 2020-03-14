@@ -2,14 +2,15 @@
 <header>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Secours Vertical</title>
+    <script src="jquery-3.4.1.min.js"></script>
     <link rel="stylesheet" href="style_verdon.css">
 </header>
 
 <body class="flex-center">
 
 <ul class="titre" id="menu">
-    <li><a href="#" onclick="toggle_visibility('cordes'); hide('secours');">Techniques de cordes</a></li>
-            <ul id="cordes" class="sous-titre">
+    <li><a href="#" id="cordes">Techniques de cordes</a></li>
+            <ul id="menu_cordes" class="sous-titre">
                 <li><a href="referentiel.htm#base">Principes de base</a></li>
                 <li><a href="referentiel.htm#noeuds">Quelques noeuds</a></li>
                 <li><a href="referentiel.htm#mouflages">Les mouflages</a></li>
@@ -19,8 +20,8 @@
                 <li><a href="referentiel.htm#debrayer">Faire redescendre un second</a></li>
                 <li><a href="referentiel.htm#relais_espace">Relais sur points espacés</a></li>
             </ul>
- <li><a href="#" onclick="toggle_visibility('secours'); hide('cordes');">Premiers secours</a></li>
-            <ul id="secours" class="sous-titre" style="display: none">
+ <li><a href="#" id="secours">Premiers secours</a></li>
+            <ul id="menu_secours" class="sous-titre" style="display: none">
                 <li><a href="referentiel.htm#hemorragie">Hémorragie</a></li>
                 <li><a href="referentiel.htm#inconscience">Inconscience</a></li>
                 <li><a href="referentiel.htm#alerte">Alerte</a></li>
@@ -31,28 +32,20 @@
             </ul>
 </ul>
 
-<script type="text/javascript">
+<script>
 <!--
-    function toggle_visibility(id) {
+    $(document).ready(function(){
 
-       var e = document.getElementById(id);
-       if(e.style.display == 'block')
-          e.style.display = 'none';
-       else
-          e.style.display = 'block';
-    }
+        $("#cordes").click(function(){
+            $("#menu_cordes").toggle();
+            $("#menu_secours").hide();
+        });
 
-    function show(id) {
-
-       var e = document.getElementById(id);
-        e.style.display = 'block';
-    }
-
-    function hide(id) {
-
-       var e = document.getElementById(id);
-        e.style.display = 'none';
-    }
+        $("#secours").click(function(){
+            $("#menu_cordes").hide();
+            $("#menu_secours").toggle();
+        });
+    });
 //-->
 </script>
 
