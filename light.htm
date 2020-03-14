@@ -13,7 +13,9 @@
 <script>
 $(document).ready(function(){
 
-    $( "#container" ).load( "referentiel.htm  #base" );
+	var urlParams = new URLSearchParams(window.location.search);
+	var myVariable = urlParams.get('var')
+    $( "#container" ).load( "referentiel.htm  #" + myVariable );
 
 });
 </script>
