@@ -1,38 +1,3 @@
-@import url('https://fonts.googleapis.com/css?family=Nunito|Oswald&display=swap');
-
-body {
-text-align: justify;
-font-family: 'Nunito', sans-serif;
-color: #282828;
-}
-
-main {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 0px 0px;
-    }
-
-img {
-    float: left;
-    margin-right: 2vw;
-    border-radius: 5px;
-    max-height: 80vh;
-    max-width: 40%;
-    }
-
-article {
-    overflow: auto;
-    margin-top: 2vh;
-    border-radius: 5px;
-    background-color: #fafafa;
-    padding-top: 2vh;
-    padding-bottom: 3vh;
-    padding-right: 2vw;
-    padding-left: 2vw;
-    /*box-shadow: 0px 0px 10px #dddddd;*/
-    /*border-style: solid;*/
-    }
-
 .bg_index {
   background: url(imgs/cover_verdon.jpg) no-repeat center center fixed;
   background-size: cover;
@@ -48,11 +13,17 @@ article {
 .bg_formation {
   background: url(imgs/cover_arbre.jpg) no-repeat center center fixed;
   background-size: cover;
-  overflow: hidden;
+  overflow: auto;
 }
 
 .bg_contact {
   background: url(imgs/cover_tonsai.jpg) no-repeat center center fixed;
+  background-size: cover;
+  overflow: hidden;
+}
+
+.bg_references {
+  background: url(imgs/cover_buoux.jpg) no-repeat center center fixed;
   background-size: cover;
   overflow: hidden;
 }
@@ -63,8 +34,11 @@ article {
   align-items: center;
 }
 
+article {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
 a {
-  text-decoration: none;
   color:  white;
   opacity: 0.8;
 }
@@ -74,22 +48,21 @@ a:hover {
 }
 
 h1 {
-    font-size: 8vw;
     color: white;
-    font-family: 'Oswald', sans-serif;
 }
 
 li {  
     list-style-type: none;  
-    font-family: 'Oswald', sans-serif;  
 }
 
 .titre {  
   font-size: 6vh;
+  font-family: 'Oswald', sans-serif;
 }
   
 .sous-titre { 
   font-size: 4vh;
+  font-family: 'Oswald', sans-serif;  
 }
 
 #menu_referentiel_light { 
@@ -113,6 +86,14 @@ a {
 
 #menu_referentiel { 
   display: none;
+}
+
+.titre {  
+  text-align: center;
+}
+  
+.sous-titre { 
+  text-align: center; 
 }
 
 }

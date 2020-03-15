@@ -1,0 +1,41 @@
+
+body {
+    background-color: #eeeeee;
+    }
+
+img {
+    max-width: 40%;
+    }
+
+article {
+    background-color: #fafafa;
+    box-shadow: 0px 0px 10px #dddddd;
+    }
+
+.scroll{
+    max-width: none;
+    height: 100%;
+    max-height: none;
+    }
+
+section.scroll {
+    margin: 0;
+    padding: 0;
+    height: 80vh;
+    overflow-x: auto;
+    overflow-y: hidden;
+    }
+
+/*#######################################################################################################################
+################################################   MOBILE   #############################################################
+#######################################################################################################################*/
+
+section.scroll {
+    height: 90vh;
+    }
+    
+img {
+    max-width: 100%;
+    }
+
+
