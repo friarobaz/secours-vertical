@@ -3,11 +3,9 @@ layout: noeud.html
 name: Chaise
 img: chaise.jpg
 avantages:
-  -  super chouette
-  -  lol
+  -  Se défait facilement
 inconvenients:
-  -  super chouette
-  -  lol
+  -  Peut se défaire s’il est sollicité longtemps sans tension, ne pas l’utiliser pour s’encorder en grande voie
 ---
 Le noeud de chaise est utilisé pour fixer le bout d’une corde à un objet (ancrage, arbre, etc.) ou pour s’encorder.
 Il comprend obligatoirement un noeud d'arrêt.

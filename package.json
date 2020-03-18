@@ -1,17 +1,15 @@
 {
   "name": "secours-vertical",
   "version": "1.0.0",
-  "description": "",
-  "main": "jquery-3.4.1.min.js",
+  "description": "Secours Vertical",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "eleventy --serve --formats=md,html,jpg,css --input=src"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/friarobaz/secours-vertical.git"
   },
-  "keywords": [],
-  "author": "",
+  "author": "Jules Marchand",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/friarobaz/secours-vertical/issues"
