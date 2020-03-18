@@ -1,0 +1,30 @@
+---
+tags: noeud
+layout: base.html
+---
+<article>
+
+  <h4>{{ name }}</h4>
+  <img src="/referentiel/noeuds/img/{{img}}" alt="">
+
+  <div class="desktop_only">
+    <p>
+      {{ content | safe }}
+    </p>
+
+    <h5>Avantages</h5>
+    <ul>
+      {%- for avantage in avantages -%}
+        <li>{{ avantage }}</li>
+      {%- endfor -%}
+    </ul>
+
+    <h5>Inconvénients</h5>
+    <ul>
+      {%- for inconvenient in inconvenients -%}
+        <li>{{ inconvenient }}</li>
+      {%- endfor -%}
+    </ul>
+  </div>
+
+</article>

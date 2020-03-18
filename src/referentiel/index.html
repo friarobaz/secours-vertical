@@ -1,0 +1,59 @@
+---
+layout: base.html
+---
+<h2>Techniques de cordes</h2>
+<div id="base">
+  <h3>Principes de base</h3>
+  <article>
+    <p>
+      <strong style="color:red">TOUJOURS SUR DEUX POINTS</strong>
+    </p>
+    <p>Dans l’urgence, on peut être amené à improviser. Néanmoins il faut toujours garder en tête quelques principes de base:</p>
+    <ul>
+      <li>
+            Jamais de frottement textile sur textile: la dyneema en particulier a une très faible résistance à la chaleur.
+            On peut brûler une sangle de dyneema en quelques secondes en la frottant contre une corde.
+        </li>
+      <li>
+            Attention aux frottements de la corde sur le rocher.
+            Un frottement est acceptable s’il n’affecte pas toujours la même partie de la corde.
+        </li>
+      <li>
+            Attention, un mousqueton qui travaille mal perd de sa résistance.
+            Pour bien travailler, un mousqueton doit être bien fermé, forcer dans le bon sens, ne pas frotter contre le rocher et ne pas être en porte-à-faux.
+        </li>
+    </ul>
+  </article>
+</div>
+
+<h3 id="noeuds">Quelques noeuds</h3>
+<p class="desktop_only">
+    Un noeud doit toujours être serré et propre pour être efficace.<br/>
+    On serre un noeud en le prenant dans une main et en tirant chaque brin avec l’autre main.<br/>
+    Un noeud d'arrêt est toujours un demi pêcheur double.<br/>
+</p>
+{%- for n in collections.noeud -%}
+  <article id="{{ n.data.name | slug}}">
+    <h4>
+      <a href="{{ n.url }}">{{ n.data.name }}</a>
+    </h4>
+    <img src="noeuds/img/{{n.data.img}}" alt="">
+    <div class="desktop_only">
+      <p>
+        {{ n.templateContent | safe }}
+      </p>
+      <h5>Avantages</h5>
+      <ul>
+        {%- for avantage in n.data.avantages -%}
+          <li>{{ avantage }}</li>
+        {%- endfor -%}
+      </ul>
+      <h5>Inconvénients</h5>
+      <ul>
+        {%- for i in n.data.inconvenients -%}
+          <li>{{ i }}</li>
+        {%- endfor -%}
+      </ul>
+    </div>
+  </article>
+{%- endfor -%}

@@ -1,0 +1,23 @@
+{
+  "name": "secours-vertical",
+  "version": "1.0.0",
+  "description": "",
+  "main": "jquery-3.4.1.min.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/friarobaz/secours-vertical.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/friarobaz/secours-vertical/issues"
+  },
+  "homepage": "https://github.com/friarobaz/secours-vertical#readme",
+  "devDependencies": {
+    "@11ty/eleventy": "^0.10.0"
+  }
+}
