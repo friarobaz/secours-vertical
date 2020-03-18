@@ -15,13 +15,12 @@ article {
 .scroll{
     max-width: none;
     height: 100%;
-    max-height: none;
+    max-height: 80vh;
     }
 
 section.scroll {
     margin: 0;
     padding: 0;
-    height: 80vh;
     overflow-x: auto;
     overflow-y: hidden;
     }
@@ -30,12 +29,15 @@ section.scroll {
 ################################################   MOBILE   #############################################################
 #######################################################################################################################*/
 
+@media only screen and (max-width: 600px) {
+
 section.scroll {
     height: 90vh;
     }
-    
+
 img {
     max-width: 100%;
     }
+}
 
 
