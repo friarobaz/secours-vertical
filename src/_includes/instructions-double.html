@@ -1,0 +1,22 @@
+<div id="{{ x.data.name | slug }}">
+    <h4 class="title is-4">{{ x.data.name }}</h4>
+    <p>{{ x.templateContent | safe }}</p>
+    <br>
+    <ol>
+        {%- for etape in x.data.etapes -%}
+            <li>{{etape}}</li>
+        {%- endfor -%}
+    </ol>
+    <div class="container">
+        <div class="columns" style="max-width: 800px; margin: 0 auto">
+            <div class="column">
+                <img src="/img/{{x.data.img}}" alt=""  >
+            </div>
+            <div class="column">
+                <img src="/img/{{x.data.img2}}" alt=""  >
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<br>

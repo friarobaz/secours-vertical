@@ -6,16 +6,20 @@
     Un noeud d'arrêt est toujours un demi pêcheur double.<br/>
 </p>
 
+<br/>
+<br/>
+
 {%- for n in collections.noeud -%}
 
   <article id="{{ n.data.name | slug}}" class="columns">
 
-    <img src="techniques-de-corde/noeuds/img/{{n.data.img}}" alt="" class="column is-one-third">
+    <img src="/img/{{n.data.img}}" alt="" class="column is-one-third">
 
     <div class="column">
       <h4 class="title is-4">{{ n.data.name }}</h4>
 
-      <p class="">{{ n.templateContent | safe }}</p>
+      <p>{{ n.templateContent | safe }}</p>
+      <br/>
 
       <h5 class="title is-6">Avantages</h5>
       <ul class="list">

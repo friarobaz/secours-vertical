@@ -1,4 +1,22 @@
-@import url('https://fonts.googleapis.com/css?family=Nunito|Oswald&display=swap');
+ol {
+    list-style-position: inside;
+    border-left: 2px solid black;
+    padding-left: 10px
+}
+div.scroll {
+    margin: 0;
+    padding: 0;
+    height: 80vh;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+.scroll {
+    max-width: none;
+    height: 100%;
+    max-height: none;
+}
+
+/* @import url('https://fonts.googleapis.com/css?family=Nunito|Oswald&display=swap');
 body {
     text-align: justify;
     font-family: 'Nunito', sans-serif;
@@ -20,7 +38,6 @@ article {
     padding-bottom: 3vh;
     padding-right: 2vw;
     padding-left: 2vw;
-    /*border-style: solid;*/
     background-color: #fafafa;
     box-shadow: 0px 0px 10px #dddddd;
 }
@@ -64,8 +81,6 @@ section {
     overflow: auto;
     margin-top: 0;
     padding: 0;
-    /*border-style: solid;
-    border-color: red;*/
 }
 
 iframe {
@@ -138,9 +153,6 @@ section.scroll {
 }
 
 
-/*#######################################################################################################################
-################################################   MOBILE   #############################################################
-#######################################################################################################################*/
 
 @media only screen and (max-width: 600px) {
     a {
@@ -192,4 +204,4 @@ section.scroll {
         margin-top: 0;
         text-align: center;
     }
-}
+} */

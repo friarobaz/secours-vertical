@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Secours Vertical",
   "scripts": {
-    "dev": "eleventy --serve --formats=md,html,jpg,css --input=src"
+    "dev": "rm -rf _site && eleventy --serve --formats=md,html,jpg,css --input=src"
   },
   "repository": {
     "type": "git",

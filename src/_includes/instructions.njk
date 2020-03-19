@@ -1,0 +1,7 @@
+{% if x.data.instructionStyle == "scroll" %}
+    {% include instructions-scroll.html %}
+{% elsif x.data.instructionStyle == "double" %}
+    {% include instructions-double.html %}
+{% else %}
+    {% include instructions-gauche.html %}
+{% endif %}
