@@ -1,7 +1,73 @@
 ---
 layout: base.html
 ---
+<script>
+    function toggleDisplay(id) {
+        const e = document.getElementById(id)
+        e.style.display = e.style.display === 'block' ? 'none' : 'block'
+    }
+</script>
+<div class="columns">
+    <div class="column is-one-fifth">
+    <aside class="menu is-hidden-mobile sticky">
 
-{% include techniques-de-cordes.html %}
+        <p class="menu-label">techniques de cordes</p>
+        <ul class="menu-list">
+            <li><a href="#machard">Principes de base</a></li>
+            <li>
+                <a onclick="toggleDisplay('liste-noeuds')"><strong>Quelques noeuds</strong></a>
+                <ul id="liste-noeuds" style="display: none">
+                    {%- for x in collections.noeud -%}
+                    <li><a href="#{{x.data.name|slug}}">{{x.data.name}}</a></li>
+                    {%- endfor -%}
+                </ul>
+            </li>
+            <li>
+                <a onclick="toggleDisplay('liste-mouflages')"><strong>Les mouflages</strong></a>
+                <ul id="liste-mouflages" style="display: none">
+                    {%- for x in collections.mouflage -%}
+                    <li><a href="#{{x.data.name|slug}}">{{x.data.name}}</a></li>
+                    {%- endfor -%}
+                </ul>
+            </li>
+            <li>
+                <a onclick="toggleDisplay('liste-rechappes')"><strong>Les réchappes</strong></a>
+                <ul id="liste-rechappes" style="display: none">
+                    {%- for x in collections.rechappe -%}
+                    <li><a href="#{{x.data.name|slug}}">{{x.data.name}}</a></li>
+                    {%- endfor -%}
+                </ul>
+            </li>
+            <li>
+                <a onclick="toggleDisplay('liste-remontees')"><strong>Les remontées sur corde</strong></a>
+                <ul id="liste-remontees" style="display: none">
+                    {%- for x in collections.remontee -%}
+                    <li><a href="#{{x.data.name|slug}}">{{x.data.name}}</a></li>
+                    {%- endfor -%}
+                </ul>
+            </li>
+            <li>
+                <a onclick="toggleDisplay('liste-rappel')"><strong>Le rappel</strong></a>
+                <ul id="liste-rappel" style="display: none">
+                    {%- for x in collections.rappel -%}
+                    <li><a href="#{{x.data.name|slug}}">{{x.data.name}}</a></li>
+                    {%- endfor -%}
+                </ul>
+            </li>
+            <li><a href="#faire-redescendre-un-second-en-grande-voie">Faire redescendre un second en grande voie</a></li>
+            <li><a href="#relais-sur-deux-points-espaces">Relais sur deux points espacés</a></li>
+        </ul>
 
-{% include premiers-secours.html %}
+        <p class="menu-label">premiers secours</p>
+        <ul class="menu-list">
+        </ul>
+    </aside>
+</div>
+
+    <div class="column">
+        {% include techniques-de-cordes.html %}
+
+        {% include premiers-secours.html %}
+    </div>
+
+</div>
