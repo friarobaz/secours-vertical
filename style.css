@@ -26,6 +26,7 @@ article {
 img {
   float: left;
   margin-right: 2vw;
+  margin-top: 2vh;
   border-radius: 5px;
   max-height: 80vh;
   }
@@ -111,7 +112,7 @@ h5 {
   font-family: 'Oswald', sans-serif; 
   font-size: 1em;
   margin-top: 2vh;
-  margin-bottom: 0;
+  margin-bottom: 2vh;
   margin-left: 0;
   margin-right: 0;
   text-decoration: underline;
