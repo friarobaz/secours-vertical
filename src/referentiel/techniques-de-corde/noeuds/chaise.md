@@ -1,6 +1,6 @@
 ---
 layout: noeud.html
-name: Chaise
+name: Noeud de chaise
 img: chaise.jpg
 avantages:
   -  Se défait facilement

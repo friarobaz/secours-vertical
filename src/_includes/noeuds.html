@@ -1,31 +1,36 @@
-<h3 id="noeuds">Quelques noeuds</h3>
-<p class="desktop_only">
+<div class="title">Quelques noeuds</div>
+
+<p>
     Un noeud doit toujours être serré et propre pour être efficace.<br/>
     On serre un noeud en le prenant dans une main et en tirant chaque brin avec l’autre main.<br/>
     Un noeud d'arrêt est toujours un demi pêcheur double.<br/>
 </p>
+
 {%- for n in collections.noeud -%}
-  <article id="{{ n.data.name | slug}}">
-    <h4>
-      <a href="{{ n.url }}">{{ n.data.name }}</a>
-    </h4>
-    <img src="techniques-de-corde/noeuds/img/{{n.data.img}}" alt="">
-    <div class="desktop_only">
-      <p>
-        {{ n.templateContent | safe }}
-      </p>
-      <h5>Avantages</h5>
-      <ul>
+
+  <article id="{{ n.data.name | slug}}" class="columns">
+
+    <img src="techniques-de-corde/noeuds/img/{{n.data.img}}" alt="" class="column is-one-third">
+
+    <div class="column">
+      <h4 class="title is-4">{{ n.data.name }}</h4>
+
+      <p class="">{{ n.templateContent | safe }}</p>
+
+      <h5 class="title is-6">Avantages</h5>
+      <ul class="list">
         {%- for avantage in n.data.avantages -%}
-          <li>{{ avantage }}</li>
+          <li class="list-item">{{ avantage }}</li>
         {%- endfor -%}
       </ul>
-      <h5>Inconvénients</h5>
-      <ul>
+      <h5 class="title is-6">Inconvénients</h5>
+      <ul class="list">
         {%- for i in n.data.inconvenients -%}
-          <li>{{ i }}</li>
+          <li class="list-item">{{ i }}</li>
         {%- endfor -%}
       </ul>
     </div>
+
   </article>
+
 {%- endfor -%}
