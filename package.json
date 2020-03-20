@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Secours Vertical",
   "scripts": {
+    "css-build": "node-sass --omit-source-map-url sass/mystyles.scss css/mystyles.css",
+    "css-watch": "npm run css-build -- --watch",
+    "start": "npm run css-watch",
     "dev": "rm -rf _site && eleventy --serve --formats=md,html,jpg,css --input=src"
   },
   "repository": {
@@ -16,6 +19,8 @@
   },
   "homepage": "https://github.com/friarobaz/secours-vertical#readme",
   "devDependencies": {
-    "@11ty/eleventy": "^0.10.0"
+    "@11ty/eleventy": "^0.10.0",
+    "bulma": "^0.8.0",
+    "node-sass": "^4.13.1"
   }
 }
