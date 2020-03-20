@@ -1,5 +1,5 @@
 ---
-layout: noeud.html
+layout: noeud.njk
 name: Bicéphale
 img: bicephale.jpg
 avantages:

@@ -1,5 +1,5 @@
 ---
-layout: base.html
+layout: base.njk
 ---
 <script>
     function toggleDisplay(id) {
@@ -65,9 +65,9 @@ layout: base.html
 </div>
 
     <div class="column">
-        {% include techniques-de-cordes.html %}
+        {% include "techniques-de-cordes.njk" %}
 
-        {% include premiers-secours.html %}
+        {% include "premiers-secours.njk" %}
     </div>
 
 </div>

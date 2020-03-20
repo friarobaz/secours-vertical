@@ -1,5 +1,5 @@
 ---
-layout: noeud.html
+layout: noeud.njk
 name: Français
 img: francais.jpg
 avantages:

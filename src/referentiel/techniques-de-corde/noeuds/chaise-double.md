@@ -1,5 +1,5 @@
 ---
-layout: noeud.html
+layout: noeud.njk
 name: Chaise double
 img: chaise-double.jpg
 avantages:

@@ -1,5 +1,5 @@
 ---
-layout: noeud.html
+layout: noeud.njk
 name: Noeud de mule
 img: mule.jpg
 avantages:

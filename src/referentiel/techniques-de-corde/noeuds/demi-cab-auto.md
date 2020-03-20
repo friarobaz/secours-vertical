@@ -1,5 +1,5 @@
 ---
-layout: noeud.html
+layout: noeud.njk
 name: Demi cabestan auto-bloquant
 img: demi-cab-auto.jpg
 avantages:

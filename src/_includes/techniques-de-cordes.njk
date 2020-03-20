@@ -3,28 +3,28 @@
 
 <div class="title is-2">Techniques de cordes</div>
 
-{% include principes-de-base.html %}
+{% include "principes-de-base.njk" %}
 
-{% include noeuds.html %}
+{% include "noeuds.njk" %}
 
-{% include mouflages.njk %}
+{% include "mouflages.njk" %}
 
-{% include rechappes.html %}
+{% include "rechappes.njk" %}
 
-{% include remontees-sur-corde.html %}
+{% include "remontees-sur-corde.njk" %}
 
-{% include rappel.html %}
+{% include "rappel.njk" %}
 
 <br>
 
 {%- for x in collections.debrayer -%}
-    {% include instructions.njk %}
+    {% include "instructions.njk" %}
 {%- endfor -%}
 
 <br>
 
 {%- for x in collections.relais-points-espaces -%}
-    {% include instructions.njk %}
+    {% include "instructions.njk" %}
 {%- endfor -%}
 
 </div>
