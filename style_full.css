@@ -57,11 +57,13 @@ li {
 .titre {  
   font-size: 6vh;
   font-family: 'Oswald', sans-serif;
+  color: white;
 }
   
 .sous-titre { 
   font-size: 4vh;
   font-family: 'Oswald', sans-serif;  
+  color: white;
 }
 
 #menu_referentiel_light { 
