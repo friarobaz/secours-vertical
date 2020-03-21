@@ -2,11 +2,4 @@
 
 @import "tailwindcss/components";
 
-.after-dropdown::after {
-    content: "  ↴";
-    @apply text-sm;
-    position: relative;
-    top: 5px;
-}
-
 @import "tailwindcss/utilities";

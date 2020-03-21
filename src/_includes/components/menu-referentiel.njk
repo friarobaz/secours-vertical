@@ -32,8 +32,8 @@
             {%- for item in section.items -%}
                 <li>
                     {% if item.collection %}
-                        <a  onclick="toggleDisplay('{{item.title|slug}}')" class="after-dropdown {{menuLeafClass}}">
-                            {{item.title}}
+                        <a  onclick="toggleDisplay('{{item.title|slug}}')" class="{{menuLeafClass}}">
+                            {{item.title}} <span class="text-sm relative" style="top: 4px">↴</span>
                         </a>
                         <ul id="{{item.title|slug}}" class="pl-2 ml-1 mt-2 hidden border-l border-gray-700">
                             {%- for x in item.collection -%}
