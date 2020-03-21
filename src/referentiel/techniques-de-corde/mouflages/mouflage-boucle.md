@@ -1,5 +1,5 @@
 ---
-layout: mouflage.njk
+layout: layouts/mouflage.njk
 name: Mouflage boucle
 img: mouflage-boucle.jpg
 etapes:

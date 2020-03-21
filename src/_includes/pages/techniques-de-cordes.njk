@@ -1,0 +1,31 @@
+<div class="section">
+<div class="container">
+
+<div class="title is-2">Techniques de cordes</div>
+
+{% include "pages/principes-de-base.njk" %}
+
+{% include "pages/noeuds.njk" %}
+
+{% include "pages/mouflages.njk" %}
+
+{% include "pages/rechappes.njk" %}
+
+{% include "pages/remontees-sur-corde.njk" %}
+
+{% include "pages/rappel.njk" %}
+
+<br>
+
+{%- for x in collections.debrayer -%}
+    {% include "components/instructions.njk" %}
+{%- endfor -%}
+
+<br>
+
+{%- for x in collections.relaisPointsEspaces -%}
+    {% include "components/instructions.njk" %}
+{%- endfor -%}
+
+</div>
+</div>

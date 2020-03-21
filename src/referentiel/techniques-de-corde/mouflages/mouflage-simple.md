@@ -1,5 +1,5 @@
 ---
-layout: mouflage.njk
+layout: layouts/mouflage.njk
 name: Mouflage simple
 img: mouflage-simple.jpg
 etapes:
