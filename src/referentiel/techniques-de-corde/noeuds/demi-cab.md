@@ -1,5 +1,4 @@
 ---
-layout: noeud.njk
 name: Demi cabestan
 img: demi-cab.jpg
 avantages:

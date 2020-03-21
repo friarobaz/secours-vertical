@@ -1,5 +1,4 @@
 ---
-layout: noeud.njk
 name: Machard tressé avec une sangle
 img: tresse.jpg
 avantages:

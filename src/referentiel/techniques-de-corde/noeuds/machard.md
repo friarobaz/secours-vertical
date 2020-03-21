@@ -1,5 +1,4 @@
 ---
-layout: noeud.njk
 name: Machard
 img: machard.jpg
 avantages:

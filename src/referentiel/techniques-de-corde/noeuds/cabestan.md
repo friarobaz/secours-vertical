@@ -1,5 +1,4 @@
 ---
-layout: noeud.njk
 name: Cabestan
 img: cabestan.jpg
 avantages:

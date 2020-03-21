@@ -1,5 +1,4 @@
 ---
-layout: noeud.njk
 name: Noeud de chaise
 img: chaise.jpg
 avantages:
