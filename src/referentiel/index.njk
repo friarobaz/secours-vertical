@@ -1,14 +1,164 @@
 ---
-layout: layouts/base.njk
+layout: layouts/with-menu.njk
 ---
-<div class="flex">
 
-    {% include "components/menu-referentiel.njk" %}
-    
-    <div class="container">
-        {% include "pages/techniques-de-cordes.njk" %}
+<h2>Techniques de cordes</h2>
 
-        {% include "pages/premiers-secours.njk" %}
-    </div>
+<h3 id="principes-de-base">Principes de base</h3>
 
+<div>
+    <strong>TOUJOURS SUR DEUX POINTS</strong>
 </div>
+
+<p>Dans l’urgence, on peut être amené à improviser. Néanmoins il faut toujours garder en tête quelques principes de base:</p>
+
+<p>
+    Jamais de frottement textile sur textile: la dyneema en particulier a une très faible résistance à la chaleur.
+    On peut brûler une sangle de dyneema en quelques secondes en la frottant contre une corde.
+</p>
+<p>
+    Attention aux frottements de la corde sur le rocher.
+    Un frottement est acceptable s’il n’affecte pas toujours la même partie de la corde.
+</p>
+<p>
+    Attention, un mousqueton qui travaille mal perd de sa résistance.
+    Pour bien travailler, un mousqueton doit être bien fermé, forcer dans le bon sens, ne pas frotter contre le rocher et ne pas être en porte-à-faux.
+</p>
+
+{# ------------------------------------------------ NOEUDS ------------------------------------------------ #}
+
+<h3>Quelques noeuds</h3>
+
+<p>
+    Un noeud doit toujours être serré et propre pour être efficace.<br/>
+    On serre un noeud en le prenant dans une main et en tirant chaque brin avec l’autre main.<br/>
+    Un noeud d'arrêt est toujours un demi pêcheur double.<br/>
+</p>
+
+{%- for n in collections.noeud -%}
+
+  <article id="{{ n.data.name | slug}}">
+
+    <img src="/img/{{n.data.img}}" alt="">
+
+      <h4>{{ n.data.name }}</h4>
+
+      <p>{{ n.templateContent | safe }}</p>
+
+      <h5>Avantages</h5>
+      <ul>
+        {%- for avantage in n.data.avantages -%}
+          <li>{{ avantage }}</li>
+        {%- endfor -%}
+      </ul>
+
+      <h5>Inconvénients</h5>
+      <ul>
+        {%- for i in n.data.inconvenients -%}
+          <li>{{ i }}</li>
+        {%- endfor -%}
+      </ul>
+
+  </article>
+
+{%- endfor -%}
+
+{# ------------------------------------------------ MOUFLAGES ------------------------------------------------ #}
+
+<h3>Les mouflages</h3>
+<p>Les mouflages servent à démultiplier sa force pour aider un second en grande voie, ou tendre une corde.</p>
+
+<h4>L’effet poulie</h4>
+<img src="/img/poulie1.jpg" alt="">
+<p>
+    Sur cet exemple je prends un poids P de 10 kg.<br>
+    Ce poids exerce donc une force de 10 kg vers le bas.<br>
+    Pour retenir ce poids, et qu’il ne tombe pas, je dois exercer une force égale et opposée.<br>
+    J’exerce donc une force F de 10 kg vers le haut, c’est dur!<br>
+    Pour me faciliter les choses, j’installe une poulie au plafond.
+</p>
+
+<img src="/img/poulie2.jpg" alt="">
+<p>
+    Maintenant c’est plus pratique, je dois tirer vers le bas.<br>
+    Par contre je dois toujours exercer une force F de 10 kg pour retenir le poids.<br>
+    Le poids tire la corde vers le bas avec une force de 10 kg.<br>
+    Je tire aussi la corde vers le bas avec une force de 10 kg.<br>
+    La poulie subit donc une force de 20 kg vers le bas.<br>
+    Pour me simplifier encore plus la tâche, j’attache une poulie au poids
+</p>
+
+<img src="/img/poulie3.jpg" alt="">
+<p>
+    Ah maintenant c’est beaucoup plus facile!<br>
+    Le poids est réparti équitablement sur les deux brins de corde.<br>
+    Il exerce une force de 5 kg vers le bas sur chaque brin.<br>
+    Il me suffit donc d’exercer une force de 5 kg vers le haut pour retenir le poids.<br>
+    C’est l’effet poulie!
+</p>
+
+{%- for x in collections.mouflage -%}
+    {% include "components/instructions.njk" %}
+{%- endfor -%}
+
+{# ------------------------------------------------ RECHAPPES ------------------------------------------------ #}
+
+<h3>Les réchappes</h3>
+<p>
+    Lorsqu’on grimpe une voie, on est parfois obligé de s'arrêter en cours de longeur, avant le relais. Cela peut
+    être dû à un manque de niveau technique, une mauvaise lecture d'itinéraire, ou encore des conditions
+    climatiques difficiles. Dans ce cas, si on veut redescendre au sol (ou au relais précédent) et récupérer
+    toutes les dégaines placées, il faudra faire une réchappe.
+    On utilisera systématiquement un autobloquant pour contre-assurer sa descente.
+    Il existe de nombreuses manières de faire une réchappe, en fonction de la corde utilisée et du type
+    d’ancrage de la voie.
+</p>
+
+{%- for x in collections.rechappe -%}
+    {% include "components/instructions.njk" %}
+{%- endfor -%}
+
+{# ------------------------------------------------ REMONTEES SUR CORDE ------------------------------------------------ #}
+
+<h3>Les remontées sur corde</h3>
+
+{%- for x in collections.remontee -%}
+    {% include "components/instructions.njk" %}
+{%- endfor -%}
+
+
+{# ------------------------------------------------ RAPPEL ------------------------------------------------ #}
+
+<h3>Le rappel</h3>
+<p>
+    La descente en rappel est une situation générant de nombreux accidents, souvent dus à des fautes d’inattention.
+    Même fatigué, rester concentré jusqu’à la voiture! Veillez à faire des noeuds en bouts de cordes: un demi pêcheur double bien serré sur chaque brin.
+    Faites aussi attention aux chutes de pierres: gardez toujours votre casque, et quand vous arrivez en bas, écartez-vous de la ligne de rappels.
+</p>
+
+{%- for x in collections.rappel -%}
+    {% include "components/instructions.njk" %}
+{%- endfor -%}
+
+{# ------------------------------------------------ DEBRAYER ------------------------------------------------ #}
+
+{%- for x in collections.debrayer -%}
+    {% include "components/instructions.njk" %}
+{%- endfor -%}
+
+{# ------------------------------------------------ RELAIS POINTS ESPACES ------------------------------------------------ #}
+
+{%- for x in collections.relaisPointsEspaces -%}
+    {% include "components/instructions.njk" %}
+{%- endfor -%}
+
+
+{# ------------------------------------------------------------------------------------------------------------------ #}
+{# ------------------------------------------------ PREMIERS SECOURS ------------------------------------------------ #}
+{# ------------------------------------------------------------------------------------------------------------------ #}
+
+<h2>Premiers secours</h2>
+
+{%- for x in collections.hemorragie -%}
+    {% include "components/instructions.njk" %}
+{%- endfor -%}
