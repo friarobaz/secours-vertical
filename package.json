@@ -20,8 +20,6 @@
   "devDependencies": {
     "@11ty/eleventy": "^0.10.0",
     "autoprefixer": "^9.7.4",
-    "bulma": "^0.8.0",
-    "node-sass": "^4.13.1",
     "postcss-cli": "^7.1.0",
     "tailwindcss": "^1.2.0"
   }
