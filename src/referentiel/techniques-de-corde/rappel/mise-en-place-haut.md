@@ -1,5 +1,5 @@
 ---
-name: Mise en place du descendeur (autobloquant au dessus)
+name: Mise en place du descendeur (machard haut)
 img: machard-haut.jpg
 tags: rappel
 ---
