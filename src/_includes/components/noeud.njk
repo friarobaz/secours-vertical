@@ -1,0 +1,23 @@
+<article id="{{ n.data.name | slug}}">
+
+    <img src="/img/{{n.data.img}}" alt="">
+
+    <h4>{{ n.data.name }}</h4>
+
+    <p>{{ n.templateContent | safe }}</p>
+
+    <h5>Avantages</h5>
+    <ul>
+    {%- for a in n.data.avantages -%}
+        <li>{{ a }}</li>
+    {%- endfor -%}
+    </ul>
+
+    <h5>Inconvénients</h5>
+    <ul>
+    {%- for i in n.data.inconvenients -%}
+        <li>{{ i }}</li>
+    {%- endfor -%}
+    </ul>
+
+</article>
