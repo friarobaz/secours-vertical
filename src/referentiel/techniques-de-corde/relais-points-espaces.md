@@ -3,7 +3,7 @@ name: Relais sur deux points espacés
 img: relais-espace.jpg
 img2: relais-espace-detail.jpg
 instructionStyle: double
-tags: relais-points-espaces
+tags: relaisPointsEspaces
 etapes:
   - Une fois le dernier point clippé, redescendre au point précédent.
   - Se vacher au mousqueton du haut de la dégaine.

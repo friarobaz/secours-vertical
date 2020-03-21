@@ -1,86 +1,10 @@
 ---
 layout: base.njk
 ---
-<script>
-    function toggleDisplay(id) {
-        const e = document.getElementById(id)
-        e.style.display = e.style.display === 'block'
-            ? 'none'
-            : 'block'
-    }
-</script>
-
 <div class="flex">
 
-    <aside class="hidden sm:block sticky top-0 self-start p-3">
-
-        <p class="menu-label">techniques de cordes</p>
-        <ul class="menu-list">
-            <li>
-                <a href="#">Principes de base</a>
-            </li>
-            <li>
-                <a onclick="toggleDisplay('liste-noeuds')" class="after-dropdown">Quelques noeuds</a>
-                <ul id="liste-noeuds" class="menu-sub-list">
-                    {%- for x in collections.noeud -%}
-                        <li>
-                            <a href="#{{x.data.name|slug}}">{{x.data.name}}</a>
-                        </li>
-                    {%- endfor -%}
-                </ul>
-            </li>
-            <li>
-                <a onclick="toggleDisplay('liste-mouflages')" class="after-dropdown">Les mouflages</a>
-                <ul id="liste-mouflages" class="menu-sub-list">
-                    {%- for x in collections.mouflage -%}
-                        <li>
-                            <a href="#{{x.data.name|slug}}">{{x.data.name}}</a>
-                        </li>
-                    {%- endfor -%}
-                </ul>
-            </li>
-            <li>
-                <a onclick="toggleDisplay('liste-rechappes')" class="after-dropdown">Les réchappes</a>
-                <ul id="liste-rechappes" class="menu-sub-list">
-                    {%- for x in collections.rechappe -%}
-                        <li>
-                            <a href="#{{x.data.name|slug}}">{{x.data.name}}</a>
-                        </li>
-                    {%- endfor -%}
-                </ul>
-            </li>
-            <li>
-                <a onclick="toggleDisplay('liste-remontees')" class="after-dropdown">Les remontées sur corde</a>
-                <ul id="liste-remontees" class="menu-sub-list">
-                    {%- for x in collections.remontee -%}
-                        <li>
-                            <a href="#{{x.data.name|slug}}">{{x.data.name}}</a>
-                        </li>
-                    {%- endfor -%}
-                </ul>
-            </li>
-            <li>
-                <a onclick="toggleDisplay('liste-rappel')" class="after-dropdown">Le rappel</a>
-                <ul id="liste-rappel" class="menu-sub-list">
-                    {%- for x in collections.rappel -%}
-                        <li>
-                            <a href="#{{x.data.name|slug}}">{{x.data.name}}</a>
-                        </li>
-                    {%- endfor -%}
-                </ul>
-            </li>
-            <li>
-                <a href="#faire-redescendre-un-second-en-grande-voie">Faire redescendre un second en grande voie</a>
-            </li>
-            <li>
-                <a href="#relais-sur-deux-points-espaces">Relais sur deux points espacés</a>
-            </li>
-        </ul>
-
-        <p class="menu-label">premiers secours</p>
-        <ul class="menu-list"></ul>
-    </aside>
-
+    {% include "components/menu-referentiel.njk" %}
+    
     <div class="container">
         {% include "techniques-de-cordes.njk" %}
 

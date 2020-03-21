@@ -1,0 +1,52 @@
+<script>
+    function toggleDisplay(id) {
+        const e = document.getElementById(id)
+        e.style.display = e.style.display === 'block' ? 'none' : 'block'
+    }
+</script>
+
+{%
+    set menuSections = [
+        { "title": "techniques de cordes", "items": [
+            { "title": "Principes de base" },
+            { "title": "Quelques noeuds" , "collection": collections.noeud },
+            { "title": "Les mouflages" , "collection": collections.mouflage },
+            { "title": "Les réchappes" , "collection": collections.rechappe },
+            { "title": "Les remontées sur corde" , "collection": collections.remontee },
+            { "title": "Le rappel" , "collection": collections.rappel },
+            { "title": "Faire redescendre un second en grande voie" },
+            { "title": "Relais sur deux points espacés" }
+        ]},
+        { "title": "premiers secours", "items": []}
+    ]
+%}
+
+{% set menuLeafClass = "block p-2 hover:bg-gray-200 cursor-pointer rounded-sm" %}
+
+<aside class="hidden sm:block sticky top-0 self-start p-3">
+    {%- for section in menuSections -%}
+        <a class="uppercase text-gray-600 pt-4 font-light tracking-wide text-sm mb-2">
+            {{section.title}}
+        </a>
+        <ul class="text-gray-800 font-light">
+            {%- for item in section.items -%}
+                <li>
+                    {% if item.collection %}
+                        <a  onclick="toggleDisplay('{{item.title|slug}}')" class="after-dropdown {{menuLeafClass}}">
+                            {{item.title}}
+                        </a>
+                        <ul id="{{item.title|slug}}" class="pl-2 ml-1 mt-2 hidden border-l border-gray-700">
+                            {%- for x in item.collection -%}
+                                <li>
+                                    <a href="#{{x.data.name|slug}}" class="{{menuLeafClass}}">{{x.data.name}}</a>
+                                </li>
+                            {%- endfor -%}
+                        </ul>
+                    {% else %}
+                        <a href="#{{item.title|slug}}" class="{{menuLeafClass}}">{{item.title}}</a>
+                    {% endif %}
+                </li>
+            {%- endfor -%}
+        </ul>
+    {%- endfor -%}
+</aside>
