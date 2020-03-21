@@ -2,4 +2,12 @@
 
 @import "tailwindcss/components";
 
+h2 {
+    @apply uppercase text-4xl font-thin mt-6;
+}
+
+h3 {
+    @apply text-3xl mt-4;
+}
+
 @import "tailwindcss/utilities";
