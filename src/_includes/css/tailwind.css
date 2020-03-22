@@ -15,7 +15,7 @@ h4 {
 }
 
 article {
-    @apply p-5 bg-white shadow-md rounded-md mr-10 my-6;
+    @apply p-5 bg-white shadow-md rounded-md my-6; 
 }
 
 ol {
