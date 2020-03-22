@@ -1,4 +1,4 @@
-<div id="{{ x.data.name | slug }}">
+<article id="{{ x.data.name | slug }}">
     <h4 class="title is-4">{{ x.data.name }}</h4>
     <p>{{ x.templateContent | safe }}</p>
     <div class="scroll" style="margin: 15px 0">
@@ -9,6 +9,6 @@
             <li>{{etape}}</li>
         {%- endfor -%}
     </ol>
-</div>
+</article>
 <br>
 <br>
