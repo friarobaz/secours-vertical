@@ -33,9 +33,10 @@
 
 <aside class="hidden sm:block sticky top-0 self-start p-3">
     {%- for section in menuSections -%}
-        <a class="uppercase text-gray-600 pt-4 font-light tracking-wide text-sm mb-2">
+    <section class="mt-8 first:mt-2">
+        <h5 class="uppercase text-gray-600 font-light tracking-wide text-sm">
             {{section.title}}
-        </a>
+        </h5>
         <ul class="text-gray-800 font-light">
             {%- for item in section.items -%}
                 <li>
@@ -56,5 +57,6 @@
                 </li>
             {%- endfor -%}
         </ul>
+    </section>
     {%- endfor -%}
 </aside>

@@ -5,6 +5,8 @@ module.exports = {
       center: true,
     },
   },
-  variants: {},
+  variants: {
+    margin: ['first'],
+  },
   plugins: []
 }
