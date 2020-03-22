@@ -1,8 +1,12 @@
-<article class="md:flex" id="{{ x.data.name | slug }}">
+<article class="md:flex" {% if x.data.name %}id="{{ x.data.name | slug }}"{% endif %}>
     <img src="/img/{{x.data.img}}" class="max-w-sm rounded-md" alt="">
 
     <div class="pl-4 {% if x.data.img %}max-w-2xl{% endif %}}">
-        <h4>{{ x.data.name }}</h4>
+
+        {% if x.data.name %}
+            <h4>{{ x.data.name }}</h4>
+        {% endif %}
+        
         <p>{{ x.templateContent | safe }}</p>
         <br>
         <ol>

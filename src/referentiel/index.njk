@@ -138,8 +138,16 @@ layout: layouts/with-menu.njk
 {# ------------------------------------------------ PREMIERS SECOURS ------------------------------------------------ #}
 {# ------------------------------------------------------------------------------------------------------------------ #}
 
-<h2>Premiers secours</h2>
+<h2 class="mt-20">Premiers secours</h2>
+
+<h3 id="hemorragie">Hémorragie</h3>
 
 {%- for x in collections.hemorragie -%}
+    {% include "components/instructions.njk" %}
+{%- endfor -%}
+
+<h3 id="inconscience">Inconscience</h3>
+
+{%- for x in collections.inconscience -%}
     {% include "components/instructions.njk" %}
 {%- endfor -%}
