@@ -11,7 +11,7 @@ h3 {
 }
 
 h4 {
-    @apply text-xl my-4;
+    @apply text-xl font-bold text-gray-800;
 }
 
 article {
