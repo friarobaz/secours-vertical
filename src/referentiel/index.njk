@@ -44,8 +44,9 @@ layout: layouts/with-menu.njk
 <p>Les mouflages servent à démultiplier sa force pour aider un second en grande voie, ou tendre une corde.</p>
 
 <h4>L’effet poulie</h4>
-<img src="/img/poulie1.jpg" alt="">
-<p>
+<div class="sm:flex items-center mb-6">
+<img style="max-height:300px" src="/img/poulie1.jpg" alt="">
+<p class="pl-4">
     Sur cet exemple je prends un poids P de 10 kg.<br>
     Ce poids exerce donc une force de 10 kg vers le bas.<br>
     Pour retenir ce poids, et qu’il ne tombe pas, je dois exercer une force égale et opposée.<br>
@@ -53,8 +54,10 @@ layout: layouts/with-menu.njk
     Pour me faciliter les choses, j’installe une poulie au plafond.
 </p>
 
-<img src="/img/poulie2.jpg" alt="">
-<p>
+</div>
+<div class="sm:flex items-center mb-6">
+<img style="max-height:300px" src="/img/poulie2.jpg" alt="">
+<p class="pl-4">
     Maintenant c’est plus pratique, je dois tirer vers le bas.<br>
     Par contre je dois toujours exercer une force F de 10 kg pour retenir le poids.<br>
     Le poids tire la corde vers le bas avec une force de 10 kg.<br>
@@ -63,14 +66,17 @@ layout: layouts/with-menu.njk
     Pour me simplifier encore plus la tâche, j’attache une poulie au poids
 </p>
 
-<img src="/img/poulie3.jpg" alt="">
-<p>
+</div>
+<div class="sm:flex items-center mb-6">
+<img style="max-height:300px" src="/img/poulie3.jpg" alt="">
+<p class="pl-4">
     Ah maintenant c’est beaucoup plus facile!<br>
     Le poids est réparti équitablement sur les deux brins de corde.<br>
     Il exerce une force de 5 kg vers le bas sur chaque brin.<br>
     Il me suffit donc d’exercer une force de 5 kg vers le haut pour retenir le poids.<br>
     C’est l’effet poulie!
 </p>
+</div>
 
 {%- for x in collections.mouflage -%}
     {% include "components/instructions.njk" %}

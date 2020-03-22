@@ -1,14 +1,12 @@
-<article id="{{ x.data.name | slug }}">
-    <h4 class="title is-4">{{ x.data.name }}</h4>
+<article>
+    <h4 id="{{ x.data.name | slug }}">{{ x.data.name }}</h4>
     <p>{{ x.templateContent | safe }}</p>
-    <div class="scroll" style="margin: 15px 0">
-        <img src="/img/{{x.data.img}}" alt="" class="scroll">
+    <div class="overflow-x-auto" >
+        <img src="/img/{{x.data.img}}" alt="" class="max-w-none rounded-md" style="max-height:575px">
     </div>
-    <ol>
+    <ol class="list-inside list-decimal">
         {%- for etape in x.data.etapes -%}
             <li>{{etape}}</li>
         {%- endfor -%}
     </ol>
 </article>
-<br>
-<br>

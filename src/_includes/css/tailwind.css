@@ -10,8 +10,13 @@ h3 {
     @apply text-3xl mt-4;
 }
 
+h4 {
+    @apply text-xl my-4;
+}
+
 article {
     @apply p-5 bg-white shadow-md rounded-md mr-10;
 }
+
 
 @import "tailwindcss/utilities";

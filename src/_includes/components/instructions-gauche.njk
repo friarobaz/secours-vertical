@@ -1,20 +1,14 @@
-<article id="{{ x.data.name | slug }}">
-    <div class="columns">
-        <div class="column is-one-quarter">
-            <img src="/img/{{x.data.img}}" alt="">
-        </div>
+<article class="md:flex" id="{{ x.data.name | slug }}">
+    <img src="/img/{{x.data.img}}" class="max-w-sm rounded-md" alt="">
 
-        <div class="column">
-            <h4 class="title is-4">{{ x.data.name }}</h4>
-            <p>{{ x.templateContent | safe }}</p>
-            <br>
-            <ol>
-                {%- for etape in x.data.etapes -%}
-                    <li>{{etape}}</li>
-                {%- endfor -%}
-            </ol>
-        </div>
+    <div class="pl-4 max-w-2xl">
+        <h4>{{ x.data.name }}</h4>
+        <p>{{ x.templateContent | safe }}</p>
+        <br>
+        <ol class="list-decimal list-inside">
+            {%- for etape in x.data.etapes -%}
+                <li>{{etape}}</li>
+            {%- endfor -%}
+        </ol>
     </div>
 </article>
-<br>
-<br>
