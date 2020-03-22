@@ -18,5 +18,8 @@ article {
     @apply p-5 bg-white shadow-md rounded-md mr-10 my-6;
 }
 
+ol {
+    @apply list-inside list-decimal;
+}
 
 @import "tailwindcss/utilities";

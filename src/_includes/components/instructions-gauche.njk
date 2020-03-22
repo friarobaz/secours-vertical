@@ -1,11 +1,11 @@
 <article class="md:flex" id="{{ x.data.name | slug }}">
     <img src="/img/{{x.data.img}}" class="max-w-sm rounded-md" alt="">
 
-    <div class="pl-4 max-w-2xl">
+    <div class="pl-4 {% if x.data.img %}max-w-2xl{% endif %}}">
         <h4>{{ x.data.name }}</h4>
         <p>{{ x.templateContent | safe }}</p>
         <br>
-        <ol class="list-decimal list-inside">
+        <ol>
             {%- for etape in x.data.etapes -%}
                 <li>{{etape}}</li>
             {%- endfor -%}
