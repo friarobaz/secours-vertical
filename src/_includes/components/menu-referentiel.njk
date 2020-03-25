@@ -42,7 +42,7 @@
                 <li>
                     {% if item.collection %}
                         <a  onclick="toggleDisplay('{{item.title|slug}}')" class="{{menuLeafClass}}">
-                            {{item.title}} <span class="text-sm relative" style="top: 4px">↴</span>
+                            <strong>{{item.title}}</strong>
                         </a>
                         <ul id="{{item.title|slug}}" class="pl-2 ml-1 mt-2 hidden border-l border-gray-700">
                             {%- for x in item.collection -%}

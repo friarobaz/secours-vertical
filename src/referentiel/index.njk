@@ -6,7 +6,7 @@ layout: layouts/with-menu.njk
 
 <h3 id="principes-de-base">Principes de base</h3>
 
-<div class="max-w-5xl">
+<article>
     <p class="py-3"><strong>Prennez votre temps!</strong> Mieux vaut prendre une minute pour annalyser la situation que de se lancer dans une mauvaise manip. 
         Prennez le temps de ranger votre materiel quand vous ne l'utilisez pas (pas de sangles qui pendent!)
         et <strong>gardez vos manips propres!</strong>
@@ -15,24 +15,18 @@ layout: layouts/with-menu.njk
 
     <ul class="list-disc list-inside">
         <li class="p-2">
-        
             Jamais de frottement textile sur textile: la dyneema en particulier a une très faible résistance à la chaleur.
-        
         </li>
         <li class="p-2">
-        
             Attention aux frottements de la corde sur le rocher.
             Un frottement est acceptable s’il n’affecte pas toujours la même partie de la corde.
-        
         </li>
         <li class="p-2">
-        
             Attention, un mousqueton qui travaille mal perd de sa résistance.
             Pour bien travailler, un mousqueton doit être bien fermé, forcer dans le bon sens, ne pas frotter contre le rocher et ne pas être en porte-à-faux.
-        
         </li>
     </ul>
-</div>
+</article>
 
 {# ------------------------------------------------ NOEUDS ------------------------------------------------ #}
 
@@ -53,6 +47,7 @@ layout: layouts/with-menu.njk
 <h3>Les mouflages</h3>
 <p>Les mouflages servent à démultiplier sa force pour aider un second en grande voie, ou tendre une corde.</p>
 
+<article>
 <h4>L’effet poulie</h4>
 <div class="sm:flex items-center mb-6">
 <img style="max-height:300px" src="/img/poulie1.jpg" alt="">
@@ -87,6 +82,7 @@ layout: layouts/with-menu.njk
     C’est l’effet poulie!
 </p>
 </div>
+</article>
 
 {%- for x in collections.mouflage -%}
     {% include "components/instructions.njk" %}
