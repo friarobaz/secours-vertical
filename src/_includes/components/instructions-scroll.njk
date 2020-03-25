@@ -1,0 +1,12 @@
+<article>
+    <h4 id="{{ x.data.name | slug }}">{{ x.data.name }}</h4>
+    <p>{{ x.templateContent | safe }}</p>
+    <div class="overflow-x-auto" >
+        <img src="/img/{{x.data.img}}" alt="" class="max-w-none rounded-md" style="max-height:575px">
+    </div>
+    <ol>
+        {%- for etape in x.data.etapes -%}
+            <li>{{etape}}</li>
+        {%- endfor -%}
+    </ol>
+</article>

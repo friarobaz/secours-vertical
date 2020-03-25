@@ -1,0 +1,7 @@
+{% if x.data.instructionStyle == "scroll" %}
+    {% include "components/instructions-scroll.njk" %}
+{% elif x.data.instructionStyle == "double" %}
+    {% include "components/instructions-double.njk" %}
+{% else %}
+    {% include "components/instructions-gauche.njk" %}
+{% endif %}

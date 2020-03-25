@@ -1,0 +1,4 @@
+{
+    "layout" : "layouts/noeud.njk",
+    "tags" : "noeud"
+  }

@@ -1,0 +1,27 @@
+<article id="{{ n.data.name | slug}}" class="md:flex">
+
+    <img src="/img/{{n.data.img}}" alt="" class="max-w-full sm:max-w-xs rounded-md">
+    
+    <div class="sm:ml-5 max-w-2xl">
+        <h4 class="sm:mb-5">{{ n.data.name }}</h4>
+
+        <p class="mb-3 sm:mb-6">
+            {{ n.templateContent }}
+        </p>
+
+        <h5 class="font-semibold">Avantages</h5>
+        <ul class="mb-5">
+        {%- for a in n.data.avantages -%}
+            <li>- {{ a }}</li>
+        {%- endfor -%}
+        </ul>
+
+        <h5 class="font-semibold">Inconvénients</h5>
+        <ul>
+        {%- for i in n.data.inconvenients -%}
+            <li>- {{ i }}</li>
+        {%- endfor -%}
+        </ul>
+    </div>
+
+</article>
