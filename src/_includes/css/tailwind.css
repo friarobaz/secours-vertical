@@ -1,10 +1,11 @@
+@import url('https://fonts.googleapis.com/css?family=Nunito:400,700|Oswald&display=swap');
 @import "tailwindcss/base";
 
 @import "tailwindcss/components";
 
 @import "tailwindcss/utilities";
 
-@import url('https://fonts.googleapis.com/css?family=Nunito:400,700|Oswald&display=swap');
+
 
 body {
   text-align: justify;
@@ -20,7 +21,7 @@ main {
   }
 
 article {
-    overflow: auto;
+    overflow: hidden;
     margin-top: 2vh;
     border-radius: 5px;
     padding-top: 2vh;
@@ -146,17 +147,41 @@ section.scroll {
     overflow-y: hidden;
     }
 
+.sticky-menu{
+    display: block;
+    position: sticky;
+    top: 0;
+    align-self: flex-start;
+    padding-left: 1vw;
+    height: 100vh;
+    overflow: auto;
+    }
+
+.footer{
+    background-color:rgba(0, 0, 0, 0.4);
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    }
+
+
 /*#######################################################################################################################
 ################################################   MOBILE   #############################################################
 #######################################################################################################################*/
 
+@media only screen and (max-width: 1100px) {
+    .sticky-menu{
+        display: none;
+        }
+        
+}
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 700px) {
 
 section.scroll {
         height: 90vh;
 }
-    
+
 img {
         max-width: 100%;
 }
@@ -170,7 +195,7 @@ a {
     padding: 0;
   }
 
-.desktop_only{
+.desktop-only{
     display: none;
     }
 
