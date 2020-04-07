@@ -19,6 +19,7 @@
   "homepage": "https://github.com/friarobaz/secours-vertical#readme",
   "devDependencies": {
     "@11ty/eleventy": "^0.10.0",
+    "@11ty/eleventy-navigation": "^0.1.5",
     "autoprefixer": "^9.7.4",
     "postcss-cli": "^7.1.0",
     "tailwindcss": "^1.2.0"

@@ -5,6 +5,9 @@
     }
 </script>
 
+{{ collections.all | eleventyNavigation | eleventyNavigationToHtml | safe }}
+
+{# 
 {%
     set menuSections = [
         { "title": "techniques de cordes", "items": [
@@ -59,4 +62,4 @@
         </ul>
     </section>
     {%- endfor -%}
-</aside>
+</aside> #}
