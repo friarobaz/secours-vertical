@@ -1,0 +1,216 @@
+---
+layout: layouts/with-menu.njk
+---
+<main>
+<h2>Techniques de cordes</h2>
+
+<h3 id="principes-de-base">Principes de base</h3>
+
+<article>
+    <p class="py-3"><strong>Prennez votre temps!</strong> Mieux vaut prendre une minute pour annalyser la situation que de se lancer dans une mauvaise manip. 
+        Prennez le temps de ranger votre materiel quand vous ne l'utilisez pas (pas de sangles qui pendent!)
+        et <strong>gardez vos manips propres!</strong>
+    </p>
+    Dans l’urgence, on peut être amené à improviser. Néanmoins il faut toujours garder en tête quelques principes de base:
+
+    <ul class="list-disc list-inside">
+        <li class="p-2">
+            Jamais de frottement textile sur textile: la dyneema en particulier a une très faible résistance à la chaleur.
+        </li>
+        <li class="p-2">
+            Attention aux frottements de la corde sur le rocher.
+            Un frottement est acceptable s’il n’affecte pas toujours la même partie de la corde.
+        </li>
+        <li class="p-2">
+            Attention, un mousqueton qui travaille mal perd de sa résistance.
+            Pour bien travailler, un mousqueton doit être bien fermé, forcer dans le bon sens, ne pas frotter contre le rocher et ne pas être en porte-à-faux.
+        </li>
+    </ul>
+</article>
+
+{# ------------------------------------------------ NOEUDS ------------------------------------------------ #}
+
+<h3>Quelques noeuds</h3>
+
+<p class="mt-4 mb-10">
+    Un noeud doit toujours être serré et propre pour être efficace.<br/>
+    On serre un noeud en le prenant dans une main et en tirant chaque brin avec l’autre main.<br/>
+    Un noeud d'arrêt est toujours un demi pêcheur double.<br/>
+</p>
+
+{%- for n in collections.noeud -%}
+    {% include "components/noeud.njk" %}
+{%- endfor -%}
+
+{# ------------------------------------------------ MOUFLAGES ------------------------------------------------ #}
+
+<h3>Les mouflages</h3>
+<p>Les mouflages servent à démultiplier sa force pour aider un second en grande voie, ou tendre une corde.</p>
+
+<article>
+<h4>L’effet poulie</h4>
+<div class="sm:flex items-center mb-6">
+<img style="max-height:300px" src="/img/poulie1.jpg" alt="">
+<p class="pl-4">
+    Sur cet exemple je prends un poids P de 10 kg.<br>
+    Ce poids exerce donc une force de 10 kg vers le bas.<br>
+    Pour retenir ce poids, et qu’il ne tombe pas, je dois exercer une force égale et opposée.<br>
+    J’exerce donc une force F de 10 kg vers le haut, c’est dur!<br>
+    Pour me faciliter les choses, j’installe une poulie au plafond.
+</p>
+
+</div>
+<div class="sm:flex items-center mb-6">
+<img style="max-height:300px" src="/img/poulie2.jpg" alt="">
+<p class="pl-4">
+    Maintenant c’est plus pratique, je dois tirer vers le bas.<br>
+    Par contre je dois toujours exercer une force F de 10 kg pour retenir le poids.<br>
+    Le poids tire la corde vers le bas avec une force de 10 kg.<br>
+    Je tire aussi la corde vers le bas avec une force de 10 kg.<br>
+    La poulie subit donc une force de 20 kg vers le bas.<br>
+    Pour me simplifier encore plus la tâche, j’attache une poulie au poids
+</p>
+
+</div>
+<div class="sm:flex items-center mb-6">
+<img style="max-height:300px" src="/img/poulie3.jpg" alt="">
+<p class="pl-4">
+    Ah maintenant c’est beaucoup plus facile!<br>
+    Le poids est réparti équitablement sur les deux brins de corde.<br>
+    Il exerce une force de 5 kg vers le bas sur chaque brin.<br>
+    Il me suffit donc d’exercer une force de 5 kg vers le haut pour retenir le poids.<br>
+    C’est l’effet poulie!
+</p>
+</div>
+</article>
+
+{%- for x in collections.mouflage -%}
+    {% include "components/instructions.njk" %}
+{%- endfor -%}
+
+{# ------------------------------------------------ RECHAPPES ------------------------------------------------ #}
+
+<h3>Les réchappes</h3>
+<p>
+    Lorsqu’on grimpe une voie, on est parfois obligé de s'arrêter en cours de longeur, avant le relais. Cela peut
+    être dû à un manque de niveau technique, une mauvaise lecture d'itinéraire, ou encore des conditions
+    climatiques difficiles. Dans ce cas, si on veut redescendre au sol (ou au relais précédent) et récupérer
+    toutes les dégaines placées, il faudra faire une réchappe.
+    On utilisera systématiquement un autobloquant pour contre-assurer sa descente.
+    Il existe de nombreuses manières de faire une réchappe, en fonction de la corde utilisée et du type
+    d’ancrage de la voie.
+</p>
+
+{%- for x in collections.rechappe -%}
+    {% include "components/instructions.njk" %}
+{%- endfor -%}
+
+{# ------------------------------------------------ REMONTEES SUR CORDE ------------------------------------------------ #}
+
+<h3>Les remontées sur corde</h3>
+
+{%- for x in collections.remontee -%}
+    {% include "components/instructions.njk" %}
+{%- endfor -%}
+
+
+{# ------------------------------------------------ RAPPEL ------------------------------------------------ #}
+
+<h3>Le rappel</h3>
+<p class="pr-4">
+    La descente en rappel est une situation générant de nombreux accidents, souvent dus à des fautes d’inattention.
+    Même fatigué, rester concentré jusqu’à la voiture! Veillez à faire des noeuds en bouts de cordes: un demi pêcheur double bien serré sur chaque brin.
+    Faites aussi attention aux chutes de pierres: gardez toujours votre casque, et quand vous arrivez en bas, écartez-vous de la ligne de rappels.
+</p>
+
+{%- for x in collections.rappel -%}
+    {% include "components/instructions.njk" %}
+{%- endfor -%}
+
+{# ------------------------------------------------ DEBRAYER ------------------------------------------------ #}
+
+{%- for x in collections.debrayer -%}
+    {% include "components/instructions.njk" %}
+{%- endfor -%}
+
+{# ------------------------------------------------ RELAIS POINTS ESPACES ------------------------------------------------ #}
+
+{%- for x in collections.relaisPointsEspaces -%}
+    {% include "components/instructions.njk" %}
+{%- endfor -%}
+
+
+{# ------------------------------------------------------------------------------------------------------------------ #}
+{# ------------------------------------------------ PREMIERS SECOURS ------------------------------------------------ #}
+{# ------------------------------------------------------------------------------------------------------------------ #}
+
+<h2 class="mt-20">Premiers secours</h2>
+
+<h3 id="hemorragie">Hémorragie</h3>
+
+{%- for x in collections.hemorragie -%}
+    {% include "components/instructions.njk" %}
+{%- endfor -%}
+
+<h3 id="inconscience">Inconscience</h3>
+
+{%- for x in collections.inconscience -%}
+    {% include "components/instructions.njk" %}
+{%- endfor -%}
+
+
+<h3 id="alerte">Alerte</h3>
+
+{%- for x in collections.alerte -%}
+    {% include "components/instructions.njk" %}
+{%- endfor -%}
+
+<h3 id="plaies">Plaies</h3>
+
+{%- for x in collections.plaies -%}
+    {% include "components/instructions.njk" %}
+{%- endfor -%}
+
+
+<h3 id="entorses">Entorses</h3>
+{%- for x in collections.entorses -%}
+    {% include "components/instructions.njk" %}
+{%- endfor -%}
+
+<h3 id="brulures">Brulures</h3>
+{%- for x in collections.brulures -%}
+    {% include "components/instructions.njk" %}
+{%- endfor -%}
+
+<h3 id="trousse-de-secours">Trousse de secours</h3>
+
+<article>
+    <p>
+    Avoir une trousse de secours est une nécessité quand on part grimper, mais il faut aussi savoir se servir de son contenu.
+    Penser à vérifier périodiquement qu’elle soit bien complète et que les médicaments ne soient pas périmés.
+    </p>
+
+    <p>
+    Voila le contenu de la mienne, libre à vous de l’adapter à vos besoins:
+    </p>
+
+    <ul class="list-disc list-inside">
+    <li>1 couverture de survie</li>
+    <li>2 paquets de 5 compresses stériles</li>
+    <li>Quelques pansements prédécoupés de différentes tailles</li>
+    <li>2 pansements contre les ampoules (type Compeed)</li>
+    <li>Un paquet de steri-strip</li>
+    <li>2 bandes velpeau (petite et grande) et une épingle de sûreté</li>
+    <li>1 petit rouleau de strap</li>
+    <li>4 dosettes de Chlorhexidine (antiseptique)</li>
+    <li>3 dosettes de Sérum Physiologique</li>
+    <li>Quelques comprimés de paracétamol</li>
+    <li>Quelques comprimés d’anti-inflammatoires</li>
+    <li>1 petit sac plastique qui sert de poubelle</li>
+    <li>1 pince à échardes</li>
+    <li>1 fiche d’alerte avec un marqueur fin</li>
+    <li>1 briquet</li>
+    <li>1 couteau</li>
+    </ul>
+</article>
+</main>

@@ -1,4 +1,5 @@
 {
     "layout" : "layouts/mobile.njk",
-    "tags" : "mouflage"
+    "tags" : "manip",
+    "categorie" : "mouflage"
   }
