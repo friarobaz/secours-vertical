@@ -5,61 +5,35 @@
     }
 </script>
 
-{{ collections.all | eleventyNavigation | eleventyNavigationToHtml | safe }}
-
-{# 
-{%
-    set menuSections = [
-        { "title": "techniques de cordes", "items": [
-            { "title": "Principes de base" },
-            { "title": "Quelques noeuds" , "collection": collections.noeud },
-            { "title": "Les mouflages" , "collection": collections.mouflage },
-            { "title": "Les réchappes" , "collection": collections.rechappe },
-            { "title": "Les remontées sur corde" , "collection": collections.remontee },
-            { "title": "Le rappel" , "collection": collections.rappel },
-            { "title": "Faire redescendre un second en grande voie" },
-            { "title": "Relais sur deux points espacés" }
-        ]},
-        { "title": "premiers secours", "items": [
-            { "title": "Hémorragie" },
-            { "title": "Inconscience" },
-            { "title": "Alerte" },
-            { "title": "Plaies" },
-            { "title": "Entorses" },
-            { "title": "Brûlures" },
-            { "title": "Trousse de secours" }
-            ]}
-    ]
-%}
-
+{% set navPages = collections.all | eleventyNavigation %}
 {% set menuLeafClass = "block p-0 hover:bg-white cursor-pointer rounded-sm" %}
 
 <aside class="sticky-menu">
-    {%- for section in menuSections -%}
+    {%- for section in navPages %}
     <section>
         <h5 class="uppercase no-underline">
-            {{section.title}}
+            {{ section.title }}
         </h5>
         <ul>
-            {%- for item in section.items -%}
-                <li>
-                    {% if item.collection %}
-                        <a  onclick="toggleDisplay('{{item.title|slug}}')" class="{{menuLeafClass}}">
-                            {{item.title}}
-                        </a>
-                        <ul id="{{item.title|slug}}" class="pl-2 ml-1 hidden border-l border-black">
-                            {%- for x in item.collection -%}
-                                <li>
-                                    <a href="#{{x.data.name|slug}}" class="{{menuLeafClass}}">{{x.data.name}}</a>
-                                </li>
-                            {%- endfor -%}
-                        </ul>
-                    {% else %}
-                        <a href="#{{item.title|slug}}" class="{{menuLeafClass}}">{{item.title}}</a>
-                    {% endif %}
-                </li>
-            {%- endfor -%}
+            {%- for entry in section.children %}
+            <li>
+                {%- if entry.children.length -%}
+                    <a onclick="toggleDisplay('{{entry.title|slug}}')" class="{{menuLeafClass}}">
+                        {{entry.title}}
+                    </a>
+                    <ul id="{{entry.title|slug}}" class="pl-2 ml-1 hidden border-l border-black">
+                        {%- for x in entry.children -%}
+                            <li>
+                                <a href="#{{x.title|slug}}" class="{{menuLeafClass}}">{{x.title}}</a>
+                            </li>
+                        {%- endfor -%}
+                    </ul>
+                {% else %}
+                    <a href="#{{entry.title|slug}}" class="{{menuLeafClass}}">{{entry.title}}</a>
+                {% endif %}
+            </li>
+            {%- endfor %}
         </ul>
     </section>
-    {%- endfor -%}
-</aside> #}
+    {%- endfor %}
+</aside>
