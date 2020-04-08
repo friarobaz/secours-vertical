@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Secours Vertical</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Sen:400,800&display=swap');
+
+        html{
+            font-size: 100%;
+        }
+        body{
+            display: flex;
+            width: 100vw;
+            height: 100vh;
+            align-items: center; /* vertical */
+            justify-content: center; /* horizontal */  
+            background: url(/img/cover_viuz_NB.jpg) no-repeat center center fixed;
+            background-size:cover;
+            overflow: hidden;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        main{
+            height: 80vh;
+            width: 70vw;
+            border: 4px solid rgba(255, 255, 255, 0.6);
+            overflow: auto;
+        }
+        #SV_container{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: inherit;
+            width: inherit;
+        }
+        #SV{
+            color: white;
+            font-family: 'Sen', sans-serif;
+            font-size:  6vw;
+            text-transform: uppercase;
+            font-weight: 800;
+        }
+        #sous-titre{
+            color: black;
+            font-size:  1rem;
+            text-transform: uppercase;
+            font-weight: 400;
+        }
+        #referentiel_container{
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* horizontal */
+            align-items: center; /* vertical */
+            height: inherit;
+            max-width: inherit;
+            padding: 3vw;
+            background-color: rgba(255, 255, 255, 0.6);
+        }
+        #referentiel{
+            
+        }
+        #bouttons_container{
+            display: flex;
+            justify-content: space-around;
+            padding: 1rem;
+        }
+
+        .boutton{
+            border: 1px solid black;
+            padding: 1.3rem;
+            margin: 1.5rem;
+        }
+
+        .boutton:hover{
+            background-color: white;
+            cursor: pointer;
+        }
+        a{
+            color: inherit;
+            text-decoration: inherit;
+        }
+        a:visited{
+            color: inherit;
+        }
+
+        #formation_container{
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* horizontal */
+            align-items: center; /* vertical */
+            height: inherit;
+            max-width: inherit;
+            padding: 3vw;
+        }
+
+@media only screen and (max-width: 800px) {
+
+    html{
+            font-size: 60%;
+        }
+    
+    #bouttons_container{
+            flex-direction: column;
+        }
+}
+
+    </style>
+</head>
+<body>
+    <main>
+        <div id="SV_container">
+            <div id="SV">
+                Secours Vertical
+            </div>
+            <div id="sous-titre">
+                Apprendre à réagir en cas d'accident en grande voie
+            </div>
+        </div>
+        <div id="referentiel_container">
+            <div id="referentiel">
+                <h3>
+                    Le référentiel de la formation est disponible gratuitement.
+                </h3>
+                <p style="font-weight: 300;">
+                    Il nous a demandé de nombreuses heures de travail, et il est mis à jour régulièrement.<br>
+                    Si vous appréciez ce travail et souhaitez nous soutenir, vous pouvez faire un don.
+                </p>
+            </div>
+            <div id="bouttons_container">
+                <a href="https://www.lepotcommun.fr/pot/gt9u3lhh" target="blank"><div class="boutton">Faire un don</div></a>
+                <a href="/referentiel" target="blank"><div class="boutton">Voir le référentiel</div></a>
+            </div>
+            <p style="font-weight: 300;">
+                Vous pouvez nous contacter à cette adresse:<br>
+            </p>
+            <a href="mailto:secoursvertical@gmail.com" target="blank">secoursvertical@gmail.com</a>
+        </div>
+        <div id="formation_container">
+
+        </div>
+        
+    </main>
+</body>
+</html>
