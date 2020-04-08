@@ -154,6 +154,7 @@ section.scroll {
     align-self: flex-start;
     padding-left: 1vw;
     height: 100vh;
+    width: 300px;
     overflow: auto;
     }
 
