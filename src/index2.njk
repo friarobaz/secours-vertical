@@ -25,9 +25,8 @@
             align-items: center; /* horizontal */
             background: url(/img/cover_viuz_NB.jpg) no-repeat center center fixed;
             background-size:cover;
-            overflow: hidden;
+            overflow: auto;
             font-family: 'Open Sans', sans-serif;
-            
             margin: 0;
         }
 
@@ -48,22 +47,34 @@
             word-spacing: 0.2rem;
         }
 
-        main{
-            height: 80vh;
+        #frame{
+            position: absolute;
             width: 70vw;
+            height: 80vh;
             border: 3px solid rgba(255, 255, 255, 0.6);
-            overflow-y: auto;
-            overflow-x: hidden;
+            z-index: 0;
         }
 
-        #SV_container{
+        main{
+            height: 80vh;
+            width: 100vw;
+            overflow-y: auto;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .card{
+            width: 70vw;
+            min-height: 100%;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: inherit;
-            width: inherit;
+            z-index: 1;
         }
+
         #SV{
             color: white;
             font-family: 'Sen', sans-serif;
@@ -88,17 +99,11 @@
         }
 
         @keyframes flashing {
-            from {opacity: 0;}
+            from {opacity: 0.1;}
             to {opacity: 0.8;}
         }
 
         #referentiel_container{
-            display: flex;
-            flex-direction: column;
-            justify-content: center; /* horizontal */
-            align-items: center; /* vertical */
-            height: inherit;
-            max-width: inherit;
             padding: 3vw;
             background-color: rgba(255, 255, 255, 0.6);
         }
@@ -153,7 +158,6 @@
         }
     
     main{
-        width: 90vw;
         height: 90vh;
     }
     
@@ -168,7 +172,8 @@
         <div id="logo">Secours Vertical</div>
     </header>
     <main>
-        <div id="SV_container">
+        <div id="frame"></div>
+        <div class="card">
             <div id="SV">
                 Secours Vertical
             </div>
@@ -177,7 +182,7 @@
             </div>
             <div id="arrow"></div>
         </div>
-        <div id="referentiel_container">
+        <div id="referentiel_container" class="card">
             <div id="referentiel">
                 <h3>
                     Le référentiel de la formation est disponible gratuitement.
@@ -196,7 +201,7 @@
             </p>
             <a href="mailto:secoursvertical@gmail.com" target="blank">secoursvertical@gmail.com</a>
         </div>
-        <div id="formation_container">
+        <div id="formation_container" class="card">
 
         </div>
     </main>
