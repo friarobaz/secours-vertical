@@ -90,7 +90,7 @@
         }
 
         main{
-            height: 90vh;
+            height: 80vh;
             width: 70vw;
             border: 3px solid rgba(255, 255, 255, 0.6);
             overflow-y: auto;
@@ -326,16 +326,11 @@ $(document).ready(function() {
 
         if (!mobile){
 
-            var start_page = 4;
-            var end_page = 4.5;
+            var start_page = 3;
+            var end_page = 3.5;
             if(page > start_page  && page < end_page){
-                console.log("lol");
-                console.log("start "+start_width);
-                console.log("reste "+(page-start_page)*(max_width-start_width)/(end_page-start_page));
                 var new_width = start_width+(page-start_page)*(max_width-start_width)/(end_page-start_page)
-                console.log(new_width);
-                $("main").css("width", 18)
-                console.log("main " + $("main").width())
+                $("main").width(new_width);
             };
 
             if(page > 2.5 ){
