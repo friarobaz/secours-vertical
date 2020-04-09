@@ -6,7 +6,6 @@ module.exports = function(eleventyConfig) {
   
   // Static assets to pass through
   eleventyConfig.addPassthroughCopy("./src/img");
-  eleventyConfig.addPassthroughCopy("./src/waypoints");
   eleventyConfig.addPassthroughCopy("./src/css");
 
   return  {
