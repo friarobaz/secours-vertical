@@ -23,5 +23,8 @@
     "autoprefixer": "^9.7.4",
     "postcss-cli": "^7.1.0",
     "tailwindcss": "^1.2.0"
+  },
+  "dependencies": {
+    "waypoints": "^4.0.1"
   }
 }
