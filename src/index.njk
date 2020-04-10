@@ -1,20 +1,364 @@
----
-layout: layouts/base.njk
----
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Secours Vertical</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Sen:400,800&display=swap');
 
-<div class="container max-w-2xl">
-    <h1 class="text-center text-3xl sm:text-6xl mb-20 mt-10 uppercase font-hairline tracking-wide">Secours Vertical</h1>
+        * {
+        box-sizing: border-box;
+        }
 
-    <p class="text-lg text-gray-800 px-4 text-justify">
-    La formation Secours Vertical a pour but d’apprendre à réagir en cas d’accident lors de la pratique de l’escalade, plus particulièrement en grande voie.
-    Elle se divise en deux parties: les <b>techniques de cordes</b> et les <b>premiers secours</b>, et se termine par des mises en situations qui combinent ces deux aspects.
-    Elle est assurée par un moniteur d'escalade diplômé.
-    </p>
+        ::-webkit-scrollbar {
+             display: none;
+            }
 
-    <ul class="flex justify-around text-xl mt-16 mb-12 text-gray-800">
-        <a class="border rounded-sm p-4 border-gray-800 hover:text-white hover:bg-gray-800" href="/formation">La formation</a>
-        <a class="border rounded-sm p-4 border-gray-800 hover:text-white hover:bg-gray-800" href="/referentiel">Le réferentiel</a>
-    </ul>
+        html{
+            font-size: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        
+        body{
+            display: flex;
+            flex-direction: column;
+            width: 100vw;
+            height: 100vh;
+            align-items: center; /* horizontal */
+            background: url(/img/cover_viuz_NB.jpg) no-repeat center center fixed;
+            background-size:cover;
+            overflow: hidden;
+            font-family: 'Open Sans', sans-serif;
+            margin: 0;
+        }
 
-    <img src="img/diamants-bw.jpg" width=400 class="mx-auto rounded-full">
-</div> 
+        .fade_to_color{
+            animation-name: switch;
+            animation-duration: 1s;
+            animation-timing-function: linear;
+            animation-delay: 0s;
+            animation-iteration-count: 1;
+            animation-direction: normal;
+            animation-fill-mode: forwards;
+        }
+
+        .fade_to_bw{
+            animation-name: switch_back;
+            animation-duration: 1s;
+            animation-timing-function: linear;
+            animation-delay: 0s;
+            animation-iteration-count:1;
+            animation-direction: normal;
+            animation-fill-mode: forwards;
+        }
+
+        @keyframes switch {
+        from {background: url(/img/cover_viuz_NB.jpg) no-repeat center center fixed;background-size:cover;}
+        to {background: url(/img/cover_viuz.jpg) no-repeat center center fixed;background-size:cover;}
+        }
+
+        @keyframes switch_back {
+        from {background: url(/img/cover_viuz.jpg) no-repeat center center fixed;background-size:cover;}
+        to {background: url(/img/cover_viuz_NB.jpg) no-repeat center center fixed;background-size:cover;}
+        }
+
+        a{
+            color: inherit;
+            text-decoration: inherit;
+        }
+        a:visited{
+            color: inherit;
+        }
+
+        header{
+            display: flex;
+            align-items: center;
+            flex: auto;
+        }
+
+        #logo{
+            visibility: hidden;
+            color: rgba(255, 255, 255, 0.8);
+            font-family: 'Sen', sans-serif;
+            font-size:  1.3rem;
+            text-transform: uppercase;
+            font-weight: 800;
+            letter-spacing: 0.15rem;
+            word-spacing: 0.2rem;
+        }
+
+        main{
+            height: 80vh;
+            width: 70vw;
+            border: 3px solid rgba(255, 255, 255, 0.6);
+            overflow-y: auto;
+            overflow-x: hidden;
+            scrollbar-width: none;
+        }
+
+        .card{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: inherit;
+            width: inherit;
+            padding: 3vw;
+        }
+
+        #SV{
+            color: white;
+            font-family: 'Sen', sans-serif;
+            font-size:  6vw;
+            text-transform: uppercase;
+            font-weight: 800;
+        }
+        #sous-titre{
+            color: black;
+            font-size:  1rem;
+            text-transform: uppercase;
+            font-weight: 400;
+        }
+
+        #arrow{
+            opacity: 0;
+            position: absolute;
+            bottom: 15vh;
+            content: url("/img/arrow.png");
+            width: 2.5rem;
+            animation: flashing 1s ease-in-out infinite alternate;
+        }
+
+        @keyframes flashing {
+            from {opacity: 0.1;}
+            to {opacity: 0.8;}
+        }
+
+        #referentiel_container{
+            background-color: rgba(255, 255, 255, 0.6);
+        }
+
+        #autre_container{
+            background-color: rgba(255, 255, 255, 0.6);
+        }
+
+        #bouttons_container{
+            display: flex;
+            justify-content: space-around;
+            padding: 1rem;
+        }
+
+        .boutton{
+            border: 1px solid black;
+            padding: 1.3rem;
+            margin: 1.5rem;
+            text-align: center;
+        }
+
+        .boutton:hover{
+            background-color: white;
+            cursor: pointer;
+        }
+
+        #formation_container{
+            color: white;
+            
+        }
+
+        #formation2_container{
+            color: white;
+        }
+
+        #small_cards_container{
+            display: flex;
+            width: 100%;
+            justify-content: space-around;
+            font-size: 1rem;
+            font-weight: 300;
+        }
+
+        .small_card{
+            padding: 1rem;
+            background-color: rgba(0, 0, 0, 0.2);
+            margin: 1.5rem;
+            border-radius: 0rem;
+            
+        }
+        
+        footer{
+            flex: auto;
+            display: flex;
+            align-items: center; /* vertical */
+            color: rgba(255, 255, 255, 0.3);
+            visibility: hidden;
+        }
+
+@media only screen and (max-width: 800px) {
+
+    html{
+            font-size: 60%;
+        }
+    body{
+        background: url(/img/mer.jpg) no-repeat center center fixed;
+        background-size:cover;
+        padding-bottom: 10vh;
+        padding-top: 10vh;
+    }
+
+    #sous-titre{
+            color: white;
+        }
+    
+    main{
+        width: 90vw;
+        height: 90vh;
+    }
+    
+    #bouttons_container{
+            flex-direction: column;
+        }
+    #small_cards_container{
+            flex-direction: column;
+        }
+        .card{
+            
+            height: unset;
+            min-height: 50vh;
+            
+        }
+}
+    </style>
+</head>
+<body>
+    <div style="display: none;"><img src="/img/cover_viuz.jpg" alt=""></div>
+    <header>
+        <div id="logo">Secours Vertical</div>
+    </header>
+    <main>
+        <div id="SV_container" class="card">
+            <div id="SV">
+                Secours Vertical
+            </div>
+            <div id="sous-titre">
+                Apprendre à réagir en cas d'accident en grande voie
+            </div>
+            <div id="arrow"></div>
+        </div>
+        <div id="referentiel_container" class="card">
+            <div id="referentiel">
+                <h3>
+                    Le référentiel de la formation est disponible gratuitement.
+                </h3>
+                <p style="font-weight: 300;">
+                    Il nous a demandé de nombreuses heures de travail, et il est mis à jour régulièrement.<br>
+                    Si vous appréciez ce travail et souhaitez nous soutenir, vous pouvez faire un don.
+                </p>
+            </div>
+            <div id="bouttons_container">
+                <a href="https://www.lepotcommun.fr/pot/gt9u3lhh" target="blank"><div class="boutton">Faire un don</div></a>
+                <a href="/referentiel" target="blank"><div class="boutton">Voir le référentiel</div></a>
+            </div>
+            <p style="font-weight: 300;">
+                Vous pouvez nous contacter à cette adresse:<br>
+            </p>
+            <a href="mailto:secoursvertical@gmail.com" target="blank">secoursvertical@gmail.com</a>
+        </div>
+        <div id="formation_container" class="card">
+            <h1>Secours Vertical, c'est quoi?</h1>
+            <div style="width: 50vw;">
+                <p>
+                    La formation se divise en deux parties: les techniques de cordes et les premiers secours <br>
+                    Elle se termine par des mises en situations qui combinent ces deux aspects.
+                    Elle est assurée par un moniteur d'escalade diplômé, éventuellement aidé de bénévoles.
+                </p>
+            </div>
+        </div>
+        <div id="formation2_container" class="card">
+            <div id="small_cards_container">
+                <div class="small_card" style="flex:1">
+                    <h4>Public</h4>
+                    <p>
+                        La formation s'adresse à des grimpeurs majeurs autonomes en grande voie, qui maitrisent les manips de base:<br>
+                         création d'un relais, assurage par le haut, rappel, etc.<br><br>
+                        Les promotions sont constituées de 12 stagiaires maximum.<br><br>
+                        Les stagiaires doivent être assurés pour l'escalade. Si ils sont membres d'un club FFME, CAF ou FSGT, leur license comprend une assurance, sinon ils doivent s'en procurer par ailleurs (Vieux Campeur par exemple).
+                    </p>
+                </div>
+                <div class="small_card" style="flex:1">
+                    <h4>Durée</h4>
+                    <p>
+                        La formation se déroule sur un week-end et un vendredi soir.
+                    </p>
+                    <ul>
+                        <li><b>Vendredi: </b>19h-21h Théorie en salle de cours.</li>
+                        <li><b>Samedi: </b>9h-18h Pratique en SAE.</li>
+                        <li><b>Dimanche: </b>9h-18h Pratique en SAE.</li>
+                    </ul>
+                    <p>
+                        Ces horaires peuvent être aménagées pour s'adapter à vos contraintes.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div id="autre_container"class="card">
+            <h1>lol</h1>
+            <p>
+                La formation Secours Vertical a pour but d’apprendre à réagir en cas d’accident lors de la pratique de l’escalade, plus particulièrement en grande voie. Elle se divise en deux parties: les techniques de cordes et les premiers secours, et se termine par des mises en situations qui combinent ces deux aspects. Elle est assurée par un moniteur d'escalade diplômé, éventuellement aidé de bénévoles.
+            </p>
+            <p>
+                La formation Secours Vertical a pour but d’apprendre à réagir en cas d’accident lors de la pratique de l’escalade, plus particulièrement en grande voie. Elle se divise en deux parties: les techniques de cordes et les premiers secours, et se termine par des mises en situations qui combinent ces deux aspects. Elle est assurée par un moniteur d'escalade diplômé, éventuellement aidé de bénévoles.
+            </p>
+            
+        </div>
+    </main>
+    <footer>
+        <a href="mailto:secoursvertical@gmail.com" target="blank">secoursvertical@gmail.com</a>
+    </footer>
+</body>
+<script>
+$(document).ready(function() {
+    
+    var start_width = $("main").width();
+    var max_width = $("body").width() * 0.9;
+    var mobile = false;
+    if ($("body").width()<600){
+        mobile = true;
+    };
+  $("main").scroll(function() {
+        var page = $("main").scrollTop() / $("main").height() + 1;
+        var offset = $("main").height() / 2; //reveal before target
+        var smooth = $("main").height() / 2; //smooth reveal
+        $("#arrow").hide();
+        $("#logo").css("visibility", "visible");
+        $("footer").css("visibility", "visible");
+
+        $("#logo").css("opacity", ( $("main").scrollTop() - $("main").height() + offset ) / smooth);
+
+        $("footer").css("opacity", ($("main").scrollTop() - ($("main").height()*2) + offset) / smooth);
+
+        if (!mobile){
+
+            var start_page = 3;
+            var end_page = 3.5;
+            if(page > start_page  && page < end_page){
+                var new_width = start_width+(page-start_page)*(max_width-start_width)/(end_page-start_page)
+                $("main").width(new_width);
+            };
+
+            if(page > 2.5 ){
+            $("body").addClass("fade_to_color");
+            $("body").removeClass("fade_to_bw");
+            }else if ($("body").hasClass("fade_to_color")){
+            $("body").removeClass("fade_to_color");
+            $("body").addClass("fade_to_bw");
+            };
+        }; //end if not mobile
+    console.log($("main").width())
+  }); //end scroll main
+
+}); // end document ready
+
+</script>
+</html>
