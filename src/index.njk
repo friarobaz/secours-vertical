@@ -141,10 +141,6 @@
             background-color: rgba(255, 255, 255, 0.6);
         }
 
-        #autre_container{
-            background-color: rgba(255, 255, 255, 0.6);
-        }
-
         #bouttons_container{
             display: flex;
             justify-content: space-around;
@@ -168,22 +164,25 @@
             height: 90%;
         }
 
-        .formation2_container{
-            color: white;
-            height: unset;
+        .small_cards_container{
+            
             display: flex;
-            width: 100%;
-            justify-content: space-around;
+        }
+
+        .small_card{
+            flex: 1;
+            padding: 1.5rem;
+            margin: 1.5rem;
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 3px;
+            color: white;
             font-size: 1rem;
             font-weight: 300;
         }
 
-        .small_card{
-            padding: 1.5rem;
-            background-color: rgba(0, 0, 0, 0.3);
-            margin: 1.5rem;
-            border-radius: 0rem;
-            border-radius: 3px;
+        #nous{
+            color: white;
+            background-color: rgba(255, 255, 255, 0);
         }
         
         footer{
@@ -197,7 +196,7 @@
 @media only screen and (max-width: 800px) {
 
     html{
-            font-size: 60%;
+            font-size: 70%;
         }
     body{
         background: url(/img/mer.jpg) no-repeat center center fixed;
@@ -218,7 +217,7 @@
     #bouttons_container{
             flex-direction: column;
         }
-    .formation2_container{
+    .small_cards_container{
             flex-direction: column;
         }
     .card{ 
@@ -274,9 +273,9 @@
                 </p>
             </div>
         </div>
-        <div class="formation2_container" class="card">
+        <div class="small_cards_container">
             
-                <div class="small_card" style="flex:1">
+                <div class="small_card">
                     <h3>Pour qui?</h3>
                     <p>
                         La formation s'adresse à des grimpeurs majeurs autonomes en grande voie, qui maitrisent les manips de base:<br>
@@ -285,7 +284,7 @@
                         Les stagiaires doivent être assurés pour l'escalade. Si ils sont membres d'un club FFME, CAF ou FSGT, leur license comprend une assurance, sinon ils doivent s'en procurer par ailleurs (Vieux Campeur par exemple).
                     </p>
                 </div>
-                <div class="small_card" style="flex:1">
+                <div class="small_card">
                     <h3>Combien de temps?</h3>
                     <p>
                         La formation se déroule sur un week-end et un vendredi soir.
@@ -299,18 +298,17 @@
                         Ces horaires peuvent être aménagées pour s'adapter à vos contraintes.
                     </p>
                 </div>
-            
         </div>
-        <div class="formation2_container" class="card">
+        <div class="small_cards_container">
             
-                <div class="small_card" style="flex:1">
+                <div class="small_card">
                     <h3>Où?</h3>
                     <p>
                         La formation se déroule idéalement dans une salle d'escalade privatisée mais il est également possible d'organiser une session en exterieur,
                          selon la configuration de la falaise et la météo.
                     </p>
                 </div>
-                <div class="small_card" style="flex:1">
+                <div class="small_card">
                     <h3>Combien ça coûte?</h3>
                     <p>
                         Le prix varie en fonction du lieu de formation, de la SAE choisie, du nombre de participants, des subventions des clubs, de la présence de bénévoles, etc.<br><br>
@@ -320,14 +318,10 @@
                 </div>
             
         </div>
-        <div id="autre_container"class="card">
-            <h1>lol</h1>
-            <p>
-                La formation Secours Vertical a pour but d’apprendre à réagir en cas d’accident lors de la pratique de l’escalade, plus particulièrement en grande voie. Elle se divise en deux parties: les techniques de cordes et les premiers secours, et se termine par des mises en situations qui combinent ces deux aspects. Elle est assurée par un moniteur d'escalade diplômé, éventuellement aidé de bénévoles.
-            </p>
-            <p>
-                La formation Secours Vertical a pour but d’apprendre à réagir en cas d’accident lors de la pratique de l’escalade, plus particulièrement en grande voie. Elle se divise en deux parties: les techniques de cordes et les premiers secours, et se termine par des mises en situations qui combinent ces deux aspects. Elle est assurée par un moniteur d'escalade diplômé, éventuellement aidé de bénévoles.
-            </p>
+
+        <div id="nous" class="card">
+            <h1>Qui sommes nous?</h1>
+            
             
         </div>
     </main>
@@ -344,6 +338,21 @@ $(document).ready(function() {
     if ($("body").width()<600){
         mobile = true;
     };
+
+    function grow(page, start_page, end_page){
+        if(page > start_page  && page < end_page){
+            var new_width = start_width+(page-start_page)*(max_width-start_width)/(end_page-start_page)
+            $("main").width(new_width);
+        };
+    };
+
+    function shrink(page, start_page, end_page){
+        if(page > start_page  && page < end_page){
+            var new_width = max_width+(page-start_page)*(start_width-max_width)/(end_page-start_page)
+            $("main").width(new_width);
+        };
+    };
+
   $("main").scroll(function() {
         var page = $("main").scrollTop() / $("main").height() + 1;
         var offset = $("main").height() / 2; //reveal before target
@@ -358,13 +367,8 @@ $(document).ready(function() {
 
         if (!mobile){
 
-            var start_page = 2.8;
-            var end_page = 3.2;
-            if(page > start_page  && page < end_page){
-                var new_width = start_width+(page-start_page)*(max_width-start_width)/(end_page-start_page)
-                $("main").width(new_width);
-            };
-
+            grow(page, 2.8, 3.2)
+            
             if(page > 2.5 ){
             $("body").addClass("fade_to_color");
             $("body").removeClass("fade_to_bw");
@@ -373,7 +377,7 @@ $(document).ready(function() {
             $("body").addClass("fade_to_bw");
             };
         }; //end if not mobile
-    console.log($("main").width())
+    console.log(page)
   }); //end scroll main
 
 }); // end document ready
