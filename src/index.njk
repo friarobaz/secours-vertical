@@ -187,7 +187,6 @@
         #nous{
             margin-top: 10vh;
             background-color: rgba(255, 255, 255, 0.7);
-            height: unset;
         }
 
         .personne{
@@ -388,17 +387,24 @@ $(document).ready(function() {
         };
     };
 
-  $("main").scroll(function() {
-        var page = $("main").scrollTop() / $("main").height() + 1;
-        var offset = $("main").height() / 2; //reveal before target
-        var smooth = $("main").height() / 2; //smooth reveal
-        $("#arrow").hide();
-        $("#logo").css("visibility", "visible");
-        $("footer").css("visibility", "visible");
+    function fade_opacity(target, start_page, end_page, start_opacity, end_opacity, page){
+        if(page >= start_page  && page <= end_page){
+            var new_opacity = start_opacity+(page-start_page)*(end_opacity-start_opacity)/(end_page-start_page)
+            $(target).fadeTo(0, new_opacity);
+            $(target).css("visibility", "visible");
+        }else if (page < start_page){
+            $(target).fadeTo(0, start_opacity);
+        }else if (page > end_page){
+            $(target).fadeTo(0, end_opacity);
+        };
+    };
 
-        $("#logo").css("opacity", ( $("main").scrollTop() - $("main").height() + offset ) / smooth);
+  $("main").scroll(function() { //when user scrolls
+        var page = $("main").scrollTop() / $("main").height() + 1; //current page in view
+        $("#arrow").hide(); //hide arrow down
 
-        $("footer").css("opacity", ($("main").scrollTop() - ($("main").height()*2) + offset) / smooth);
+        fade_opacity("footer", 2.5, 3, 0, 1, page );
+        fade_opacity("#logo", 1.5, 2, 0, 1, page );
 
         if (!mobile){
 
