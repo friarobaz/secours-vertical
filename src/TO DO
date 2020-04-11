@@ -8,6 +8,7 @@
 PRIORITAIRE:
 
 - gérer le déploiement (utiliser netlify: https://github.com/11ty/eleventy-base-blog)
+- supprimer les sections vides dans le référentiel (e.g: Inconscience)
 
 -CSS referentiel mobile
 
