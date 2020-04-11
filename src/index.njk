@@ -104,9 +104,9 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: inherit;
-            width: inherit;
-            padding: 2vw;
+            height: 100%;
+            width: 100%;
+            padding: 4vw;
         }
 
         #SV{
@@ -187,7 +187,8 @@
 
         #nous{
             margin-top: 10vh;
-            background-color: rgba(255, 255, 255, 0.6);
+            background-color: rgba(255, 255, 255, 0.0);
+            color: white;
         }
 
         .personne{
@@ -203,6 +204,11 @@
             color: rgba(255, 255, 255, 0.3);
             visibility: hidden;
         }
+
+        div{
+            border: 0px solid red;
+        }
+
 /* ########################################################### --- MOBILE --- ################################################### */
 @media only screen and (max-width: 800px) {
 
@@ -212,8 +218,9 @@
     body{
         background: url(/img/mer.jpg) no-repeat center center fixed;
         background-size:cover;
-        padding-bottom: 10vh;
-        padding-top: 5vh;
+    }
+    header footer{
+        display: none;
     }
 
     #sous-titre{
@@ -221,11 +228,13 @@
         }
     
     main{
-        width: 90vw;
-        height: 90vh;
+        width: 100%;
+        height: 100%;
+        padding: 0;
+        border: none;
     }
     
-    #bouttons_container{
+    #bouttons_container {
             flex-direction: column;
         }
     .small_cards_container{
@@ -233,7 +242,7 @@
         }
     .card{ 
             height: unset;
-            min-height: 50vh;
+            min-height: 60vh;
         }
     .personne{
             flex-direction: column;
@@ -335,7 +344,7 @@
         </div>
 
         <div id="nous" class="card">
-            <h2>Qui sommes nous?</h2>
+            <h2>Qui sommes nous ?</h2>
                 <div id="jules" class="personne">
                     <img src="/img/jules.jpg" alt="" style="border-radius: 100%; height: 30vh;">
                     <div style="margin: 2rem; max-width: 60vw;">
@@ -346,6 +355,7 @@
                     </div>
                 </div>
                 <div id="julie" class="personne">
+                    <img src="/img/julie.jpg" alt="" style="border-radius: 100%; height: 30vh">
                     <div style="margin: 2rem; max-width: 60vw;">
                         <h3>Julie</h3>
                         <p style="font-weight: 300;">
@@ -354,7 +364,6 @@
 
                         </p>
                     </div>
-                    <img src="/img/julie.jpg" alt="" style="border-radius: 100%; height: 30vh">
                 </div>
             
             
@@ -415,13 +424,12 @@ $(document).ready(function() {
         var page = $("main").scrollTop() / $("main").height() + 1; //current page in view
         $("#arrow").hide(); //hide arrow down
 
-        fade_opacity("footer", 2.5, 3, 0, 1, page );
-        fade_opacity("#logo", 1.5, 2, 0, 1, page );
-        fade_border("main", 3.2, 3.8, 0.6, 0, page );
-
         if (!mobile){
 
             grow(page, 2.8, 3.2)
+            fade_border("main", 3.2, 3.8, 0.6, 0, page );
+            fade_opacity("footer", 2.5, 3, 0, 1, page );
+            fade_opacity("#logo", 1.5, 2, 0, 1, page );
             
             if(page > 2.5 ){
             $("body").addClass("fade_to_color");
