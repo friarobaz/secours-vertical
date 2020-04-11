@@ -11,16 +11,14 @@ PRIORITAIRE:
 
 -CSS referentiel mobile
 
+-referentiel: index automatique   (baptiste <3 <3 <3)
 
 
 SECONDAIRE:
 
--referentiel: index automatique   (baptiste <3 <3 <3)
 
 -proteger images?
 
 -logo images?
-
--cleanup css index, moins d'IDs
 
 -split index (HTML, CSS, JS)
