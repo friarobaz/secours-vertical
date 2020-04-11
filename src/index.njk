@@ -211,6 +211,10 @@
             visibility: hidden;
         }
 
+        .hide_on_desktop{
+        display: none;
+        }
+
         div{
             border: 0px solid red;
         }
@@ -228,6 +232,12 @@
     header footer{
         display: none;
     }
+    .hide_on_mobile{
+        display: none;
+    }
+    .hide_on_desktop{
+        display: unset;
+        }
 
     #sous-titre{
             color: white;
@@ -296,7 +306,8 @@
             </div>
             <div id="bouttons_container">
                 <a href="https://www.lepotcommun.fr/pot/gt9u3lhh" target="blank"><div class="boutton">Faire un don</div></a>
-                <a href="/referentiel" target="blank"><div class="boutton">Voir le référentiel</div></a>
+                <a href="/referentiel" target="blank" class="hide_on_mobile"><div class="boutton">Voir le référentiel</div></a>
+                <a href="/mobile-menu" class="hide_on_desktop"><div class="boutton">Voir le référentiel</div></a>
             </div>
             <p style="font-weight: 300;">
                 Vous pouvez nous contacter à cette adresse :<br>
