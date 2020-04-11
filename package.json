@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Secours Vertical",
   "scripts": {
-    "build": "postcss src/_includes/css/tailwind.css -o src/css/style.css && ELEVENTY_ENV=production eleventy",
+    "build": "rm -rf _site && postcss src/_includes/css/tailwind.css -o src/css/style.css && ELEVENTY_ENV=production eleventy",
     "watch:css": "postcss src/_includes/css/tailwind.css -o src/css/style.css --watch",
     "watch:html": "eleventy --serve",
     "dev": "rm -rf _site && npm run watch:html & npm run watch:css"
