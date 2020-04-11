@@ -11,6 +11,8 @@ PRIORITAIRE:
 
 - finir page Qui sommes nous
 
+-photos formation?
+
 
 
 SECONDAIRE:
@@ -20,3 +22,5 @@ SECONDAIRE:
 -logo images?
 
 -cleanup css index, moins d'IDs
+
+-split index (HTML, CSS, JS)
