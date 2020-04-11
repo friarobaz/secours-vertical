@@ -8,7 +8,7 @@
         {% endif %}
 
         {% if x.data.img %}
-        <img src="/img/{{x.data.img}}" class="max-w-full sm:max-w-sm rounded-md" alt="">
+        <img src="/img/{{x.data.img}}" class="max-w-full sm:max-w-sm rounded-md" alt="x.data.name" loading="lazy">
         {% endif %}
         
         <p>{{ x.templateContent | safe }}</p>
