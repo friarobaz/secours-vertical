@@ -189,6 +189,7 @@
             margin-top: 5vw;
             background-color: rgba(255, 255, 255, 0.0);
             color: white;
+            align-items: flex-start;
         }
 
         .personne{
@@ -196,7 +197,6 @@
             flex:1;
             align-items: center;
             max-width: 80vw;
-            margin-bottom: 2rem;
         }
 
         .presentation{
@@ -249,6 +249,9 @@
     .card{ 
             height: unset;
             min-height: 60vh;
+        }
+    #nous{
+            align-items: center;
         }
     .personne{
             flex-direction: column;
@@ -355,22 +358,27 @@
 <!-- ########################################################---  PAGE 5: QUI SOMMES NOUS ---########################################################## -->
         <div id="nous" class="card">
             <h2>Qui sommes-nous ?</h2>
-                <div id="jules" class="personne">
+                <div class="personne" style="margin-bottom: 1vw;">
                     <img src="/img/jules.jpg" alt="" style="border-radius: 100%; height: 30vh;">
                     <div class="presentation">
-                        <h3>Jules</h3>
+                        <h3>Jules Marchand</h3>
                         <p style="font-weight: 300;">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat, quo quibusdam cumque mollitia exercitationem dicta magnam! Iusto non, dolores quisquam itaque veritatis sequi. Odio, libero! Vitae sint ratione id perspiciatis.
+                            Jules est le fondateur et formateur principal de Secours Vertical.<br><br>
+                            Il est moniteur d'escalade, diplômé du CREPS de Montpellier en 2018.<br>
+                            De 2014 à 2018 il a été secoursite bénévole pour la Croix Rouge Francaise à Paris.<br>
+                             Il est maintenant pompier volontaire en Haute-Savoie. 
+
                         </p>
                     </div>
                 </div>
-                <div id="julie" class="personne">
+                <div class="personne">
                     <img src="/img/julie.jpg" alt="" style="border-radius: 100%; height: 30vh">
                     <div class="presentation">
-                        <h3>Julie</h3>
+                        <h3>Julie Garcia</h3>
                         <p style="font-weight: 300;">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat, quo quibusdam cumque mollitia exercitationem dicta magnam! Iusto non, dolores quisquam itaque veritatis sequi. Odio, libero! Vitae sint ratione id perspiciatis.
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat, quo quibusdam cumque mollitia exercitationem dicta magnam! Iusto non, dolores quisquam itaque veritatis sequi. Odio, libero! Vitae sint ratione id perspiciatis.
+                            Julie est kinésithérapeute diplômée de l'IFMK de Montpellier en 2014.<br>
+                            Elle est formatrice pour Secours Vertical, et a participé activement à la création du référentiel.<br>
+                            Elle est cofondatrice de KineGrimpe, une formation sur la progression et la prévention des blessures en escalade. Plus d'info : www.kinegrimpe.com<br>
                         </p>
                     </div>
                 </div>
@@ -398,13 +406,10 @@ $(document).ready(function() {
         if(page > start_page  && page < end_page){
             var new_width = start_width+(page-start_page)*(max_width-start_width)/(end_page-start_page)
             $("main").width(new_width);
-        };
-    };
-
-    function shrink(page, start_page, end_page){
-        if(page > start_page  && page < end_page){
-            var new_width = max_width+(page-start_page)*(start_width-max_width)/(end_page-start_page)
-            $("main").width(new_width);
+        }else if (page < start_page){
+            $("main").width(start_width);
+        }else if (page > end_page){
+            $("main").width(max_width);
         };
     };
 
