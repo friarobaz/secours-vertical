@@ -139,6 +139,7 @@
 
         #referentiel_container{
             background-color: rgba(255, 255, 255, 0.6);
+            color: black;
         }
 
         #bouttons_container{
@@ -177,16 +178,16 @@
             flex: 1;
             padding: 1.5rem;
             margin: 1.5rem;
-            background-color: rgba(0, 0, 0, 0.5);
+            background-color: rgba(255, 255, 255, 0.6);
             border-radius: 3px;
-            color: white;
+            color: rgb(29, 47, 73);
             font-size: 1rem;
             font-weight: 300;
         }
 
         #nous{
             margin-top: 10vh;
-            background-color: rgba(255, 255, 255, 0.7);
+            background-color: rgba(255, 255, 255, 0.6);
         }
 
         .personne{
@@ -399,12 +400,24 @@ $(document).ready(function() {
         };
     };
 
+    function fade_border(target, start_page, end_page, start_opacity, end_opacity, page){
+        if(page >= start_page  && page <= end_page){
+            var new_opacity = start_opacity+(page-start_page)*(end_opacity-start_opacity)/(end_page-start_page)
+            $(target).css("border", "3px solid rgba(255, 255, 255, " + new_opacity + ")");
+        }else if (page < start_page){
+            $(target).css("border", "3px solid rgba(255, 255, 255, " + start_opacity + ")");
+        }else if (page > end_page){
+            $(target).css("border", "3px solid rgba(255, 255, 255, " + end_opacity + ")");
+        };
+    };
+
   $("main").scroll(function() { //when user scrolls
         var page = $("main").scrollTop() / $("main").height() + 1; //current page in view
         $("#arrow").hide(); //hide arrow down
 
         fade_opacity("footer", 2.5, 3, 0, 1, page );
         fade_opacity("#logo", 1.5, 2, 0, 1, page );
+        fade_border("main", 3.2, 3.8, 0.6, 0, page );
 
         if (!mobile){
 
