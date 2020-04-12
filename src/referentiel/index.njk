@@ -16,19 +16,20 @@ layout: layouts/with-menu.njk
                            
                             <h4>{{article.title}}</h4> {#ex: MISE EN PLACE#}
                             {%- if article.children.length -%} {# if section exists #}
-                                {%- for section in article.children -%} {# get all sctions from article #}
+                                {%- for section in article.children -%} {# get all sections from article #}
                                    
                                     <h5>{{section.title}}</h5> {#ex: MACHARD EN BAS#}
-                                    print section text
+                                    print section text with section formating
+                                    {#   {% include "components/section.njk" %}   #}
                                 {%- endfor -%} {#end sections#}
                             {% else %}
-                                {# print text from article with article formating #}
-                                print article text
+                                print article text with article formating
+                                {#   {% include "components/article.njk" %}   #}
                             {% endif %}
                     {%- endfor -%} {#end articles#}
             {% else %}
-                {# print text from subject with article formating #}
-                print subject text
+                print subject text with article formating
+                {#   {% include "components/article.njk" %}   #}
             {% endif %}
         {%- endfor %} {#end subjects#}
     {%- endfor %} {#end categories#}
