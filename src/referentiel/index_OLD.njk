@@ -146,13 +146,11 @@ layout: layouts/with-menu.njk
 
 <h2 class="mt-20">Premiers secours</h2>
 
-<h3 id="hemorragie">Hémorragie</h3>
 
 {%- for x in collections.hemorragie -%}
     {% include "components/instructions.njk" %}
 {%- endfor -%}
 
-<h3 id="inconscience">Inconscience</h3>
 
 {%- for x in collections.inconscience -%}
     {% include "components/instructions.njk" %}
@@ -172,7 +170,6 @@ layout: layouts/with-menu.njk
 {%- endfor -%}
 
 
-<h3 id="entorses">Entorses</h3>
 {%- for x in collections.entorses -%}
     {% include "components/instructions.njk" %}
 {%- endfor -%}

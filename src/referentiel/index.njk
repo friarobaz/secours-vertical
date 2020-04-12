@@ -5,33 +5,28 @@ layout: layouts/with-menu.njk
 {% set navPages = collections.all | eleventyNavigation %}
 
 
-
-    {%- for section in navPages %}
-    <section>
-        <h5>
-            {{ section.title }}
-        </h5>
-        <ul>
-            {%- for entry in section.children %}
-            <li>
-                {%- if entry.children.length -%}
-                        {{entry.title}}
-                    <ul>
-                        {%- for x in entry.children -%}
-                            <li>
-                                {% set section = mouflage %}
-                                {%- for x in collections.section -%}
-                                {% include "components/instructions.njk" %}
-                                {%- endfor -%}
-                            </li>
-                        {%- endfor -%}
-                    </ul>
-                {% else %}
-                    {{entry.title}}
-                {% endif %}
-            </li>
-            {%- endfor %}
-        </ul>
-    </section>
-    {%- endfor %}
+    {%- for categorie in navPages %} {# get all categories #}
+    
+        <h2>{{ categorie.title }}</h2> {#ex: TECHNIQUES DE CORDE#}
+        {%- for subject in categorie.children %}  {# get all subjects from categorie #}
+            
+            <h3>{{subject.title}}</h3> {#ex: RAPPEL#}
+            {%- if subject.children.length -%} {# if articles exists in subject#}
+                    {%- for article in subject.children -%} {# get all articles from subject #}
+                           
+                            <h4>{{article.title}}</h4> {#ex: MISE EN PLACE#}
+                            {%- if article.children.length -%} {# if section exists #}
+                                {%- for section in article.children -%} {# get all sctions from article #}
+                                   
+                                    <h5>{{section.title}}</h5> {#ex: MACHARD EN BAS#}
+                                {%- endfor -%} {#end sections#}
+                            {% else %}
+                                {# print text from article with article formating #}
+                            {% endif %}
+                    {%- endfor -%} {#end articles#}
+            {% else %}
+                {# print text from subject with article formating #}
+            {% endif %}
+        {%- endfor %} {#end subjects#}
+    {%- endfor %} {#end categories#}
 

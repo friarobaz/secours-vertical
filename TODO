@@ -2,27 +2,28 @@
 
 
 
-
-
-
 PRIORITAIRE:
 
 Baptiste:
 -referentiel: index automatique   
--mobile menu automatique
+
 
 Jules:
-inconscience > faire qu'un article
-hemorragie > faire qu'un article
-entorses > faire qu'un article
+
 mise en place du descendeur > faire qu'un article
+
+
+-mobile menu automatique
 
 -pas de scrollbar dans images referentiel
 -numerotation liste referentiel
 
 -CSS referentiel mobile
 
+-CSS premiers secours (entorses etc pas top)
+
 -redirection (check lundi)
+
 
 
 SECONDAIRE:
@@ -35,3 +36,5 @@ SECONDAIRE:
 -logo images?
 
 -split index (HTML, CSS, JS)
+
+-appli web comme spotair.mobi
