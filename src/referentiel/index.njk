@@ -19,13 +19,16 @@ layout: layouts/with-menu.njk
                                 {%- for section in article.children -%} {# get all sctions from article #}
                                    
                                     <h5>{{section.title}}</h5> {#ex: MACHARD EN BAS#}
+                                    print section text
                                 {%- endfor -%} {#end sections#}
                             {% else %}
                                 {# print text from article with article formating #}
+                                print article text
                             {% endif %}
                     {%- endfor -%} {#end articles#}
             {% else %}
                 {# print text from subject with article formating #}
+                print subject text
             {% endif %}
         {%- endfor %} {#end subjects#}
     {%- endfor %} {#end categories#}
