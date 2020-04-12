@@ -2,7 +2,7 @@
 layout: layouts/with-menu.njk
 ---
 
-{% set navPages = collections.all | eleventyNavigation %}
+{% set navPages = collections.all | test %}
 
 
     {%- for categorie in navPages %} {# get all categories #}
@@ -14,22 +14,21 @@ layout: layouts/with-menu.njk
             {%- if subject.children.length -%} {# if articles exists in subject#}
                     {%- for article in subject.children -%} {# get all articles from subject #}
                            
-                            <h4>{{article.title}}</h4> {#ex: MISE EN PLACE#}
                             {%- if article.children.length -%} {# if section exists #}
-                                {%- for section in article.children -%} {# get all sections from article #}
-                                   
-                                    <h5>{{section.title}}</h5> {#ex: MACHARD EN BAS#}
-                                    print section text with section formating
-                                    {#   {% include "components/section.njk" %}   #}
+                                {%- for section in article.children -%} {# get all sctions from article #}
+                                    {% set x = section.entry %}
+                                    {% include "components/instructions.njk" %}
                                 {%- endfor -%} {#end sections#}
                             {% else %}
-                                print article text with article formating
-                                {#   {% include "components/article.njk" %}   #}
+                                {# print text from article with article formating #}
+                                    {% set x = article.entry %}
+                                    {% include "components/instructions.njk" %}
                             {% endif %}
                     {%- endfor -%} {#end articles#}
             {% else %}
-                print subject text with article formating
-                {#   {% include "components/article.njk" %}   #}
+                {# print text from subject with article formating #}
+                    {% set x = subject.entry %}
+                    {% include "components/instructions.njk" %}
             {% endif %}
         {%- endfor %} {#end subjects#}
     {%- endfor %} {#end categories#}
