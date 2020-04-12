@@ -4,33 +4,40 @@ layout: layouts/with-menu.njk
 
 {% set navPages = collections.all | eleventyNavigation %}
 
+{%- for categorie in navPages %} {# get all categories #}
 
-    {%- for categorie in navPages %} {# get all categories #}
-    
-        <h2>{{ categorie.title }}</h2> {#ex: TECHNIQUES DE CORDE#}
-        {%- for subject in categorie.children %}  {# get all subjects from categorie #}
+    <h2>{{ categorie.title }}</h2> {#ex: TECHNIQUES DE CORDE#}
+    {%- for subject in categorie.children %}  {# get all subjects from categorie #}
+        <div id="{{ subject.title | slug }}">
             
             <h3>{{subject.title}}</h3> {#ex: RAPPEL#}
             {%- if subject.children.length -%} {# if articles exists in subject#}
-                    {%- for article in subject.children -%} {# get all articles from subject #}
-                           
-                            <h4>{{article.title}}</h4> {#ex: MISE EN PLACE#}
-                            {%- if article.children.length -%} {# if section exists #}
-                                {%- for section in article.children -%} {# get all sections from article #}
+                {%- for article in subject.children -%} {# get all articles from subject #}
+                    <article id="{{ article.title | slug }}">    
+                       
+                        <h4>{{article.title}}</h4> {#ex: MISE EN PLACE#}
+                        {%- if article.children.length -%} {# if section exists #}
+                            {%- for section in article.children -%} {# get all sections from article #}
+                                <div id="{{ section.title | slug }}">
                                    
                                     <h5>{{section.title}}</h5> {#ex: MACHARD EN BAS#}
                                     print section text with section formating
                                     {#   {% include "components/section.njk" %}   #}
-                                {%- endfor -%} {#end sections#}
-                            {% else %}
-                                print article text with article formating
-                                {#   {% include "components/article.njk" %}   #}
-                            {% endif %}
-                    {%- endfor -%} {#end articles#}
+                                </div>
+                            {%- endfor -%} {#end sections#}
+                        {% else %}
+                            print article text with article formating
+                            {#   {% include "components/article.njk" %}   #}
+                        {% endif %}
+                    </article>
+                {%- endfor -%} {#end articles#}
             {% else %}
-                print subject text with article formating
-                {#   {% include "components/article.njk" %}   #}
+                <article>
+                    print subject text with article formating
+                    {#   {% include "components/article.njk" %}   #}
+                </article>
             {% endif %}
-        {%- endfor %} {#end subjects#}
-    {%- endfor %} {#end categories#}
+        </div>
+    {%- endfor %} {#end subjects#}
+{%- endfor %} {#end categories#}
 
