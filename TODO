@@ -10,8 +10,11 @@ Baptiste:
 
 Jules:
 
-create show-content.njk
 tags unsed
+
+transfert index_old paragraphs to new index
+css referentiel
+del css from show content
 
 differencier titre dans menu et dans index
 change order (https://www.11ty.dev/docs/plugins/navigation/#re-ordering-items)

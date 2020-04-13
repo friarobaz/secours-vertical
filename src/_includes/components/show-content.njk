@@ -2,29 +2,29 @@
 
 {#------------------------------------------ IMAGE LEFT -------------------------------------- #}
 
-{% if x.data.imageLayout == "left"%}
-    {% if x.data.img %}
-            <img src="/img/{{x.data.img}}" alt="x.data.name" loading="lazy">
+{% if x.entry.data.imageLayout == "left"%}
+    {% if x.entry.data.img %}
+            <img src="/img/{{x.entry.data.img}}" alt="{{x.title}}" loading="lazy">
     {% endif %}
 {% endif %}
 
 {#----------------------------------------- CONTENT ------------------------------------------ #}
 
-<p>{{ x.templateContent | safe }}</p> 
+<p>{{ x.entry.templateContent | safe }}</p> 
 
 {#----------------------------------------- IMAGE SCROLL -------------------------------------- #}
 
-{% if x.data.imageLayout == "scroll" %} 
+{% if x.entry.data.imageLayout == "scroll" %} 
     <div>
-        <img src="/img/{{x.data.img}}" alt="x.data.name" loading="lazy">
+        <img src="/img/{{x.entry.data.img}}" alt="{{x.title}}" loading="lazy">
     </div>
 {% endif %}
 
 {#----------------------------------------- ETAPES -------------------------------------- #}
 
-{%- if x.data.etapes.length -%}
+{%- if x.entry.data.etapes.length -%}
     <ol>
-        {%- for etape in x.data.etapes -%}
+        {%- for etape in x.entry.data.etapes -%}
             <li>{{etape}}</li>
         {%- endfor -%}
     </ol>
@@ -32,29 +32,29 @@
 
 {#----------------------------------------- IMAGE DOUBLE -------------------------------------- #}
 
-{% if x.data.imageLayout == "double" %}
+{% if x.entry.data.imageLayout == "double" %}
     <div class="md:flex md:justify-around max-w-2xl mx-auto">
-        <img src="/img/{{x.data.img}}" class="rounded-md max-w-full sm:max-w-xs" alt="x.data.name" loading="lazy">
-        <img src="/img/{{x.data.img2}}" class="rounded-md max-w-full sm:max-w-xs" alt="x.data.name" loading="lazy">
+        <img src="/img/{{x.entry.data.img}}" class="rounded-md max-w-full sm:max-w-xs" alt="{{x.title}}" loading="lazy">
+        <img src="/img/{{x.entry.data.img2}}" class="rounded-md max-w-full sm:max-w-xs" alt="{{x.title}}" loading="lazy">
     </div>
 {% endif %}
 
 {#----------------------------------------- NOEUDS -------------------------------------- #}
 
-{%- if x.data.avantages.length -%}
-    <h5>Avantages</h5>
-    <ul>
-    {%- for a in x.data.avantages -%}
-        <li>- {{ a }}</li>
-    {%- endfor -%}
-    </ul>
-{% endif %}
-{%- if x.data.inconvenients.length -%}
-    <h5>Inconvénients</h5>
-    <ul>
-    {%- for i in x.data.inconvenients -%}
-        <li>- {{ i }}</li>
-    {%- endfor -%}
-    </ul>
+{%- if x.entry.data.avantages.length -%}
+    <div class="avantages_inconvenients">
+        <header>Avantages</header>
+        <ul>
+        {%- for a in x.entry.data.avantages -%}
+            <li>- {{ a }}</li>
+        {%- endfor -%}
+        </ul>
+        <header>Inconvénients</header>
+        <ul>
+        {%- for i in x.entry.data.inconvenients -%}
+            <li>- {{ i }}</li>
+        {%- endfor -%}
+        </ul>
+    </div>
 {% endif %}
 

@@ -18,18 +18,18 @@ layout: layouts/with-menu.njk
                                 {%- for section in article.children -%} {# get all sctions from article #}
                                     <section id="{{ section.key | slug }}" class="section">
                                         <header>{{section.title}}</header> {#ex: MACHARD BAS#} 
-                                        {% set x = section.entry %}
+                                        {% set x = section %}
                                         {% include "components/show-content.njk" %} {# show section #}
                                     </section>
                                 {%- endfor -%} {#end sections#}
                             {% else %}
-                                {% set x = article.entry %}
+                                {% set x = article %}
                                 {% include "components/show-content.njk" %} {# show article #}
                             {% endif %}
                         </article>
                     {%- endfor -%} {#end articles#}
                 {% else %}
-                    {% set x = subject.entry %}
+                    {% set x = subject %}
                     {% include "components/show-content.njk" %} {# show subject #}
                 {% endif %}
             </div>
