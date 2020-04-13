@@ -4,7 +4,7 @@
 
 {% if x.data.imageLayout == "left"%}
     {% if x.data.img %}
-            <img src="/img/{{x.data.img}}" alt="x.data.name" loading="lazy">
+            <img src="/img/{{x.data.img}}" alt="x.data.name" loading="lazy" class="left">
     {% endif %}
 {% endif %}
 
@@ -15,8 +15,8 @@
 {#----------------------------------------- IMAGE SCROLL -------------------------------------- #}
 
 {% if x.data.imageLayout == "scroll" %} 
-    <div>
-        <img src="/img/{{x.data.img}}" alt="x.data.name" loading="lazy">
+    <div class="scroll">
+        <img src="/img/{{x.data.img}}" alt="x.data.name" loading="lazy" class="scroll">
     </div>
 {% endif %}
 
@@ -33,16 +33,16 @@
 {#----------------------------------------- IMAGE DOUBLE -------------------------------------- #}
 
 {% if x.data.imageLayout == "double" %}
-    <div class="md:flex md:justify-around max-w-2xl mx-auto">
-        <img src="/img/{{x.data.img}}" class="rounded-md max-w-full sm:max-w-xs" alt="x.data.name" loading="lazy">
-        <img src="/img/{{x.data.img2}}" class="rounded-md max-w-full sm:max-w-xs" alt="x.data.name" loading="lazy">
+    <div class="double">
+        <img src="/img/{{x.data.img}}" alt="x.data.name" loading="lazy">
+        <img src="/img/{{x.data.img2}}" alt="x.data.name" loading="lazy">
     </div>
 {% endif %}
 
 {#----------------------------------------- NOEUDS -------------------------------------- #}
 
 {%- if x.data.avantages.length -%}
-    <h5>Avantages</h5>
+    <h5>Avantageslol</h5>
     <ul>
     {%- for a in x.data.avantages -%}
         <li>- {{ a }}</li>
