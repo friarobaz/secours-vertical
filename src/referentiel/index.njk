@@ -9,7 +9,7 @@
 </head>
 
 <body>
-{% include "components/menu-referentiel.njk" %}
+{% include "menu-referentiel.njk" %}
 <main>
     {% set navPages = collections.all | test %}
 
@@ -21,7 +21,7 @@
                     <header>{{subject.key}}</header> {#ex: RAPPEL#}
                     {%- if subject.children.length -%} {# if articles exists in subject#}
                         {% set x = subject %}
-                        {% include "components/show-content.njk" %} {# show subject #}
+                        {% include "show-content.njk" %} {# show subject #}
                         {%- for article in subject.children -%} {# get all articles from subject #}
                             <article id="{{ article.key | slug }}" class="article">  
                                 <header>{{article.key}}</header> {#ex: MISE EN PLACE#}  
@@ -30,19 +30,19 @@
                                         <section id="{{ section.key | slug }}" class="section">
                                             <header>{{section.key}}</header> {#ex: MACHARD BAS#} 
                                             {% set x = section %}
-                                            {% include "components/show-content.njk" %} {# show section #}
+                                            {% include "show-content.njk" %} {# show section #}
                                         </section>
                                     {%- endfor -%} {#end sections#}
                                 {% else %}
                                     {% set x = article %}
-                                    {% include "components/show-content.njk" %} {# show article #}
+                                    {% include "show-content.njk" %} {# show article #}
                                 {% endif %}
                             </article>
                         {%- endfor -%} {#end articles#}
                     {% else %}
                         {% set x = subject %}
                         <article class="article">  
-                            {% include "components/show-content.njk" %} {# show subject #}
+                            {% include "show-content.njk" %} {# show subject #}
                         </article> 
                     {% endif %}
                 </div>
