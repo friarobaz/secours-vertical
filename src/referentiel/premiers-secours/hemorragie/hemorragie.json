@@ -1,4 +1,3 @@
 {
-    "layout" : "layouts/mobile.njk",
-    "tags" : "hemorragie"
+    "eleventyNavigation": {"parent": "Hemorragie"}
   }

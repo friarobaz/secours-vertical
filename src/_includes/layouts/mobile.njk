@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/style.css">
-    <title>{{name}}</title>
+    <title>{{eleventyNavigation.key}}</title>
 </head>
 <style>
     *{margin:0;
@@ -30,14 +30,14 @@
 </style>
 <body>
 
-    <h5>{{name}}</h5>
+    <h5>{{eleventyNavigation.key}}</h5>
     
     {% if img %}
         <picture>
             {% if webp %}
                 <source srcset="/img/webp/{{img|replace('.jpg', '.webp')}}" type="image/webp">
             {% endif %}
-            <img src="/img/{{img}}" alt="{{name}}">
+            <img src="/img/{{img}}" alt="{{eleventyNavigation.key}}">
         </picture>
     {% endif %}
 

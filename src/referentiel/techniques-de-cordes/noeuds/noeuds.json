@@ -1,5 +1,0 @@
-{
-    "layout" : "layouts/mobile.njk",
-    "tags" : "noeud",
-    "imageLayout" : "left"
-  }

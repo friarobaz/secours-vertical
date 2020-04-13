@@ -2,6 +2,8 @@ const eleventyNavigationPlugin = require("@11ty/eleventy-navigation");
 
 module.exports = function(eleventyConfig) {
 
+  eleventyConfig.setDataDeepMerge(true);
+
   eleventyConfig.addNunjucksFilter("test", function findNavigationEntries(nodes = [], key = "") {
     let pages = [];
     for(let entry of nodes) {

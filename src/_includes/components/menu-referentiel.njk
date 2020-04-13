@@ -9,27 +9,29 @@
 {% set menuLeafClass = "block p-0 hover:bg-white cursor-pointer rounded-sm" %}
 
 <aside class="sticky-menu">
-    {%- for categorie in navPages %}
+    {%- for categorie in navPages %} {# get all categories #}
     <div>
         <h5 class="uppercase no-underline">
-            {{ categorie.key }}
+            {{ categorie.title }} {#ex: TECHNIQUES DE CORDE#}
         </h5>
         <ul>
-            {%- for subject in categorie.children %}
+            {%- for subject in categorie.children %} {# get all subjects from categorie #}
             <li>
-                {%- if subject.children.length -%}
+                {%- if subject.children.length and subject.hideChildren != true -%} {# if articles exists in subject#}
                     <a onclick="toggleDisplay('{{subject.key|slug}}-menu')" class="{{menuLeafClass}}">
-                        {{subject.key}}
+                        {{subject.title}} {#ex: RAPPEL#}
                     </a>
                     <ul id="{{subject.key|slug}}-menu" class="pl-2 ml-1 hidden border-l border-black">
-                        {%- for article in subject.children -%}
-                            <li>
-                                <a href="#{{article.key|slug}}" class="{{menuLeafClass}}">{{article.key}}</a>
-                            </li>
+                        {%- for article in subject.children -%} {# get all articles from subject #}
+                            {%- if article.hideFromMenu != true -%}
+                                <li>
+                                    <a href="#{{article.key|slug}}" class="{{menuLeafClass}}">{{article.title}}</a> {#ex: MISE EN PLACE#}  
+                                </li>
+                            {% endif %}
                         {%- endfor -%}
                     </ul>
                 {% else %}
-                    <a href="#{{subject.key|slug}}" class="{{menuLeafClass}}">{{subject.key}}</a>
+                    <a href="#{{subject.key|slug}}" class="{{menuLeafClass}}">{{subject.title}}</a> {#ex: RAPPEL#}
                 {% endif %}
             </li>
             {%- endfor %}
