@@ -4,41 +4,32 @@
 
 PRIORITAIRE:
 
-Baptiste:
--referentiel: index automatique   
-
-
-Jules:
 
 fix: pas de paragraphe sur mise en place descendeur
 
-transfert index_old paragraphs to new index
-css referentiel
-del css from show content
+-css referentiel
+-numerotation liste referentiel
+-CSS premiers secours (entorses etc pas top)
 
-differencier titre dans menu et dans index
-change order (https://www.11ty.dev/docs/plugins/navigation/#re-ordering-items)
+-del css from show content
+-del tailwind
 
 -mobile menu automatique
 
--pas de scrollbar dans images referentiel
--numerotation liste referentiel
-
 -CSS referentiel mobile
 
--CSS premiers secours (entorses etc pas top)
-
--redirection (check lundi)
+-redirection
 
 
 
 SECONDAIRE:
 
+-pas de scrollbar dans images referentiel
 
 -proteger images?
 
 -logo images?
 
--split index (HTML, CSS, JS)
+-split index accueil (HTML, CSS, JS)
 
 -appli web comme spotair.mobi
