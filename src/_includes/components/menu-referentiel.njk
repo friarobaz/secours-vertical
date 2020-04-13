@@ -9,31 +9,31 @@
 {% set menuLeafClass = "block p-0 hover:bg-white cursor-pointer rounded-sm" %}
 
 <aside class="sticky-menu">
-    {%- for section in navPages %}
-    <section>
+    {%- for categorie in navPages %}
+    <div>
         <h5 class="uppercase no-underline">
-            {{ section.key }}
+            {{ categorie.key }}
         </h5>
         <ul>
-            {%- for entry in section.children %}
+            {%- for subject in categorie.children %}
             <li>
-                {%- if entry.children.length -%}
-                    <a onclick="toggleDisplay('{{entry.key|slug}}')" class="{{menuLeafClass}}">
-                        {{entry.key}}
+                {%- if subject.children.length -%}
+                    <a onclick="toggleDisplay('{{subject.key|slug}}-menu')" class="{{menuLeafClass}}">
+                        {{subject.key}}
                     </a>
-                    <ul id="{{entry.key|slug}}" class="pl-2 ml-1 hidden border-l border-black">
-                        {%- for x in entry.children -%}
+                    <ul id="{{subject.key|slug}}-menu" class="pl-2 ml-1 hidden border-l border-black">
+                        {%- for article in subject.children -%}
                             <li>
-                                <a href="#{{x.key|slug}}" class="{{menuLeafClass}}">{{x.key}}</a>
+                                <a href="#{{article.key|slug}}" class="{{menuLeafClass}}">{{article.key}}</a>
                             </li>
                         {%- endfor -%}
                     </ul>
                 {% else %}
-                    <a href="#{{entry.key|slug}}" class="{{menuLeafClass}}">{{entry.key}}</a>
+                    <a href="#{{subject.key|slug}}" class="{{menuLeafClass}}">{{subject.key}}</a>
                 {% endif %}
             </li>
             {%- endfor %}
         </ul>
-    </section>
+    </div>
     {%- endfor %}
 </aside>

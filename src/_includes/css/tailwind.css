@@ -20,6 +20,42 @@ main {
   padding: 0;
   }
 
+.categorie header{ /* ex: TECHNIQUES DE CORDES*/
+  font-family: 'Oswald', sans-serif; 
+  font-size: 3em; 
+  margin-top: 8vh;
+  margin-bottom: 0;
+}
+
+.subject header { /* ex: LES MOUFLAGES*/
+  font-family: 'Oswald', sans-serif; 
+  font-size: 2.5em; 
+  margin-top: 8vh;
+  margin-bottom: 0;
+  margin-left: 0;
+  margin-right: 0;
+  }
+
+.article header { /* ex: LE MOUFLAGE SIMPLE */
+  font-family: 'Oswald', sans-serif; 
+  font-size: 2em;  
+  margin-bottom: 3vh;
+  margin-top: 0;
+  margin-left: 0;
+  margin-right: 0;
+  background-color: none;
+  }
+
+.section header { /* ex: MACHARD EN BAS*/
+  font-family: 'Oswald', sans-serif; 
+  font-size: 1em;
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+  margin-left: 0;
+  margin-right: 0;
+  text-decoration: underline;
+  }
+
 article {
     overflow: hidden;
     margin-top: 2vh;
@@ -92,43 +128,8 @@ h1 {
   font-size: 8vw;
 }
 
-h2 {
-  font-family: 'Oswald', sans-serif; 
-  font-size: 3em; 
-  margin-top: 8vh;
-  margin-bottom: 0;
-  margin-left: 0;
-  margin-right: 0;
-  }
 
-h3 {
-  font-family: 'Oswald', sans-serif; 
-  font-size: 2.5em; 
-  margin-top: 8vh;
-  margin-bottom: 0;
-  margin-left: 0;
-  margin-right: 0;
-  }
 
-h4 {
-  font-family: 'Oswald', sans-serif; 
-  font-size: 2em;  
-  margin-bottom: 3vh;
-  margin-top: 0;
-  margin-left: 0;
-  margin-right: 0;
-  background-color: none;
-  }
-
-h5 {
-  font-family: 'Oswald', sans-serif; 
-  font-size: 1em;
-  margin-top: 2vh;
-  margin-bottom: 2vh;
-  margin-left: 0;
-  margin-right: 0;
-  text-decoration: underline;
-  }
 
 li {  
   margin-top: 1vh;

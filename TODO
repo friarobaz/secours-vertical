@@ -10,8 +10,11 @@ Baptiste:
 
 Jules:
 
-differencier titre dans menu et dans index
+create show-content.njk
+tags unsed
 
+differencier titre dans menu et dans index
+change order (https://www.11ty.dev/docs/plugins/navigation/#re-ordering-items)
 
 -mobile menu automatique
 

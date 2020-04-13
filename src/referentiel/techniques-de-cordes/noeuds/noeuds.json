@@ -1,4 +1,5 @@
 {
     "layout" : "layouts/mobile.njk",
-    "tags" : "noeud"
+    "tags" : "noeud",
+    "imageLayout" : "left"
   }
