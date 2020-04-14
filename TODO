@@ -4,9 +4,6 @@
 
 PRIORITAIRE:
 
-
-fix: pas de paragraphe sur mise en place descendeur
-
 -css referentiel
 -numerotation liste referentiel
 -CSS premiers secours (entorses etc pas top)
@@ -33,3 +30,9 @@ SECONDAIRE:
 -split index accueil (HTML, CSS, JS)
 
 -appli web comme spotair.mobi
+
+READ ME:
+
+-nom des fichiers json doivent etre identiques au dossiers
+-hideFromMenu: true (pour ne pas afficher dans menu)
+-hideChildren: true (pour cacher sous categories du menu)
