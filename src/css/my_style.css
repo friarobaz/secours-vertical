@@ -1,4 +1,15 @@
-@import url('https://fonts.googleapis.com/css?family=Nunito:400,700|Sen:800|Oswald&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Nunito:400,700|Sen:800|Oswald:200,300,400,500&display=swap');
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  }
+  
+html{
+    font-size: 100%;
+    
+}
 
 body {
   display: flex;
@@ -6,37 +17,90 @@ body {
   background-color: #eeeeee;
   color: #282828;
   font-family: 'Nunito', sans-serif;
+  overflow: hidden;
+  
+  width: 100vw;
+  height: 100vh;
+}
+/*-------------------------------------------  MENU  ------------------------------------------------------*/
+.menu{
+  flex: 0 0 210px;
+  position: sticky;
+  top: 0;
+  padding-left: 10px;
+  height: 100%;
+  overflow: auto;
+  border: 1px solid red;
+  font-family: 'Oswald', sans-serif; 
+  -webkit-user-select: none; /* Safari */        
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */ 
+}
+
+.menu ul{padding-left: 0;}
+.menu li{list-style: none}
+.menu .article ul{
+  border-left: 1px solid black;
+  padding-left: 0.5rem;
+  margin-left: 1rem;
+}
+
+.menu a{padding: 3px;border-radius: 2px} /* box around link */
+.menu a:hover {background-color: white; cursor: pointer}
+
+.menu .categorie{ /* ex: TECHNIQUES DE CORDES*/
+  text-transform: uppercase;
+  font-weight: 500;
+  }
+
+.menu .subject{ /* ex: NOEUD*/
+  font-weight: 300;
+  letter-spacing: 0.2px;
+  }
+
+.menu .article{ /* ex: CABESTAN*/
+  font-weight: 200;
+  letter-spacing: 0.1px;
+  }
+
+/*-------------------------------------------  END MENU  ------------------------------------------------------*/
+
+#rightside{
+flex: 1;
+overflow: auto;
+background-color: yellow;
 }
 
 main {
   max-width: 900px;
   margin: 0 auto;
-  padding: 0;
+  background-color: chartreuse;
   }
 
-header{ /* all titles*/
+main header{ /* all titles*/
   font-family: 'Oswald', sans-serif; 
 }
 
-.categorie header{ /* ex: TECHNIQUES DE CORDES*/
+main .categorie header{ /* ex: TECHNIQUES DE CORDES*/
   font-size: 3em; 
   margin-top: 8vh;
   margin-bottom: 0;
 }
 
-.subject header { /* ex: LES MOUFLAGES*/
+main .subject header { /* ex: LES MOUFLAGES*/
   font-size: 2.5em; 
   margin-top: 8vh;
   margin-bottom: 0;
   }
 
-.article header { /* ex: LE MOUFLAGE SIMPLE */
+main .article header { /* ex: LE MOUFLAGE SIMPLE */
   font-size: 2em;  
   margin-bottom: 3vh;
   margin-top: 0;
   }
 
-.section header { /* ex: MACHARD EN BAS*/
+main .section header { /* ex: MACHARD EN BAS*/
   font-size: 1em;
   margin-top: 2vh;
   margin-bottom: 2vh;
@@ -145,17 +209,6 @@ section.scroll {
     overflow-y: hidden;
     }
 
-.sticky-menu{
-    display: block;
-    position: sticky;
-    top: 0;
-    align-self: flex-start;
-    padding-left: 1vw;
-    height: 100vh;
-    width: 300px;
-    overflow: auto;
-    }
-
 .footer{
     background-color:rgba(0, 0, 0, 0.4);
     color: white;
@@ -168,8 +221,8 @@ section.scroll {
 ################################################   MOBILE   #############################################################
 #######################################################################################################################*/
 
-@media only screen and (max-width: 1100px) {
-    .sticky-menu{
+@media only screen and (max-width: 1000px) {
+    .menu{
         display: none;
         }
         

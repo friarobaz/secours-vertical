@@ -5,11 +5,12 @@
 <title>Secours Vertical</title>
 <link rel="icon" type="image/png" href="/img/logo.png">
 <link rel="stylesheet" href="/css/my_style.css">
-<link rel="stylesheet" href="/css/style.css">
+
+
 </head>
 <body>
 {% include "sticky-menu.njk" %}
-<div id="right-side">
+<div id="rightside">
     <main>
         {% set navPages = collections.all | test %}
         {%- for categorie in navPages %} {# get all categories #}
