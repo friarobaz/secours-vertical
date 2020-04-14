@@ -21,7 +21,9 @@
                         <header>{{subject.key}}</header> {#ex: RAPPEL#}
                         {%- if subject.children.length -%} {# if articles exists in subject#}
                             {% set x = subject %}
-                            {% include "show-content.njk" %} {# show subject as intro #}
+                            <div class="intro">
+                                {% include "show-content.njk" %} {# show subject as intro #}
+                            </div>
                             {%- for article in subject.children -%} {# get all articles from subject #}
                                 <article id="{{ article.key | slug }}" class="article">  
                                     <header>{{article.key}}</header> {#ex: MISE EN PLACE#}  

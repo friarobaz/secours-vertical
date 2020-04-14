@@ -24,7 +24,7 @@ body {
   padding-left: 10px;
   height: 100%;
   overflow: auto;
-  border: 1px solid red;
+  border: 0px solid red;
   font-family: 'Oswald', sans-serif; 
   -webkit-user-select: none; /* Safari */        
   -moz-user-select: none; /* Firefox */
@@ -112,6 +112,13 @@ p{
   text-align: justify;
   background-color: none;
 }
+.intro{
+  margin-top: 1rem;
+  padding-right: 1.5rem;
+  padding-left: 1.5rem;
+  border: 1px solid black;
+}
+
 main ul{
   padding-left: 2rem;
 }
