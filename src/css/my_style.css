@@ -116,13 +116,15 @@ p{
   margin-top: 1rem;
   padding-right: 1.5rem;
   padding-left: 1.5rem;
-  border: 1px solid black;
+  border: 0px solid black;
 }
 
 main li {margin-top: 1vh}
 main ul{padding-left: 2rem}
-main ol li{list-style-position: inside;}
+main ol{padding-bottom: 1.5rem}
 
+
+main ol li{list-style-position: inside;}
 main ul li{
   list-style: square;
   list-style-position: outside;
