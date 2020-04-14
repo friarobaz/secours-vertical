@@ -33,7 +33,7 @@ body {
 }
 
 .menu ul{padding-left: 0; margin-bottom: 1rem}
-.menu li{list-style: none}
+.menu li{list-style: none; margin-top: 1vh}
 .menu .article ul{
   border-left: 1px solid black;
   padding-left: 0.5rem;
@@ -65,7 +65,7 @@ overflow: auto;
 }
 
 main {
-  max-width: 900px;
+  max-width: 1000px;
   margin: 0 auto;
   padding: 1rem;
   font-family: 'Nunito', sans-serif;
@@ -119,9 +119,10 @@ p{
   border: 1px solid black;
 }
 
-main ul{
-  padding-left: 2rem;
-}
+main li {margin-top: 1vh}
+main ul{padding-left: 2rem}
+main ol li{list-style-position: inside;}
+
 main ul li{
   list-style: square;
   list-style-position: outside;
@@ -176,25 +177,13 @@ iframe {
     max-width: 100%;
     }
 
-h1 {
-  font-family: 'Oswald', sans-serif;
-  font-size: 8vw;
-}
-
-
-
-
-li {  
-  margin-top: 1vh;
-}
-
 .scroll{
     max-width: none;
     height: 100%;
     max-height: 80vh;
     }
 
-section.scroll {
+div.scroll {
     margin: 0;
     padding: 0;
     overflow-x: auto;

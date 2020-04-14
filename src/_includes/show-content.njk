@@ -16,8 +16,8 @@
 {#----------------------------------------- IMAGE SCROLL -------------------------------------- #}
 
 {% if x.entry.data.imageLayout == "scroll" %} 
-    <div>
-        <img src="/img/{{x.entry.data.img}}" alt="{{x.title}}" loading="lazy">
+    <div class="scroll">
+        <img src="/img/{{x.entry.data.img}}" alt="{{x.title}}" loading="lazy" class="scroll">
     </div>
 {% endif %}
 
