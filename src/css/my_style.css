@@ -10,7 +10,6 @@ html{font-size: 100%}
 
 body {
   display: flex;
-  text-align: justify;
   background-color: #eeeeee;
   color: #282828;
   overflow: hidden;
@@ -107,9 +106,10 @@ article .avantages_inconvenients header { /* ex: AVANTAGES*/
   margin-top: 2vh;
   margin-bottom: 2vh;
 }
-article .avantages_inconvenients li{list-style-position: inside;}
+article .avantages_inconvenients li{list-style-position: inside}
 
 p{
+  text-align: justify;
   background-color: none;
 }
 main ul{
@@ -130,10 +130,9 @@ main article {
     padding-left: 2vw;
     background-color: #fafafa;
     box-shadow: 0px 0px 10px #dddddd;
-    /*border-style: solid;*/
-  }
+}
 
-main img {
+article img {
   float: left;
   margin-right: 2vw;
   border-radius: 5px;
