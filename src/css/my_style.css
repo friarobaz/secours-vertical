@@ -137,7 +137,7 @@ main ol{padding-bottom: 1.5rem}
 main ol li{list-style-position: inside;}
 main ul li{
   list-style: square;
-  list-style-position: outside;
+  list-style-position: inside;
 }
 
 main article {
@@ -205,69 +205,8 @@ div.scroll {
 
 @media only screen and (max-width: 700px) {
 
-section.scroll {
-        height: 90vh;
+
 }
 
-img {
-        max-width: 100%;
-}
 
-a {
-  opacity: 1;
-}
-
-*{
-    margin: 0;
-    padding: 0;
-  }
-
-.desktop-only{
-    display: none;
-    }
-
-img {
-    float: none;
-    display: block;
-    margin: 1vh auto;
-    max-height: 80vh;
-    max-width: 100%;
-    }
-
-article {
-    margin-top: 1vh;
-    padding-top: 1vh;
-    padding-bottom: 1vh;
-    padding-right: 1vw;
-    padding-left: 1vw;
-    }
-
-ul {
-    margin: 0;
-    }
-
-h2 {
-    font-size: 8vw;
-    margin-top: 0;
-    text-align: center;
-    }
-
-h3 {
-    font-size: 6vw;
-    margin-top: 0;
-    text-align: center;
-    }
-
-h4 {
-    font-size: 5vw;  
-    margin-bottom: 0;
-    text-align: center;
-    }
-
-h5 {
-  font-size: 4vw; 
-    margin-top: 0;
-    text-align: center;
-    }
-}
 
