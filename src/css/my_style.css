@@ -172,7 +172,7 @@ article {
   max-width: none;
   height: 100%;
   max-height: 80vh;
-  }
+}
 
 div.scroll {
   margin: 0;
@@ -181,7 +181,8 @@ div.scroll {
   overflow-y: hidden;
   margin-bottom: 4vh;
   margin-top: 4vh;
-  }
+}
+
 div{
   border: 0px solid red;
 }
@@ -192,9 +193,9 @@ div{
 #######################################################################################################################*/
 
 @media only screen and (max-width: 1000px) {
-    .menu{
-        display: none;
-        }
+  .menu{
+      display: none;
+  }
         
 }
 
