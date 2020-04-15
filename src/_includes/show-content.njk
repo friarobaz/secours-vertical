@@ -34,9 +34,9 @@
 {#----------------------------------------- IMAGE DOUBLE -------------------------------------- #}
 
 {% if x.entry.data.imageLayout == "double" %}
-    <div class="md:flex md:justify-around max-w-2xl mx-auto">
-        <img src="/img/{{x.entry.data.img}}" class="rounded-md max-w-full sm:max-w-xs" alt="{{x.title}}" loading="lazy">
-        <img src="/img/{{x.entry.data.img2}}" class="rounded-md max-w-full sm:max-w-xs" alt="{{x.title}}" loading="lazy">
+    <div>
+        <img src="/img/{{x.entry.data.img}}"  alt="{{x.title}}" loading="lazy">
+        <img src="/img/{{x.entry.data.img2}}" alt="{{x.title}}" loading="lazy">
     </div>
 {% endif %}
 

@@ -94,7 +94,7 @@ main .article header { /* ex: LE MOUFLAGE SIMPLE */
   margin-top: 0;
   }
 
-main .section header { /* ex: MACHARD EN BAS*/
+main .section header { /* ex: rien pour l'instant */
   font-size: 1em;
   margin-top: 2vh;
   margin-bottom: 2vh;
@@ -111,6 +111,16 @@ article .avantages_inconvenients li{list-style-position: inside}
 p{
   text-align: justify;
   background-color: none;
+
+  font-size: 1em;
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+  margin-left: 0;
+  margin-right: 0;
+}
+a {
+  text-decoration: none;
+  color: inherit;
 }
 .intro{
   margin-top: 1rem;
@@ -150,26 +160,15 @@ article img {
   max-width: 45%;
   }
 
-a {
-  text-decoration: none;
-  color: inherit;
-}
 
-p {
-  font-size: 1em;
-  margin-top: 2vh;
-  margin-bottom: 2vh;
-  margin-left: 0;
-  margin-right: 0;
-  }
 
-section {
+/*section {
     overflow: auto;
     margin-top: 0;
     padding: 0;
     /*border-style: solid;
     border-color: red;*/
-    }   
+    }   */
 
 iframe {
     float: left;
