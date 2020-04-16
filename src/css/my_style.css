@@ -168,15 +168,13 @@ article {
   box-shadow: 0px 0px 10px #dddddd;
 }
 
-.scroll{
+img.scroll{
   max-width: none;
   height: 100%;
   max-height: 80vh;
 }
 
 div.scroll {
-  margin: 0;
-  padding: 0;
   overflow-x: auto;
   overflow-y: hidden;
   margin-bottom: 4vh;
