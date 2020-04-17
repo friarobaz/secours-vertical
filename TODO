@@ -8,6 +8,7 @@ PRIORITAIRE:
 -mobile menu automatique
 
 -CSS referentiel mobile
+-appli web comme spotair.mobi
 
 -redirection
 
@@ -21,11 +22,10 @@ SECONDAIRE:
 
 -animation doesnt work firefox
 
-no context menu on imgs
+-no context menu on imgs
 
 -article sur le matos, ajouter noeud en bout de corde? change effet poulie avec 2 personnes?
 
--pas de scrollbar dans images referentiel
 
 -proteger images?
 
@@ -33,7 +33,6 @@ no context menu on imgs
 
 -split index accueil (HTML, CSS, JS)
 
--appli web comme spotair.mobi
 
 READ ME:
 
