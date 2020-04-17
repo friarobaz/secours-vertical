@@ -20,28 +20,28 @@
         <ul>
             {%- for subject in categorie.children %} {# get all subjects from categorie #}
             <li>
-                {%- if subject.children.length and subject.hideChildren != true -%} {# if articles exists in subject#}
+                {%- if subject.children.length -%} {# if articles exists in subject#}
                     <header class="subject">
                         <a onclick="toggleDisplay('{{subject.key|slug}}-menu')">
-                            {{subject.title}} {#ex: RAPPEL#}
+                            {{subject.key}} {#ex: RAPPEL#}
                         </a>
                     </header>
                     <div class="article">
                         <ul id="{{subject.key|slug}}-menu" style="display: none">
                             {%- for article in subject.children -%} {# get all articles from subject #}
-                                {%- if article.hideFromMenu != true -%}
+                                
                                     <li>
                                         <header>
-                                            <a href="/referentiel/{{categorie.key|slug}}/{{subject.key|slug}}/{{article.title}}">{{article.title}}</a> {#ex: MISE EN PLACE#}  
+                                            <a href="/referentiel/{{categorie.key|slug}}/{{subject.key|slug}}/{{article.title|slug}}">{{article.key}}</a> {#ex: MISE EN PLACE#}  
                                         </header>
                                     </li>
-                                {% endif %}
+                                
                             {%- endfor -%}
                         </ul>
                     </div>
                 {% else %}
                     <header class="subject">
-                        <a href="#{{subject.key|slug}}">{{subject.title}}</a> {#ex: RAPPEL#}
+                        <a href="/referentiel/{{categorie.key|slug}}/{{subject.title|slug}}">{{subject.key}}</a> {#ex: RAPPEL#}
                     </header>
                 {% endif %}
             </li>

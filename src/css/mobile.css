@@ -1,0 +1,138 @@
+@import url('https://fonts.googleapis.com/css?family=Nunito:400,700|Oswald:200,300,400,500&display=swap');
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  }
+  
+html{font-size: 100%}
+
+body {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  background-color: #eeeeee;
+  color: #282828;
+  font-family: 'Nunito', sans-serif;
+}
+
+#rightside{
+  flex: 1;
+  overflow: auto;
+  scrollbar-width: none;
+}
+
+#rightside::-webkit-scrollbar {
+  display: none;
+ }
+  
+main {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+
+/*--------------------------------------------  TITLES  ------------------------------------------------*/
+main header{ /* all titles*/
+  font-family: 'Oswald', sans-serif; 
+}
+main .categorie header{ /* ex: TECHNIQUES DE CORDES*/
+  font-size: 3em; 
+}
+main .categorie {
+  margin-bottom: 10rem;
+}
+
+main .subject header { /* ex: LES MOUFLAGES*/
+  font-size: 2.5em; 
+  margin-top: 8vh;
+  }
+
+main .article header { /* ex: LE MOUFLAGE SIMPLE */
+  font-size: 2em;  
+  margin-bottom: 3vh;
+  margin-top: 2vh;
+  }
+
+main .section header { /* ex: rien pour l'instant */
+  font-size: 1em;
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+  text-decoration: underline;
+  }
+
+article .avantages_inconvenients header { /* ex: AVANTAGES*/
+  font-size: 1em;
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+}
+
+/*-------------------------------------------  GENERIC -----------------------------------------------*/
+
+p{
+  text-align: justify;
+  font-size: 1em;
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+a:visited{
+  color: inherit;
+}
+
+img {
+  border-radius: 5px;
+  max-height: 80vh;
+  max-width: 100%;
+}
+
+iframe {
+  float: left;
+  margin-right: 2vw;
+  border-radius: 10px;
+  max-height: 80vh;
+  max-width: 100%;
+  }
+
+/*-------------------------------------------  LISTS -----------------------------------------------*/
+main ul{padding-left: 2rem}
+main ol{padding-bottom: 1.5rem}
+main li {margin-top: 1vh;}
+main ul li{list-style: square;list-style-position: inside;}
+main ol li{list-style-position: inside}
+
+/*-------------------------------------------  BOXES -----------------------------------------------*/
+
+.intro{
+  margin-top: 1rem;
+  padding-right: 1.5rem;
+  padding-left: 1.5rem;
+}
+
+article {
+    padding: 10px;
+  border-radius: 5px;
+  background-color: #fafafa;
+  box-shadow: 0px 0px 10px #dddddd;
+}
+
+img.scroll{
+  max-width: none;
+  height: 100%;
+  max-height: 80vh;
+}
+
+div.scroll {
+  overflow-x: auto;
+  overflow-y: hidden;
+  margin-bottom: 4vh;
+  margin-top: 4vh;
+}

@@ -1,3 +1,4 @@
 {
-    "eleventyNavigation": {"parent": "Premiers secours"}
+  "layout" : "mobile.njk",    
+  "eleventyNavigation": {"parent": "Premiers secours"}
   }
