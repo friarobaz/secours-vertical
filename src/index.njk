@@ -36,11 +36,11 @@
         }
 
         .fade_to_color{
-            animation: switch 1s linear 0.5s 1 normal forwards;
+            animation: switch 1s linear 0s 1 normal forwards;
         }
 
         .fade_to_bw{
-            animation: switch_back 1s linear 0.5s 1 normal forwards;
+            animation: switch_back 1s linear 0s 1 normal forwards;
         }
 
         @keyframes switch {
@@ -470,8 +470,8 @@ $(document).ready(function() {
             $("body").addClass("fade_to_color");
             $("body").removeClass("fade_to_bw");
             }else if ($("body").hasClass("fade_to_color")){
-            $("body").removeClass("fade_to_color");
             $("body").addClass("fade_to_bw");
+            $("body").removeClass("fade_to_color");
             };
         }; //end if not mobile
     //console.log(page)
