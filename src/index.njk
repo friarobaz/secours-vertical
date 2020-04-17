@@ -176,21 +176,23 @@
         }
 
         #nous{
-            margin-top: 5vw;
-            background-color: rgba(255, 255, 255, 0.0);
+            margin-top: 4vh;
             color: white;
             align-items: flex-start;
+            justify-content: space-between;
+            padding: 0;
         }
 
         .personne{
             display: flex;
-            flex:1;
             align-items: center;
-            max-width: 80vw;
+            flex:1;
+           
         }
 
         .presentation{
-            margin: 1rem;
+            padding-left: 1vw;
+            
         }
         
         footer{
@@ -368,33 +370,39 @@
         </div>
 <!-- ########################################################---  PAGE 5: QUI SOMMES NOUS ---########################################################## -->
         <div id="nous" class="card">
-            <h2>Qui sommes-nous ?</h2>
-                <div class="personne" style="margin-bottom: 1vw;">
-                    <img src="/img/jules.jpg" alt="" style="border-radius: 100%; height: 30vh;">
-                    <div class="presentation">
-                        <h3>Jules Marchand</h3>
-                        <p style="font-weight: 300;">
-                            Jules est le fondateur et formateur principal de Secours Vertical.<br><br>
-                            Il est moniteur d'escalade, diplômé du CREPS de Montpellier en 2018.<br>
-                            De 2014 à 2018 il a été secouriste bénévole pour la Croix Rouge Francaise à Paris.<br>
-                             Il est maintenant pompier volontaire en Haute-Savoie. 
-
-                        </p>
-                    </div>
+            <div style="flex: 0 1 auto">
+                <h2>Qui sommes-nous ?</h2>
+            </div>
+            <div class="personne">
+                <div style="flex: 0 1 200px; padding: 0vh">
+                    <img src="/img/jules.jpg" alt="" style="border-radius: 100%; max-height: 100%; max-width: 100%">
                 </div>
-                <div class="personne">
-                    <img src="/img/julie.jpg" alt="" style="border-radius: 100%; height: 30vh">
-                    <div class="presentation">
-                        <h3>Julie Garcia</h3>
-                        <p style="font-weight: 300;">
-                            Julie est kinésithérapeute diplômée de l'IFMK de Montpellier en 2014.<br>
-                            Elle est formatrice pour Secours Vertical, et a participé activement à la création du référentiel.<br>
-                            Elle est cofondatrice de KineGrimpe, une formation sur la progression et la prévention des blessures en escalade. Plus d'info :
-                            <a href="http://www.kinegrimpe.com" target="blank" style="text-decoration: underline;">www.kinegrimpe.com</a>
-                            <br>
-                        </p>
-                    </div>
+                <div class="presentation">
+                    <h3>Jules Marchand</h3>
+                    <p style="font-weight: 300;">
+                        Jules est le fondateur et formateur principal de Secours Vertical.<br><br>
+                        Il est moniteur d'escalade, diplômé du CREPS de Montpellier en 2018.<br>
+                        De 2014 à 2018 il a été secouriste bénévole pour la Croix Rouge Francaise à Paris.<br>
+                        Il est maintenant pompier volontaire en Haute-Savoie.<br>
+                    </p>
                 </div>
+            </div>
+            <div class="personne">
+                <div style="flex: 0 1 200px; padding: 0vh">
+                    <img src="/img/julie.jpg" alt="" style="border-radius: 100%; max-height: 100%; max-width: 100%">
+                </div>
+                <!-- <img src="/img/julie.jpg" alt="" style="border-radius: 100%"> -->
+                <div class="presentation" style="max-width:80vh">
+                    <h3>Julie Garcia</h3>
+                    <p style="font-weight: 300;">
+                        Julie est kinésithérapeute diplômée de l'IFMK de Montpellier en 2014.<br>
+                        Elle est formatrice pour Secours Vertical, et a participé activement à la création du référentiel.<br>
+                        Elle est cofondatrice de KineGrimpe, une formation sur la progression et la prévention des blessures en escalade. Plus d'info :
+                        <a href="http://www.kinegrimpe.com" target="blank" style="text-decoration: underline;">www.kinegrimpe.com</a><br>
+                        
+                    </p>
+                </div>
+            </div>
         </div>
     </main>
     <footer>
@@ -468,7 +476,7 @@ $(document).ready(function() {
             $("body").addClass("fade_to_bw");
             };
         }; //end if not mobile
-    console.log(page)
+    //console.log(page)
   }); //end scroll main
 
 }); // end document ready
