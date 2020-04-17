@@ -3,10 +3,9 @@
   "version": "1.0.0",
   "description": "Secours Vertical",
   "scripts": {
-    "build": "rm -rf _site && postcss src/_includes/css/tailwind.css -o src/css/style.css && ELEVENTY_ENV=production eleventy",
-    "watch:css": "postcss src/_includes/css/tailwind.css -o src/css/style.css --watch",
+    "build": "rm -rf _site && ELEVENTY_ENV=production eleventy",
     "watch:html": "eleventy --serve",
-    "dev": "rm -rf _site && npm run watch:html & npm run watch:css"
+    "dev": "rm -rf _site && npm run watch:html"
   },
   "repository": {
     "type": "git",
@@ -23,8 +22,7 @@
     "@11ty/eleventy-navigation": "^0.1.5",
     "@fullhuman/postcss-purgecss": "^2.1.2",
     "autoprefixer": "^9.7.4",
-    "postcss-cli": "^7.1.0",
-    "tailwindcss": "^1.2.0"
+    "postcss-cli": "^7.1.0"
   },
   "dependencies": {}
 }

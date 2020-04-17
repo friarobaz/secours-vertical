@@ -4,7 +4,7 @@
 
 PRIORITAIRE:
 
-
+-CSS mobile menu
 -mobile menu automatique
 
 -CSS referentiel mobile
@@ -17,8 +17,6 @@ PRIORITAIRE:
 SECONDAIRE:
 
 -mouflage boucle photo
-
--del tailwind
 
 -animation doesnt work firefox
 
