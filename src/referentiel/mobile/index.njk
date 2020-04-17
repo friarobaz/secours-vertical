@@ -1,9 +1,13 @@
-<script>
-    function toggleDisplay(id) {
-        const e = document.getElementById(id)
-        e.style.display = e.style.display === 'block' ? 'none' : 'block'
-    }
-</script>
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Secours Vertical</title>
+<link rel="icon" type="image/png" href="/img/logo.png">
+<link rel="stylesheet" href="/css/mobile-menu.css">
+
+</head>
+<body>
 
 {% set navPages = collections.all | eleventyNavigation %}
 
@@ -18,7 +22,7 @@
             <li>
                 {%- if subject.children.length and subject.hideChildren != true -%} {# if articles exists in subject#}
                     <header class="subject">
-                        <a href="#{{subject.key|slug}}" onclick="toggleDisplay('{{subject.key|slug}}-menu')">
+                        <a onclick="toggleDisplay('{{subject.key|slug}}-menu')">
                             {{subject.title}} {#ex: RAPPEL#}
                         </a>
                     </header>
@@ -28,7 +32,7 @@
                                 {%- if article.hideFromMenu != true -%}
                                     <li>
                                         <header>
-                                            <a href="#{{article.key|slug}}">{{article.title}}</a> {#ex: MISE EN PLACE#}  
+                                            <a href="/referentiel/{{categorie.key|slug}}/{{subject.key|slug}}/{{article.title}}">{{article.title}}</a> {#ex: MISE EN PLACE#}  
                                         </header>
                                     </li>
                                 {% endif %}
@@ -46,3 +50,11 @@
     </div>
     {%- endfor %}
 </aside>
+</body>
+<script>
+    function toggleDisplay(id) {
+        const e = document.getElementById(id)
+        e.style.display = e.style.display === 'block' ? 'none' : 'block'
+    }
+</script>
+</html>
