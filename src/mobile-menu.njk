@@ -1,94 +1,60 @@
-{%
-    set menuSections = [
-        { "title": "techniques de cordes", "items": [
-            { "title": "Noeuds" , "collection": collections.noeud },
-            { "title": "Mouflages" , "collection": collections.mouflage },
-            { "title": "Réchappes" , "collection": collections.rechappe },
-            { "title": "Remontées sur corde" , "collection": collections.remontee },
-            { "title": "Rappel" , "collection": collections.rappel },
-            { "title": "Débrayer" },
-            { "title": "Relais sur points espacés" }
-        ]},
-        { "title": "premiers secours", "items": [
-            { "title": "Hémorragie" },
-            { "title": "Inconscience" },
-            { "title": "Alerte" },
-            { "title": "Plaies" },
-            { "title": "Entorses", "collection": collections.entorses },
-            { "title": "Brûlures" }
-            ]}
-    ]
-%}
-
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Secours Vertical</title>
-    <style>
-        ul {
-            list-style: none;
-        }
-        * {
-            margin: 0;
-            padding: 0;
-        }
-        h3 {
-            text-transform: uppercase;
-            text-align: center;
-        }
-        h4 {
-            padding-left: 5px;
-        }
-        body {
-            font-family: sans-serif;
-        }
-        li ul li {
-            padding-left: 15px;
-        }
-        a:visited {
-            color: black;
-        }
-        a {
-            text-decoration: none;
-            color: black;
-            display: block;
-            padding: 10px 0;
-            padding-left: 5px;
-        }
-    </style>
-  </head>
-  <body>
-    <aside>
-    {%- for section in menuSections -%}
-    <section>
-        <h3>
-            {{section.title}}
-        </h3>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Secours Vertical</title>
+<link rel="icon" type="image/png" href="/img/logo.png">
+<link rel="stylesheet" href="/css/mobile-menu.css">
+
+</head>
+<body>
+
+{% set navPages = collections.all | eleventyNavigation %}
+
+<aside class="menu">
+    {%- for categorie in navPages %} {# get all categories #}
+    <div>
+        <header class="categorie">
+            {{ categorie.title }} {#ex: TECHNIQUES DE CORDE#}
+        </header>
         <ul>
-            {%- for item in section.items -%}
-                <li>
-                    {% if item.collection %}
-                        <h4>
-                            {{item.title}}
-                        </h4>
-                        <ul id="{{item.title|slug}}" class="pl-2 ml-1 hidden border-l border-black">
-                            {%- for x in item.collection -%}
-                                {% if x.data.name %}
-                                <li>
-                                    <a href="/referentiel/{{section.title|slug}}/{{item.title|slug}}/{{x.data.name|slug}}">{{x.data.name}}</a>
-                                </li>
-                                {% endif %}
+            {%- for subject in categorie.children %} {# get all subjects from categorie #}
+            <li>
+                {%- if subject.children.length -%} {# if articles exists in subject#}
+                    <header class="subject">
+                        <a onclick="toggleDisplay('{{subject.key|slug}}-menu')">
+                            {{subject.key}} {#ex: RAPPEL#}
+                        </a>
+                    </header>
+                    <div class="article">
+                        <ul id="{{subject.key|slug}}-menu" style="display: none">
+                            {%- for article in subject.children -%} {# get all articles from subject #}
+                                
+                                    <li>
+                                        <header>
+                                            <a href="/referentiel/{{categorie.key|slug}}/{{subject.key|slug}}/{{article.title|slug}}">{{article.key}}</a> {#ex: MISE EN PLACE#}  
+                                        </header>
+                                    </li>
+                                
                             {%- endfor -%}
                         </ul>
-                    {% else %}
-                        <a href="/referentiel/{{section.title|slug}}/{{item.title|slug}}">{{item.title}}</a>
-                    {% endif %}
-                </li>
-            {%- endfor -%}
+                    </div>
+                {% else %}
+                    <header class="subject">
+                        <a href="/referentiel/{{categorie.key|slug}}/{{subject.title|slug}}">{{subject.key}}</a> {#ex: RAPPEL#}
+                    </header>
+                {% endif %}
+            </li>
+            {%- endfor %}
         </ul>
-    </section>
-    {%- endfor -%}
+    </div>
+    {%- endfor %}
 </aside>
-  </body>
+</body>
+<script>
+    function toggleDisplay(id) {
+        const e = document.getElementById(id)
+        e.style.display = e.style.display === 'block' ? 'none' : 'block'
+    }
+</script>
 </html>
