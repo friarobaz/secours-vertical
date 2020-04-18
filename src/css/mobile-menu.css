@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Nunito:400,700|Oswald:200,300,400,500&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Nunito:400,700|Oswald:200,300,500&display=swap');
 
 * {
   box-sizing: border-box;
@@ -41,18 +41,17 @@ header{
 .menu .categorie{ /* ex: TECHNIQUES DE CORDES*/
   text-transform: uppercase;
   font-weight: 500;
-  font-size: 8vw;
+  font-size: 1.5rem;
   }
 
 .menu .subject{ /* ex: NOEUD*/
-  font-size: 6vw;
-  font-weight: 400;
-  color: #282828;
+  font-size: 1.5rem;
+  font-weight: 300;
   letter-spacing: 0.2px;
   }
 
 .menu .article{ /* ex: CABESTAN*/
-  font-size: 5vw;
+  font-size: 1.3rem;
   font-weight: 200;
   letter-spacing: 0.2px;
   }

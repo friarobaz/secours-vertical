@@ -10,15 +10,24 @@
 <main>
 <article>
     <header>{{eleventyNavigation.key}}</header>
-    <p>{{content|safe}}</p>
-    {% if img %}
-        <picture>
-            {% if webp %}
-                <source srcset="/img/webp/{{img|replace('.jpg', '.webp')}}" type="image/webp">
-            {% endif %}
-            <img src="/img/{{img}}" alt="{{eleventyNavigation.key}}">
-        </picture>
+
+    {{content|safe}}
+
+    {% if imageLayout == "left" %}
+        <img src="/img/{{img}}" alt="{{eleventyNavigation.key}}">
     {% endif %}
+    {% if imageLayout == "double" %}
+        <div>
+            <img src="/img/{{img}}"  alt="{{eleventyNavigation.key}}">
+            <img src="/img/{{img2}}" alt="{{eleventyNavigation.key}}">
+        </div>
+    {% endif %}
+    {% if imageLayout == "scroll" %} 
+    <div class="scroll">
+        <img src="/img/{{img}}" alt="{{eleventyNavigation.key}}" class="scroll">
+    </div>
+{% endif %}
+
     {% if etapes.length %}
     <ol>
         {%- for etape in etapes -%}
@@ -26,22 +35,23 @@
         {%- endfor -%}
     </ol>
     {% endif %}
+
     {%- if avantages.length -%}
-    <div class="avantages_inconvenients">
-        <header>Avantages</header>
-        <ul>
-        {%- for a in avantages -%}
-            <li>{{ a }}</li>
-        {%- endfor -%}
-        </ul>
-        <header>Inconvénients</header>
-        <ul>
-        {%- for i in inconvenients -%}
-            <li>{{ i }}</li>
-        {%- endfor -%}
-        </ul>
-    </div>
-{% endif %}
+        <div class="avantages_inconvenients">
+            <header>Avantages</header>
+            <ul>
+            {%- for a in avantages -%}
+                <li>{{ a }}</li>
+            {%- endfor -%}
+            </ul>
+            <header>Inconvénients</header>
+            <ul>
+            {%- for i in inconvenients -%}
+                <li>{{ i }}</li>
+            {%- endfor -%}
+            </ul>
+        </div>
+    {% endif %}
 </article>
 </main>
 </body>
