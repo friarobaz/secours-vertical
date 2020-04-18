@@ -41,17 +41,17 @@ header{
 .menu .categorie{ /* ex: TECHNIQUES DE CORDES*/
   text-transform: uppercase;
   font-weight: 500;
-  font-size: 1.5rem;
+  font-size: 6vw;
   }
 
 .menu .subject{ /* ex: NOEUD*/
-  font-size: 1.5rem;
+  font-size: 6vw;
   font-weight: 300;
   letter-spacing: 0.2px;
   }
 
 .menu .article{ /* ex: CABESTAN*/
-  font-size: 1.3rem;
+  font-size: 6vw;
   font-weight: 200;
   letter-spacing: 0.2px;
   }
