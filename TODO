@@ -4,7 +4,6 @@
 
 PRIORITAIRE:
 
-
 referencement
 
 SECONDAIRE:
@@ -17,6 +16,12 @@ SECONDAIRE:
 
 READ ME:
 
+-sections prises en charges par index mais pas utilisé parce que ca ne marcherai pas sur mobile
 -nom des fichiers json doivent etre identiques au dossiers
 -hideFromMenu: true (pour ne pas afficher dans menu)
 -hideChildren: true (pour cacher sous categories du menu)
+
+categorie : Techniques de cordes
+subject : Rappel
+article : Mise en place du descendeur
+section : Machard en dessous
