@@ -2,7 +2,9 @@
 
 {#----------------------------------------- CONTENT ------------------------------------------ #}
 
-<p>{{ x.entry.templateContent | safe }}</p> 
+{% if x.entry.data.textLayout != "right"%}
+    <p>{{ x.entry.templateContent | safe }}</p> 
+{% endif %}
 
 {#------------------------------------------ IMAGE LEFT -------------------------------------- #}
 
@@ -11,6 +13,11 @@
             <img src="/img/{{x.entry.data.img}}" alt="{{x.title}}" loading="lazy">
     {% endif %}
 {% endif %}
+
+{% if x.entry.data.textLayout == "right"%}
+    <p>{{ x.entry.templateContent | safe }}</p> 
+{% endif %}
+
 
 
 {#----------------------------------------- IMAGE SCROLL -------------------------------------- #}
