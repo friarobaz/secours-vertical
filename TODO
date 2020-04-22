@@ -5,6 +5,7 @@
 PRIORITAIRE:
 
 version mobile ou on peut scroller
+enlever les fichiers specifiques au mobile (mobile.njk, mobile.css)
 
 SECONDAIRE:
 

@@ -67,6 +67,7 @@ main {
   text-decoration: none;
   color: inherit;
 }
+.menu a:visited {color: inherit}
 
 .menu a{padding: 3px; border-radius: 2px} /* box around link */
 .menu a:hover {background-color: white; cursor: pointer}
@@ -131,12 +132,12 @@ p{
 }
 
 main a {
-  color: inherit;
+  color: rgb(32, 2, 163);
   font-weight: bold;
 }
 
-a:visited{
-  color: inherit;
+main a:visited{
+  color: rgb(72, 2, 163);
 }
 
 img {
