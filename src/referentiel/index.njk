@@ -39,7 +39,9 @@
                                         {%- endfor -%} {#end sections#}
                                     {% else %}
                                         {% set x = article %}
-                                        {% include "show-content.njk" %} {# show article #}
+                                        <section>
+                                            {% include "show-content.njk" %} {# show article #}
+                                        </section>
                                     {% endif %}
                                 </article>
                             {%- endfor -%} {#end articles#}

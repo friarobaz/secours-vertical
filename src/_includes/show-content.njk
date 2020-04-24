@@ -15,7 +15,9 @@
 
 {% if x.entry.data.imageLayout == "left"%}
     {% if x.entry.data.img %}
+        <div>
             <img src="/img/{{x.entry.data.img}}" alt="{{x.title}}" loading="lazy">
+        </div>
     {% endif %}
 {% endif %}
 
