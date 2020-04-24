@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Secours Vertical</title>
+<style>
+body{
+    font-family: sans-serif;
+}
+img{
+    max-width: 95vw;
+    max-height: 80vh;
+}
+img.scroll{
+  max-width: none;
+  height: 100%;
+  max-height: 80vh;
+}
+
+div.scroll {
+  overflow-x: auto;
+  overflow-y: hidden;
+  margin-bottom: 4vh;
+  margin-top: 4vh;
+}
+</style>
+
+</head>
+<body>
+
+{#----------------------------------------- CONTENT TOP ------------------------------------------ #}
+
+{% if textLayout != "right"%}
+    <p>{{content|safe}}</p> 
+    {% if video %}
+            <p>
+                <a href="{{video}}" target="_blank">Explications vidéo</a>
+            </p>
+    {% endif %}
+{% endif %}
+
+
+{#------------------------------------------ IMAGE LEFT -------------------------------------- #}
+
+{% if imageLayout == "left"%}
+    {% if img %}
+        <div>
+            <img src="/img/{{img}}" alt="{{x.title}}" loading="lazy">
+        </div>
+    {% endif %}
+{% endif %}
+
+{#----------------------------------------- CONTENT RIGHT------------------------------------------ #}
+{% if textLayout == "right"%}
+    <p>{{content|safe}}</p> 
+    {% if video %}
+            <p>
+                <a href="{{video}}" target="_blank">Explications vidéo</a>
+            </p>
+    {% endif %}
+{% endif %}
+
+
+{#----------------------------------------- IMAGE SCROLL -------------------------------------- #}
+
+{% if imageLayout == "scroll" %} 
+    <div class="scroll">
+        <img src="/img/{{img}}" alt="{{x.title}}" loading="lazy" class="scroll">
+    </div>
+{% endif %}
+
+{#----------------------------------------- ETAPES -------------------------------------- #}
+
+{%- if etapes.length -%}
+    <ol>
+        {%- for etape in etapes -%}
+            <li>{{etape}}</li>
+        {%- endfor -%}
+    </ol>
+{% endif %}
+
+{#----------------------------------------- IMAGE DOUBLE -------------------------------------- #}
+
+{% if imageLayout == "double" %}
+    <div>
+        <img src="/img/{{img}}"  alt="{{x.title}}" loading="lazy">
+        <img src="/img/{{img2}}" alt="{{x.title}}" loading="lazy">
+    </div>
+{% endif %}
+
+
+</body>
+</html>

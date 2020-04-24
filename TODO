@@ -11,7 +11,6 @@ SECONDAIRE:
 
 -animation doesnt work firefox
 
-
 -split index accueil (HTML, CSS, JS)
 
 
@@ -20,6 +19,7 @@ READ ME:
 -nom des fichiers json doivent etre identiques au dossiers
 -hideFromMenu: true (pour ne pas afficher dans menu)
 -hideChildren: true (pour cacher sous categories du menu)
+-hideFromGV: true (pour cacher dans menu GV)
 
 categorie : Techniques de cordes
 subject : Rappel

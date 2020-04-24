@@ -1,3 +1,4 @@
 {
-  "eleventyNavigation": {"parent": "Premiers secours"}
+  "eleventyNavigation": {"parent": "Premiers secours"},
+  "layout": "gv.njk"
   }

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Secours Vertical</title>
+<style>
+
+body{
+        background-color: rgb(221, 221, 221);
+        font-family: sans-serif;
+}
+
+.categorie{ /* ex: TECHNIQUES DE CORDES*/
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 6vw;
+  }
+.subject{ /* ex: NOEUD*/
+  font-size: 6vw;
+  }
+
+.article{ /* ex: CABESTAN*/
+  font-size: 6vw;
+  }
+
+a{
+    padding: 5px;
+    background-color: white;
+    border-radius: 5px;
+    color: black;
+    text-decoration: none;
+}
+a:visited{color: inherit}
+
+ul ul{
+    padding: 10px;
+    background-color: rgb(175, 175, 175);
+}
+
+li{
+    padding: 10px;
+    list-style: none;
+}
+
+.article ul{
+  border-left: 1px solid black;
+  padding-left: 0.5rem;
+  margin-left: 1rem;
+}
+</style>
+
+</head>
+<body>
+
+{% set navPages = collections.all | eleventyNavigation %}
+
+<aside class="menu">
+    {%- for categorie in navPages %} {# get all categories #}
+    <div>
+        <header class="categorie">
+            {{ categorie.title }} {#ex: TECHNIQUES DE CORDE#}
+        </header>
+        <ul>
+            {%- for subject in categorie.children %} {# get all subjects from categorie #}
+            {%- if subject.hideFromGV != true -%}
+            <li>
+                {%- if subject.children.length -%} {# if articles exists in subject#}
+                    <header class="subject">
+                        <a onclick="toggleDisplay('{{subject.key|slug}}-menu')">
+                            {{subject.title}} {#ex: RAPPEL#}
+                        </a>
+                    </header>
+                    <div class="article">
+                        <ul id="{{subject.key|slug}}-menu" style="display: none">
+                            {%- for article in subject.children -%} {# get all articles from subject #}
+                                {%- if article.hideFromGV != true -%}
+                                    <li>
+                                        <header>
+                                            <a href="/referentiel/{{categorie.title|slug}}/{{subject.title|slug}}/{{article.title|slug}}">{{article.title}}</a> {#ex: MISE EN PLACE#}  
+                                        </header>
+                                    </li>
+                                {% endif %}
+                            {%- endfor -%}
+                        </ul>
+                    </div>
+                {% else %}
+                    <header class="subject">
+                        <a href="/referentiel/{{categorie.title|slug}}/{{subject.title|slug}}">{{subject.title}}</a> {#ex: RAPPEL#}
+                    </header>
+                {% endif %}
+            </li>
+            {% endif %}
+            {%- endfor %}
+        </ul>
+    </div>
+    {%- endfor %}
+</aside>
+</body>
+<script>
+    function toggleDisplay(id) {
+        const e = document.getElementById(id)
+        e.style.display = e.style.display === 'block' ? 'none' : 'block'
+    }
+</script>
+</html>
