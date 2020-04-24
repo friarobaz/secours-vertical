@@ -181,6 +181,8 @@ article {
   padding-left: 2vw;
   background-color: #fafafa;
   box-shadow: 0px 0px 10px #dddddd;
+  display: flex;
+  flex-direction: column;
 }
 
 img.scroll{
@@ -214,8 +216,68 @@ div{
 
 @media only screen and (max-width: 700px) {
 
-
+  main {
+    padding: 2vw;
 }
 
+/*--------------------------------------------  TITLES  ------------------------------------------------*/
 
+  main header{ /* all titles*/
+    text-align: center;
+  }
+
+  main .categorie header{ /* ex: TECHNIQUES DE CORDES*/
+    font-size: 11vw;
+  }
+  
+  main .subject header { /* ex: RAPPEL*/
+    font-size: 10vw; 
+    margin-top: 5vh;
+    }
+  
+  main .article header { /* ex: MISE EN PLACE */
+    font-size: 8vw;  
+    margin-bottom: 2vh;
+    margin-top: 0;
+    text-align: left;
+    }
+  
+  main .section header { /* ex: MACHARD EN DESSOUS*/
+    font-size: 6vw;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+    text-decoration: underline;
+    }
+  
+  article .avantages_inconvenients header { /* ex: AVANTAGES*/
+    font-size: 5vw;
+    margin-top: 1vh;
+    text-align: left;
+  }
+
+  img {
+    float: none;
+    border-radius: 5px;
+    max-height: 90vh;
+    max-width: 100%;
+  }
+
+/*-------------------------------------------  LISTS -----------------------------------------------*/
+main ul{padding-left: 4vw}
+main ol{padding-bottom: 1vh}
+main li {margin-top: 1vh;}
+main ul li{list-style-position: outside;}
+}
+
+/*-------------------------------------------  BOXES -----------------------------------------------*/
+
+.intro{
+  margin-top: 1vh;
+  padding: 0;
+}
+
+div.scroll {
+  margin-bottom: 2vh;
+  margin-top: 2vh;
+}
 

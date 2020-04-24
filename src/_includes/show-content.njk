@@ -22,6 +22,11 @@
 {#----------------------------------------- CONTENT RIGHT------------------------------------------ #}
 {% if x.entry.data.textLayout == "right"%}
     <p>{{ x.entry.templateContent | safe }}</p> 
+    {% if x.entry.data.video %}
+            <p>
+                <a href="{{x.entry.data.video}}" target="_blank">Explications vidéo</a>
+            </p>
+    {% endif %}
 {% endif %}
 
 
