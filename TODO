@@ -4,24 +4,30 @@
 
 PRIORITAIRE:
 
+LARGEUR MAIN DIFFERENT JULIE
+rajouter dessis simple au debut de rappel coince
 
+scrollbars partout?
+pas evident q'on peut scroller les dessin?
 
+section pour version GV prises en charge??
+section menu GV
 
 SECONDAIRE:
 
--animation doesnt work firefox
+-animation doesn't work firefox
 
 -split index accueil (HTML, CSS, JS)
 
 
 READ ME:
 
--nom des fichiers json doivent etre identiques au dossiers
+-nom des fichiers json doivent être identiques au dossiers
 -hideFromMenu: true (pour ne pas afficher dans menu)
 -hideChildren: true (pour cacher sous categories du menu)
 -hideFromGV: true (pour cacher dans menu GV)
 
-categorie : Techniques de cordes
+catégorie : Techniques de cordes
 subject : Rappel
 article : Mise en place du descendeur
 section : Machard en dessous

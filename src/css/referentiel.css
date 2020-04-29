@@ -25,11 +25,12 @@ body {
 }
 
 #rightside::-webkit-scrollbar {
-  display: none;
+  /*display: none;*/
  }
   
 main {
-    max-width: 1000px;
+    /*max-width: 1000px;*/
+    max-width: 80vw;
     margin: 0 auto;
     padding: 1rem;
     overflow: hidden;
@@ -109,8 +110,8 @@ main .article header { /* ex: LE MOUFLAGE SIMPLE */
   margin-top: 2vh;
   }
 
-main .section header { /* ex: rien pour l'instant */
-  font-size: 1em;
+main .section header { /* ex: MACHARD EN DESSOUS*/
+  font-size: 1.5em;
   margin-top: 2vh;
   margin-bottom: 2vh;
   text-decoration: underline;
@@ -218,6 +219,7 @@ div{
 
   main {
     padding: 2vw;
+    max-width: unset;
 }
 
 /*--------------------------------------------  TITLES  ------------------------------------------------*/
