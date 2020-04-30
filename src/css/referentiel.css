@@ -180,7 +180,7 @@ iframe {
 main ul{padding-left: 2rem}
 main ol{padding-bottom: 1.5rem}
 main li {margin-top: 1vh;}
-main ul li{list-style: square;list-style-position: inside;}
+main ul li{list-style-position: inside;}
 main ol li{list-style-position: inside}
 
 /*-------------------------------------------  BOXES -----------------------------------------------*/
