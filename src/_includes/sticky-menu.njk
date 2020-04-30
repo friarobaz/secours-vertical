@@ -8,7 +8,9 @@
 {% set navPages = collections.all | eleventyNavigation %}
 
 <aside class="menu">
-    
+    <a href="https://www.secoursvertical.com" target="_blank" id="accueil">
+        <div class="categorie">La formation</div>
+    </a>
     {%- for categorie in navPages %} {# get all categories #}
     <div>
         <header class="categorie">

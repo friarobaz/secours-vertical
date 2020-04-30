@@ -46,10 +46,10 @@ main {
   overflow: auto;
   border: 0px solid red;
   font-family: 'Oswald', sans-serif; 
+  user-select: none; /* Standard */ 
   -webkit-user-select: none; /* Safari */        
   -moz-user-select: none; /* Firefox */
   -ms-user-select: none; /* IE10+/Edge */
-  user-select: none; /* Standard */ 
   scrollbar-width: none;
 }
 
@@ -70,8 +70,27 @@ main {
 }
 .menu a:visited {color: inherit}
 
-.menu a{padding: 3px; border-radius: 2px} /* box around link */
+.menu a{padding: 3px; border-radius: 2px;} /* box around link */
 .menu a:hover {background-color: white; cursor: pointer}
+
+#accueil div{
+  background-color: rgb(255, 196, 0);
+  border: 2px solid rgb(255, 196, 0);
+  font-family: 'Nunito', sans-serif;
+  text-align: center;
+  padding: 5px;
+  margin: 10px 0;
+}
+#accueil div:hover{
+  background-color: unset;
+  border: 2px solid rgb(255, 196, 0);
+  background-color: white;
+}
+#accueil {
+  margin: 0px;
+  padding: 0px;
+}
+
 
 .menu .categorie{ /* ex: TECHNIQUES DE CORDES*/
   text-transform: uppercase;
