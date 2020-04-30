@@ -112,7 +112,7 @@ main .article header { /* ex: LE MOUFLAGE SIMPLE */
 
 main .section header { /* ex: MACHARD EN DESSOUS*/
   font-size: 1.5em;
-  margin-top: 2vh;
+  margin-top: 5vh;
   margin-bottom: 2vh;
   text-decoration: underline;
   }
@@ -185,6 +185,7 @@ article {
   display: flex;
   flex-direction: column;
 }
+
 
 img.scroll{
   max-width: none;

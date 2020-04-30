@@ -29,8 +29,10 @@
                                     <header>{{article.key}}</header> {#ex: MISE EN PLACE#}  
                                     {%- if article.children.length -%} {# if section exists #}
                                         {% set x = article %}
-                                        {% include "show-content.njk" %} {# show article as intro#}
-                                        {%- for section in article.children -%} {# get all sctions from article #}
+                                        <div>
+                                            {% include "show-content.njk" %} {# show article as intro#}
+                                        </div>
+                                        {%- for section in article.children -%} {# get all sections from article #}
                                             <section id="{{ section.key | slug }}" class="section">
                                                 <header>{{section.key}}</header> {#ex: MACHARD BAS#} 
                                                 {% set x = section %}
