@@ -185,10 +185,14 @@ main ol li{list-style-position: inside}
 
 /*-------------------------------------------  BOXES -----------------------------------------------*/
 
-.intro{
+div .subject .intro{
   margin-top: 1rem;
   padding-right: 1.5rem;
   padding-left: 1.5rem;
+}
+div .article .intro{
+  padding: 0;
+  margin: 0;
 }
 
 article {
@@ -219,9 +223,14 @@ div.scroll {
   margin-top: 4vh;
 }
 
-div{
-  border: 0px solid red;
-}
+/*DEBUG*/
+/*
+div{border: 1px solid red;}
+.subject{border: 2px solid purple;}
+.article {border: 2px solid green;}
+.section{border: 2px solid blue;}
+.intro{border: 2px solid yellow;}
+*/
 
 
 /*#######################################################################################################################

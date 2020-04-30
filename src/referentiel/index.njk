@@ -21,15 +21,17 @@
                         <header>{{subject.key}}</header> {#ex: RAPPEL#}
                         {%- if subject.children.length -%} {# if articles exists in subject#}
                             {% set x = subject %}
-                            <div class="intro">
-                                {% include "show-content.njk" %} {# show subject as intro #}
-                            </div>
+                            {%- if x.entry.templateContent -%} {# if subject intro exists #}
+                                <div class="intro">
+                                    {% include "show-content.njk" %} {# show subject as intro #}
+                                </div>
+                            {% endif %}
                             {%- for article in subject.children -%} {# get all articles from subject #}
                                 <article id="{{ article.key | slug }}" class="article">  
                                     <header>{{article.key}}</header> {#ex: MISE EN PLACE#}  
                                     {%- if article.children.length -%} {# if section exists #}
                                         {% set x = article %}
-                                        <div>
+                                        <div class="intro">
                                             {% include "show-content.njk" %} {# show article as intro#}
                                         </div>
                                         {%- for section in article.children -%} {# get all sections from article #}
@@ -41,7 +43,7 @@
                                         {%- endfor -%} {#end sections#}
                                     {% else %}
                                         {% set x = article %}
-                                        <section>
+                                        <section class="section">
                                             {% include "show-content.njk" %} {# show article #}
                                         </section>
                                     {% endif %}
@@ -50,7 +52,9 @@
                         {% else %} {# if no articles in subject #}
                             {% set x = subject %}
                             <article class="article">  
-                                {% include "show-content.njk" %} {# show subject as article #}
+                                <section class="section">
+                                    {% include "show-content.njk" %} {# show subject as article #}
+                                </section>
                             </article> 
                         {% endif %}
                     </div>

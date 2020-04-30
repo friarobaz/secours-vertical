@@ -15,9 +15,7 @@
 
 {% if x.entry.data.imageLayout == "left"%}
     {% if x.entry.data.img %}
-        <div>
             <img src="/img/{{x.entry.data.img}}" alt="{{x.title}}" loading="lazy">
-        </div>
     {% endif %}
 {% endif %}
 
@@ -53,10 +51,10 @@
 {#----------------------------------------- IMAGE DOUBLE -------------------------------------- #}
 
 {% if x.entry.data.imageLayout == "double" %}
-    <div>
+    
         <img src="/img/{{x.entry.data.img}}"  alt="{{x.title}}" loading="lazy">
         <img src="/img/{{x.entry.data.img2}}" alt="{{x.title}}" loading="lazy">
-    </div>
+    
 {% endif %}
 
 {#----------------------------------------- NOEUDS -------------------------------------- #}
