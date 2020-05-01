@@ -6,46 +6,53 @@
 <style>
 
 body{
-        background-color: rgb(221, 221, 221);
+        background-color: rgb(233, 232, 232);
         font-family: sans-serif;
 }
 
 .categorie{ /* ex: TECHNIQUES DE CORDES*/
   text-transform: uppercase;
   font-weight: bold;
-  font-size: 6vw;
+  font-size: 1.3rem;
   }
 .subject{ /* ex: NOEUD*/
-  font-size: 6vw;
+  font-size: 1.2rem;
   }
 
 .article{ /* ex: CABESTAN*/
-  font-size: 6vw;
+  font-size: 1.1rem;
+  }
+.section{ /* ex: machard haut*/
+  font-size: 1rem;
   }
 
 a{
-    padding: 5px;
-    background-color: white;
-    border-radius: 5px;
     color: black;
     text-decoration: none;
 }
-a:visited{color: inherit}
-
-ul ul{
-    padding: 10px;
-    background-color: rgb(175, 175, 175);
+div .categorie{
+    background-color: ;
+}
+div .subject{
+    background-color: ;
 }
 
-li{
-    padding: 10px;
-    list-style: none;
+a:visited{color: inherit}
+
+ul li{ background-color: rgba(60, 122, 255, 0.0);}
+ul ul li{ background-color: rgba(255, 255, 255, 0.5);border-left: 10px solid rgb(0, 119, 255);}
+ul ul ul li{ border-left: 5px solid rgb(255, 166, 0);background-color: rgba(255, 255, 255, 0.5)}
+
+li{list-style: none; padding: 0.7rem;}
+ul{
+    margin-top: 10px;
+    padding: 0;
 }
 
 .article ul{
-  border-left: 1px solid black;
+  /*border-left: 1px solid black;
   padding-left: 0.5rem;
-  margin-left: 1rem;
+  margin-left: 1rem;*/
 }
 </style>
 
@@ -67,7 +74,7 @@ li{
                 {%- if subject.children.length -%} {# if articles exists in subject#}
                     <header class="subject">
                         <a onclick="toggleDisplay('{{subject.key|slug}}-menu')">
-                            {{subject.title}} {#ex: RAPPEL#}
+                            <div>{{subject.title}} {#ex: RAPPEL#}</div>
                         </a>
                     </header>
                     <div class="article">
@@ -75,9 +82,28 @@ li{
                             {%- for article in subject.children -%} {# get all articles from subject #}
                                 {%- if article.hideFromGV != true -%}
                                     <li>
-                                        <header>
-                                            <a href="/referentiel/{{categorie.title|slug}}/{{subject.title|slug}}/{{article.title|slug}}">{{article.title}}</a> {#ex: MISE EN PLACE#}  
-                                        </header>
+                                        {%- if article.children.length -%} {# if section exists in article#}
+                                            <header class="article">
+                                                <a onclick="toggleDisplay('{{article.key|slug}}-menu')">
+                                                    <div>{{article.title}} {#ex: MISE EN PLACE#}</div>
+                                                </a>
+                                            </header>
+                                            <div class="section">
+                                                <ul id="{{article.key|slug}}-menu" style="display: none">
+                                                    {%- for section in article.children -%} {# get all section from article #}
+                                                        <li>
+                                                            <header class="section">
+                                                                <a href="/referentiel/{{categorie.title|slug}}/{{subject.title|slug}}/{{article.title|slug}}/{{section.title|slug}}"><div>{{section.title}}</div></a> {#ex: MACHARD HAUT#}  
+                                                            </header>
+                                                        </li>
+                                                    {%- endfor -%}
+                                                </ul>
+                                            </div>
+                                        {% else %}
+                                            <header class="article">
+                                                <a href="/referentiel/{{categorie.title|slug}}/{{subject.title|slug}}/{{article.title|slug}}"><div>{{article.title}}</div></a> {#ex: MISE EN PLACE#}  
+                                            </header>
+                                        {% endif %}
                                     </li>
                                 {% endif %}
                             {%- endfor -%}
@@ -85,7 +111,7 @@ li{
                     </div>
                 {% else %}
                     <header class="subject">
-                        <a href="/referentiel/{{categorie.title|slug}}/{{subject.title|slug}}">{{subject.title}}</a> {#ex: RAPPEL#}
+                        <a href="/referentiel/{{categorie.title|slug}}/{{subject.title|slug}}"><div>{{subject.title}}</div></a> {#ex: RAPPEL#}
                     </header>
                 {% endif %}
             </li>
