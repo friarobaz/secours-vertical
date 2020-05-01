@@ -1,0 +1,5 @@
+{
+  "eleventyNavigation": {"parent": "Techniques de cordes"},
+  "layout": "gv.njk"
+  }
+
