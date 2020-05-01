@@ -50,12 +50,8 @@ main {
   -webkit-user-select: none; /* Safari */        
   -moz-user-select: none; /* Firefox */
   -ms-user-select: none; /* IE10+/Edge */
-  scrollbar-width: none;
 }
 
-.menu::-webkit-scrollbar {
-  display: none;
- }
 
 .menu ul{margin-bottom: 1rem}
 .menu li{list-style: none; margin-top: 1vh}
