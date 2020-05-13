@@ -63,6 +63,7 @@ ul{
 
 <aside class="menu">
     {%- for categorie in navPages %} {# get all categories #}
+    {%- if categorie.hideFromGV != true -%}
     <div>
         <header class="categorie">
             {{ categorie.title }} {#ex: TECHNIQUES DE CORDE#}
@@ -119,6 +120,7 @@ ul{
             {%- endfor %}
         </ul>
     </div>
+    {% endif %}
     {%- endfor %}
 </aside>
 </body>

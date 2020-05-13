@@ -30,7 +30,7 @@ body {
   
 main {
     /*max-width: 1000px;*/
-    max-width: 80vw;
+    max-width: 80vw; 
     margin: 0 auto;
     padding: 1rem;
     overflow: hidden;
@@ -237,6 +237,14 @@ div{border: 1px solid red;}
   .menu{
       display: none;
   }
+
+  main{
+    max-width: 95vw;
+  }
+
+  img.scroll{
+    max-height: 50vh;
+  }
         
 }
 
@@ -290,21 +298,27 @@ div{border: 1px solid red;}
   }
 
 /*-------------------------------------------  LISTS -----------------------------------------------*/
-main ul{padding-left: 4vw}
-main ol{padding-bottom: 1vh}
-main li {margin-top: 1vh;}
-main ul li{list-style-position: outside;}
-}
+  main ul{padding-left: 4vw}
+  main ol{padding-bottom: 1vh}
+  main li {margin-top: 1vh;}
+  main ul li{list-style-position: outside;}
+
 
 /*-------------------------------------------  BOXES -----------------------------------------------*/
 
-.intro{
-  margin-top: 1vh;
+  .intro{
+    margin-top: 1vh;
   padding: 0;
-}
+  }
 
-div.scroll {
-  margin-bottom: 2vh;
-  margin-top: 2vh;
-}
+  div .subject .intro{
+    padding-right: 0;
+    padding-left: 0;
+  }
 
+  div.scroll {
+    margin-bottom: 2vh;
+    margin-top: 2vh;
+  }
+
+}
