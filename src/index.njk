@@ -13,7 +13,7 @@
         }
 
         ::-webkit-scrollbar {
-            /*display: none;*/
+            display: none;
             }
 
         html{
@@ -82,8 +82,10 @@
             height: 80vh;
             width: 70vw;
             border: 3px solid rgba(255, 255, 255, 0.6);
-            overflow-y: auto;
+            overflow-y: scroll;
             overflow-x: hidden;
+            scroll-behavior: smooth;
+            scrollbar-width: none;
         }
 
         .card{
@@ -287,7 +289,7 @@
             <div id="sous-titre">
                 Apprendre à réagir en cas d'accident en grande voie
             </div>
-            <div id="arrow"></div>
+            <a href="#referentiel_container"><div id="arrow"></div></a>
         </div>
 <!-- ########################################################---  PAGE 2: REFERENTIEL ---########################################################## -->
 
