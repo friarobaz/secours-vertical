@@ -24,10 +24,6 @@ header{
   font-family: 'Oswald', sans-serif;
 }
 
-.menu::-webkit-scrollbar {
-  display: none;
- }
-
 .menu ul{margin-bottom: 1rem}
 .menu li{list-style: none; margin-top: 1vh}
 .menu .article ul{
