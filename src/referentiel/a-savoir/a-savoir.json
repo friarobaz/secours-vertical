@@ -1,3 +1,4 @@
 {
-    "eleventyNavigation": {"parent": "À savoir"}
+    "eleventyNavigation": {"parent": "À savoir"},
+    "layout": "gv.njk"
     }

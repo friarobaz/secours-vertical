@@ -1,4 +1,5 @@
 {
-  "eleventyNavigation": {"parent": "En cas de problème"}
+  "eleventyNavigation": {"parent": "En cas de problème"},
+  "layout": "gv.njk"
   }
 

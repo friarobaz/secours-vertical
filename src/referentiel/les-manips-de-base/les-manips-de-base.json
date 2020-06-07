@@ -1,3 +1,4 @@
 {
-    "eleventyNavigation": {"parent": "Les manips de base"}
+    "eleventyNavigation": {"parent": "Les manips de base"},
+    "layout": "gv.njk"
     }
