@@ -29,3 +29,5 @@ catégorie : Techniques de cordes
 subject : Rappel
 article : Mise en place du descendeur
 section : Machard en dessous
+
+slug ne marche pas avec les apostrophe, peut poser problème pour "voie équipée ou terrain d'aventure

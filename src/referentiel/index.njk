@@ -13,13 +13,14 @@
 {% include "sticky-menu.njk" %}
 <div id="rightside">
     <main>
+        {% include "intro.njk" %}
         {% set navPages = collections.all | test %}
         {%- for categorie in navPages %} {# get all categories #}
             <div id="{{ categorie.key | slug }}" class="categorie">
                 <header>{{ categorie.key }}</header> {#ex: TECHNIQUES DE CORDE#}
                 {%- for subject in categorie.children %}  {# get all subjects from categorie #}
                     <div id="{{ subject.key | slug }}" class="subject">
-                        <header>{{subject.key}}
+                        <header onclick="toggleDisplay('{{ subject.key | slug }}')">{{subject.key}}
                                 {%- if subject.entry.data.niveau -%} {# if niveau exists in subject #}
                                     <span class="niveau niveau_{{subject.entry.data.niveau}}"></span> {# show circle #}
                                 {% endif %}
@@ -32,7 +33,7 @@
                                 </div>
                             {% endif %}
                             {%- for article in subject.children -%} {# get all articles from subject #}
-                                <article id="{{ article.key | slug }}" class="article">  
+                                <article id="{{ article.key | slug }}" class="article" data-niveau="{{article.entry.data.niveau}}">  
                                     <header>{{article.key}}
                                             {%- if article.entry.data.niveau -%} {# if niveau exists in article #}
                                                 <span class="niveau niveau_{{article.entry.data.niveau}}"></span> {# show circle #}
@@ -44,7 +45,7 @@
                                             {% include "show-content.njk" %} {# show article as intro#}
                                         </div>
                                         {%- for section in article.children -%} {# get all sections from article #}
-                                            <section id="{{ section.key | slug }}" class="section">
+                                            <section id="{{ section.key | slug }}" class="section" data-niveau="{{section.entry.data.niveau}}">
                                                 <header>{{section.key}}
                                                         {%- if section.entry.data.niveau -%} {# if niveau exists in section #}
                                                             <span class="niveau niveau_{{section.entry.data.niveau}}"></span> {# show circle #}
@@ -64,7 +65,7 @@
                             {%- endfor -%} {#end articles#}
                         {% else %} {# if no articles in subject #}
                             {% set x = subject %}
-                            <article class="article">  
+                            <article class="article" data-niveau="{{subject.entry.data.niveau}}">  
                                 <section class="section">
                                     {% include "show-content.njk" %} {# show subject as article #}
                                 </section>
@@ -77,4 +78,19 @@
     </main>
 <div>
 </body>
+
+<script>
+    function toggleDisplay(id) {
+        const e = document.getElementById(id)
+        e.style.display = e.style.display === '' ? 'none' : ''
+    }
+    function toggleLevel(niveau){
+        var x = document.querySelectorAll('[data-niveau="'+niveau+'"]');
+        var i;
+        for (i = 0; i < x.length; i++) {
+        x[i].style.display = x[i].style.display === '' ? 'none' : ''
+        }
+    }
+</script>
+
 </html>
