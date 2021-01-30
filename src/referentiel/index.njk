@@ -19,8 +19,12 @@
                 <header>{{ categorie.key }}</header> {#ex: TECHNIQUES DE CORDE#}
                 {%- for subject in categorie.children %}  {# get all subjects from categorie #}
                     <div id="{{ subject.key | slug }}" class="subject">
-                        <header>{{subject.key}}</header> {#ex: RAPPEL#}
-                        {%- if subject.children.length -%} {# if articles exists in subject#}
+                        <header>{{subject.key}}
+                                {%- if subject.entry.data.niveau -%} {# if niveau exists in subject #}
+                                    <span class="niveau niveau_{{subject.entry.data.niveau}}"></span> {# show circle #}
+                                {% endif %}
+                        </header> {#ex: RAPPEL#}
+                        {%- if subject.children.length -%} {# if articles exists in subject #}
                             {% set x = subject %}
                             {%- if x.entry.templateContent -%} {# if subject intro exists #}
                                 <div class="intro">
@@ -29,7 +33,11 @@
                             {% endif %}
                             {%- for article in subject.children -%} {# get all articles from subject #}
                                 <article id="{{ article.key | slug }}" class="article">  
-                                    <header>{{article.key}}</header> {#ex: MISE EN PLACE#}  
+                                    <header>{{article.key}}
+                                            {%- if article.entry.data.niveau -%} {# if niveau exists in article #}
+                                                <span class="niveau niveau_{{article.entry.data.niveau}}"></span> {# show circle #}
+                                            {% endif %}
+                                    </header> {#ex: MISE EN PLACE#}  
                                     {%- if article.children.length -%} {# if section exists #}
                                         {% set x = article %}
                                         <div class="intro">
@@ -37,7 +45,11 @@
                                         </div>
                                         {%- for section in article.children -%} {# get all sections from article #}
                                             <section id="{{ section.key | slug }}" class="section">
-                                                <header>{{section.key}}</header> {#ex: MACHARD BAS#} 
+                                                <header>{{section.key}}
+                                                        {%- if section.entry.data.niveau -%} {# if niveau exists in section #}
+                                                            <span class="niveau niveau_{{section.entry.data.niveau}}"></span> {# show circle #}
+                                                        {% endif %}
+                                                </header> {#ex: MACHARD BAS#} 
                                                 {% set x = section %}
                                                 {% include "show-content.njk" %} {# show section #}
                                             </section>

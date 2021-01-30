@@ -187,6 +187,27 @@ div .article .intro{
   margin: 0;
 }
 
+.niveau{
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-left: 10px;
+  margin-bottom: -1px;
+}
+
+.niveau_1{
+  background-color: rgb(40, 139, 0);
+}
+
+.niveau_2{
+  background-color: rgb(255, 217, 0);
+}
+
+.niveau_3{
+  background-color: rgb(255, 0, 0);
+}
+
 article {
   overflow: hidden;
   margin-top: 2vh;
@@ -216,13 +237,13 @@ div.scroll {
 }
 
 /*DEBUG*/
-/*
+/* 
 div{border: 1px solid red;}
 .subject{border: 2px solid purple;}
 .article {border: 2px solid green;}
 .section{border: 2px solid blue;}
 .intro{border: 2px solid yellow;}
-*/
+ */
 
 
 /*#######################################################################################################################
