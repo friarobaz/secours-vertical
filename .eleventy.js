@@ -40,18 +40,6 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("./src/css");
   eleventyConfig.addPassthroughCopy("./src/flavicon.ico");
 
-  // New slug function to bypass apostrophe
-  const slugify = require("slugify");
-  eleventyConfig.addFilter("slug", (input) => {
-  const options = {
-    replacement: "-",
-    remove: /[&,+()$~%.'":*?<>{}]/g,
-    lower: true
-  };
-  return slugify(input, options);
-  }); 
-  //end slugify
-
   return  {
     dir: {
       input: "src",
