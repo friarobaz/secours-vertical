@@ -110,18 +110,18 @@ main .categorie {
   margin-bottom: 10rem;
 }
 
-main header.subject  { /* ex: LES MOUFLAGES*/
+main .subject header { /* ex: LES MOUFLAGES*/
   font-size: 2.5em; 
   margin-top: 8vh;
   }
 
-main header.article  { /* ex: LE MOUFLAGE SIMPLE */
+main .article header { /* ex: LE MOUFLAGE SIMPLE */
   font-size: 2em;  
   margin-bottom: 3vh;
   margin-top: 2vh;
   }
 
-main header.section  { /* ex: MACHARD EN DESSOUS*/
+main .section header { /* ex: MACHARD EN DESSOUS*/
   font-size: 1.5em;
   margin-top: 5vh;
   margin-bottom: 2vh;
