@@ -11,6 +11,7 @@
     <a href="/index.html" id="accueil">
         <div class="categorie">La formation</div>
     </a>
+    {% set navPages = collections.all | test %}
     {%- for categorie in navPages %} {# get all categories #}
     <div>
         <header class="categorie">
@@ -21,6 +22,7 @@
             <li>
                 {%- if subject.children.length and subject.hideChildren != true -%} {# if articles exists in subject#}
                     <header class="subject">
+                        <span class="circle niveau_{{subject.entry.data.niveau}}"></span> {# show circle #}
                         <a href="#{{subject.key|slug}}" onclick="toggleDisplay('{{subject.key|slug}}-menu')">
                             {{subject.title}} {#ex: RAPPEL#}
                         </a>
@@ -31,6 +33,7 @@
                                 {%- if article.hideFromMenu != true -%}
                                     <li>
                                         <header>
+                                            <span class="circle niveau_{{article.entry.data.niveau}}"></span> {# show circle #}
                                             <a href="#{{article.key|slug}}">{{article.title}}</a> {#ex: MISE EN PLACE#}  
                                         </header>
                                     </li>
@@ -40,6 +43,7 @@
                     </div>
                 {% else %}
                     <header class="subject">
+                        <span class="circle niveau_{{subject.entry.data.niveau}}"></span> {# show circle #}
                         <a href="#{{subject.key|slug}}">{{subject.title}}</a> {#ex: RAPPEL#}
                     </header>
                 {% endif %}

@@ -187,7 +187,6 @@ div .article .intro{
   margin: 0;
 }
 
-
 .niveau_1{
   background-color: rgb(40, 139, 0);
 }
@@ -200,19 +199,23 @@ div .article .intro{
   background-color: rgb(255, 0, 0);
 }
 
-.levelCircle {
-  display:inline-block;
-  line-height:0px;
-  border-radius:50%;
-  margin-left: 5px;
+.niveau_{
+  background-color: rgb(194, 192, 192);
 }
 
-.levelCircle span {
-  display:inline-block;
-  padding-top:50%;
-  padding-bottom:50%;
-  margin-right: 10px;
-  visibility: hidden;
+main .circle{
+  height: 1.5rem;
+  width: 1.5rem;
+  border-radius: 50%;
+  display: inline-block;
+  margin-left: 0.3em;
+}
+
+.menu .circle{
+  height: 0.5rem;
+  width: 0.5rem;
+  border-radius: 50%;
+  display: inline-block;
 }
 
 article {

@@ -22,7 +22,7 @@
                     <div id="{{ subject.key | slug }}" class="subject">
                         <header>{{subject.key}}
                                 {%- if subject.entry.data.niveau -%} {# if niveau exists in subject #}
-                                    <span class="levelCircle niveau_{{subject.entry.data.niveau}}"><span>1</span></span> {# show circle #}
+                                    <span class="circle niveau_{{subject.entry.data.niveau}}"></span> {# show circle #}
                                 {% endif %}
                         </header> {#ex: RAPPEL#}
                         {%- if subject.children.length -%} {# if articles exists in subject #}
@@ -36,7 +36,7 @@
                                 <article id="{{ article.key | slug }}" class="article">  
                                     <header>{{article.key}}
                                             {%- if article.entry.data.niveau -%} {# if niveau exists in article #}
-                                                <span class="levelCircle niveau_{{article.entry.data.niveau}}"><span>o</span></span> {# show circle #}
+                                            <span class="circle niveau_{{article.entry.data.niveau}}"></span> {# show circle #}
                                             {% endif %}
                                     </header> {#ex: MISE EN PLACE#}  
                                     {%- if article.children.length -%} {# if section exists #}
@@ -48,7 +48,7 @@
                                             <section id="{{ section.key | slug }}" class="section">
                                                 <header>{{section.key}}
                                                         {%- if section.entry.data.niveau -%} {# if niveau exists in section #}
-                                                            <span class="levelCircle niveau_{{section.entry.data.niveau}}"><span>o</span></span> {# show circle #}
+                                                        <span class="circle niveau_{{section.entry.data.niveau}}"></span> {# show circle #}
                                                         {% endif %}
                                                 </header> {#ex: MACHARD BAS#} 
                                                 {% set x = section %}
