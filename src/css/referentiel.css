@@ -203,19 +203,20 @@ div .article .intro{
   background-color: rgb(194, 192, 192);
 }
 
+.circle{
+  border-radius: 50%;
+  display: inline-block;
+}
+
 main .circle{
   height: 1.5rem;
   width: 1.5rem;
-  border-radius: 50%;
-  display: inline-block;
   margin-left: 0.3em;
 }
 
 .menu .circle{
   height: 0.5rem;
   width: 0.5rem;
-  border-radius: 50%;
-  display: inline-block;
 }
 
 article {
