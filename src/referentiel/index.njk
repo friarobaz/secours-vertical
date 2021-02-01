@@ -20,10 +20,9 @@
                 {%- for subject in categorie.children %}  {# get all subjects from categorie #}
                     {% set x = subject %}
                     <div id="{{ subject.key | slug }}" class="subject">
-                        <header>{{subject.key}}
-                                {%- if subject.entry.data.niveau -%} {# if niveau exists in subject #}
-                                    <span class="circle niveau_{{subject.entry.data.niveau}}"></span> {# show circle #}
-                                {% endif %}
+                        <header>
+                            {{subject.key}}
+                            {% include "levels.njk" %} {# show level circle and info #}
                         </header> {#ex: RAPPEL#}
                         {%- if subject.children.length -%} {# if articles exists in subject #}
                             {# {% set x = subject %} bougé plus haut#}
@@ -35,10 +34,9 @@
                             {%- for article in subject.children -%} {# get all articles from subject #}
                                 {% set x = article %}
                                 <article id="{{ article.key | slug }}" class="article">  
-                                    <header>{{article.key}}
-                                            {%- if article.entry.data.niveau -%} {# if niveau exists in article #}
-                                            <span class="circle niveau_{{article.entry.data.niveau}}"></span> {# show circle #}
-                                            {% endif %}
+                                    <header>
+                                        {{article.key}}
+                                        {% include "levels.njk" %} {# show level circle and info #}
                                     </header> {#ex: MISE EN PLACE#}  
                                     {%- if article.children.length -%} {# if section exists #}
                                         {# {% set x = article %} bougé plus haut #}
@@ -48,10 +46,9 @@
                                         {%- for section in article.children -%} {# get all sections from article #}
                                             {% set x = section %}
                                             <section id="{{ section.key | slug }}" class="section">
-                                                <header>{{section.key}}
-                                                        {%- if section.entry.data.niveau -%} {# if niveau exists in section #}
-                                                        <span class="circle niveau_{{section.entry.data.niveau}}"></span> {# show circle #}
-                                                        {% endif %}
+                                                <header>
+                                                    {{section.key}}
+                                                    {% include "levels.njk" %} {# show level circle and info #}
                                                 </header> {#ex: MACHARD BAS#} 
                                                 {# {% set x = section %}  bougé plus haut#}
                                                 {% include "show-content.njk" %} {# show section #}

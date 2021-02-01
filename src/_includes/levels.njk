@@ -1,1 +1,3 @@
-<div>PENISlol</div>
+{%- if x.entry.data.niveau -%} {# if niveau exists#}
+    <span class="circle niveau_{{x.entry.data.niveau}}"></span> {# show circle #}
+{% endif %}
