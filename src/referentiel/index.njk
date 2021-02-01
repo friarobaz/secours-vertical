@@ -25,7 +25,6 @@
                             {% include "levels.njk" %} {# show level circle and info #}
                         </header> {#ex: RAPPEL#}
                         {%- if subject.children.length -%} {# if articles exists in subject #}
-                            {# {% set x = subject %} bougé plus haut#}
                             {%- if x.entry.templateContent -%} {# if subject intro exists #}
                                 <div class="intro">
                                     {% include "show-content.njk" %} {# show subject as intro #}
@@ -39,7 +38,6 @@
                                         {% include "levels.njk" %} {# show level circle and info #}
                                     </header> {#ex: MISE EN PLACE#}  
                                     {%- if article.children.length -%} {# if section exists #}
-                                        {# {% set x = article %} bougé plus haut #}
                                         <div class="intro">
                                             {% include "show-content.njk" %} {# show article as intro#}
                                         </div>
@@ -50,12 +48,10 @@
                                                     {{section.key}}
                                                     {% include "levels.njk" %} {# show level circle and info #}
                                                 </header> {#ex: MACHARD BAS#} 
-                                                {# {% set x = section %}  bougé plus haut#}
                                                 {% include "show-content.njk" %} {# show section #}
                                             </section>
                                         {%- endfor -%} {#end sections#}
                                     {% else %}
-                                        {# {% set x = article %}  supprimé #}
                                         <section class="section">
                                             {% include "show-content.njk" %} {# show article #}
                                         </section>
@@ -63,7 +59,6 @@
                                 </article>
                             {%- endfor -%} {#end articles#}
                         {% else %} {# if no articles in subject #}
-                            {# {% set x = subject %}  supprimé #}
                             <article class="article">  
                                 <section class="section">
                                     {% include "show-content.njk" %} {# show subject as article #}
