@@ -18,6 +18,7 @@
             <div id="{{ categorie.key | slug }}" class="categorie">
                 <header>{{ categorie.key }}</header> {#ex: TECHNIQUES DE CORDE#}
                 {%- for subject in categorie.children %}  {# get all subjects from categorie #}
+                    {% set x = subject %}
                     <div id="{{ subject.key | slug }}" class="subject">
                         <header>{{subject.key}}
                                 {%- if subject.entry.data.niveau -%} {# if niveau exists in subject #}
@@ -25,13 +26,14 @@
                                 {% endif %}
                         </header> {#ex: RAPPEL#}
                         {%- if subject.children.length -%} {# if articles exists in subject #}
-                            {% set x = subject %}
+                            {# {% set x = subject %} bougé plus haut#}
                             {%- if x.entry.templateContent -%} {# if subject intro exists #}
                                 <div class="intro">
                                     {% include "show-content.njk" %} {# show subject as intro #}
                                 </div>
                             {% endif %}
                             {%- for article in subject.children -%} {# get all articles from subject #}
+                                {% set x = article %}
                                 <article id="{{ article.key | slug }}" class="article">  
                                     <header>{{article.key}}
                                             {%- if article.entry.data.niveau -%} {# if niveau exists in article #}
@@ -39,23 +41,24 @@
                                             {% endif %}
                                     </header> {#ex: MISE EN PLACE#}  
                                     {%- if article.children.length -%} {# if section exists #}
-                                        {% set x = article %}
+                                        {# {% set x = article %} bougé plus haut #}
                                         <div class="intro">
                                             {% include "show-content.njk" %} {# show article as intro#}
                                         </div>
                                         {%- for section in article.children -%} {# get all sections from article #}
+                                            {% set x = section %}
                                             <section id="{{ section.key | slug }}" class="section">
                                                 <header>{{section.key}}
                                                         {%- if section.entry.data.niveau -%} {# if niveau exists in section #}
                                                         <span class="circle niveau_{{section.entry.data.niveau}}"></span> {# show circle #}
                                                         {% endif %}
                                                 </header> {#ex: MACHARD BAS#} 
-                                                {% set x = section %}
+                                                {# {% set x = section %}  bougé plus haut#}
                                                 {% include "show-content.njk" %} {# show section #}
                                             </section>
                                         {%- endfor -%} {#end sections#}
                                     {% else %}
-                                        {% set x = article %}
+                                        {# {% set x = article %}  supprimé #}
                                         <section class="section">
                                             {% include "show-content.njk" %} {# show article #}
                                         </section>
@@ -63,7 +66,7 @@
                                 </article>
                             {%- endfor -%} {#end articles#}
                         {% else %} {# if no articles in subject #}
-                            {% set x = subject %}
+                            {# {% set x = subject %}  supprimé #}
                             <article class="article">  
                                 <section class="section">
                                     {% include "show-content.njk" %} {# show subject as article #}
