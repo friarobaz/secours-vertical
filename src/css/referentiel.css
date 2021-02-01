@@ -189,14 +189,17 @@ div .article .intro{
 
 .niveau_1{
   background-color: rgb(40, 139, 0);
+  border: 2px solid rgb(40, 139, 0);
 }
 
 .niveau_2{
   background-color: rgb(255, 217, 0);
+  border-color: rgb(255, 217, 0);
 }
 
 .niveau_3{
   background-color: rgb(255, 0, 0);
+  border-color: rgb(255, 0, 0);
 }
 
 .niveau_{
@@ -217,6 +220,33 @@ main .circle{
 .menu .circle{
   height: 0.5rem;
   width: 0.5rem;
+}
+
+.levelContainer:hover .levelInfo {
+  display: block;
+}
+
+.levelInfo {
+  display: none;
+  background-color: #fafafa;
+  margin-left: 28px;
+  padding: 15px;
+  position: absolute;
+  z-index: 1000;
+  max-width: 50vw;
+  border-radius: 5px;
+}
+
+header .levelInfo header {
+  font-size: 1.3rem;
+  margin: 0;
+  margin-bottom: 10px;
+  text-decoration: none;
+}
+header .levelInfo div {
+  font-size: 1rem;
+  margin: 0;
+  font-family: 'Nunito', sans-serif;
 }
 
 article {
