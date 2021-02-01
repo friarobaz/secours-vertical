@@ -1,3 +1,20 @@
-{%- if x.entry.data.niveau -%} {# if niveau exists#}
-    <span class="circle niveau_{{x.entry.data.niveau}}"></span> {# show circle #}
+{% set infos = [
+    "Les notions basiques que tout le monde devrait connaître.
+    Ces articles sont plutôt déstinélols à ceux qui débutent en grande voie.",
+    
+    "Des notions théoriques un peu plus poussées, et des manips qu'on utilise en cas de problème.",
+    
+    "Des manips plus difficiles à mettre en place, qui peuvent demander du matériel spécifique."] %}
+
+{% set niveau = x.entry.data.niveau%}
+{%- if niveau -%} {# if niveau exists#}
+    <span class="levelContainer">
+                        <span class="circle niveau_{{niveau}}"></span> {# show circle #}
+                        <span class="levelInfo niveau_{{niveau}}"> {# show info #}
+                            <header>Niveau {{niveau}}</header>
+                            <div>
+                                {{infos[niveau-1]}}
+                            </div>
+                        </span>
+                    </span>
 {% endif %}

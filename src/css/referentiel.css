@@ -194,12 +194,12 @@ div .article .intro{
 
 .niveau_2{
   background-color: rgb(255, 217, 0);
-  border-color: rgb(255, 217, 0);
+  border: 2px solid rgb(255, 217, 0);
 }
 
 .niveau_3{
   background-color: rgb(255, 0, 0);
-  border-color: rgb(255, 0, 0);
+  border: 2px solid rgb(255, 0, 0);
 }
 
 .niveau_{
