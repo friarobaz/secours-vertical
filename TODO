@@ -1,7 +1,6 @@
 
 
 
-
 PRIORITAIRE:
 
 layout GV pris en compte meme en mode desktop 
@@ -25,9 +24,7 @@ READ ME:
 -hideChildren: true (pour cacher sous categories du menu)
 -hideFromGV: true (pour cacher dans menu GV)
 
-catégorie : Techniques de cordes
-subject : Rappel
-article : Mise en place du descendeur
-section : Machard en dessous
-
-lien vers accueil dans menu
+catégorie : A savoir, Manip de base
+subject : Le materiel, Rappel
+article : les cordes, Mise en place du descendeur
+section : Cordes a simple, Machard en dessous
