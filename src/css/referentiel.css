@@ -166,7 +166,25 @@ iframe {
   border-radius: 10px;
   max-height: 80vh;
   max-width: 100%;
-  }
+}
+/* display fraction */
+.frac {
+  display: inline-block;
+  position: relative;
+  vertical-align: middle;
+  letter-spacing: 0.001em;
+  text-align: center;
+}
+.frac > span {
+  display: block;
+  padding: 0.1em;
+}
+.frac span.bottom {
+  border-top: thin solid black;
+}
+.frac span.symbol {
+  display: none;
+} 
 
 /*-------------------------------------------  LISTS -----------------------------------------------*/
 main ul{padding-left: 2rem}
@@ -249,6 +267,16 @@ header .levelInfo div {
   font-family: 'Nunito', sans-serif;
 }
 
+.aRetenir{
+  background-color: rgb(255, 196, 0);
+  padding: 10px;
+  border-radius: 5px;
+}
+.aRetenir:before {
+  content: "À retenir : ";
+  font-weight: bold;
+}
+
 article {
   overflow: hidden;
   margin-top: 2vh;
@@ -311,7 +339,7 @@ div{border: 1px solid red;}
   main {
     padding: 2vw;
     max-width: unset;
-}
+  }
 
 /*--------------------------------------------  TITLES  ------------------------------------------------*/
 

@@ -28,9 +28,7 @@
                      <span class="circle niveau_1"></span>
                 </header>
                 <div>
-                    Les notions basiques que tout le monde devrait connaître.
-                    Ces articles sont plutôt destinés à ceux qui débutent en grande voie,
-                    mais il sera peut-être judicieux d'y jeter un coup d'œil même si vous n'êtes pas débutant :)
+                    {% include "levels/level_1.njk" %}
                 </div>
             </section>
             <section>
@@ -39,8 +37,7 @@
                     <span class="circle niveau_2"></span>
                 </header>
                 <div>
-                    Des notions théoriques un peu plus poussées, et des manips qu'on utilise en cas de problème.
-                    Quand vous partez en grande voie, au moins une personne dans la cordée devrait connaître ces manips.
+                    {% include "levels/level_2.njk" %}
                 </div>
             </section>
             <section>
@@ -49,7 +46,7 @@
                     <span class="circle niveau_3"></span>
                 </header>
                 <div>
-                    Des manips plus difficiles à mettre en place, qui peuvent demander du matériel spécifique.
+                    {% include "levels/level_3.njk" %}
                 </div>
             </section>
         </article>
