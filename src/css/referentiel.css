@@ -277,6 +277,18 @@ header .levelInfo div {
   font-weight: bold;
 }
 
+.sources {
+  color: grey;
+  font-size: 0.8em;
+}
+.sources a{
+  color: grey;
+  font-weight: 400;
+}
+.sources a:visited{
+  color: grey;
+}
+
 article {
   overflow: hidden;
   margin-top: 2vh;

@@ -75,3 +75,17 @@
     </div>
 {% endif %}
 
+{#----------------------------------------- SOURCE -------------------------------------- #}
+
+{%- if x.entry.data.sources.length -%}
+    <p class="sources">
+        Source{%- if x.entry.data.sources.length > 1 -%}s{% endif %} :
+        {%- for s in x.entry.data.sources -%}
+            {%- if x.entry.data.sources.length > 1 -%} <br> {% endif %}
+            <a href="{{ s }}" target="_blank">
+                {{ s }}
+            </a>
+        {%- endfor -%}
+    </p>
+{% endif %}
+
