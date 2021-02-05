@@ -132,13 +132,14 @@ document.addEventListener("click", function(event){
         if(length(mouse, route[i])< BOLT_RADIUS){
             console.log(i);
             if(i == find_max_tensions(route)){
-                //alert("GAGNE !!");
                 win_streak++;
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
                 create_route();
                 if (level != LEVELS.length-1 && win_streak == 5){
                     level++;
                     win_streak = 0;
+                } else if(level == LEVELS.length-1 && win_streak == 5){
+                    alert("Gagné !");
                 }
                 draw_route(route, LEVELS[level].rope, LEVELS[level].vectors);
             }//end if  
