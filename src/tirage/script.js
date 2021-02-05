@@ -67,17 +67,6 @@ function create_route(){
 
 /* --- DRAWING FUNCTIONS --- */
 
-function draw_route(route){
-    ctx.beginPath();
-    ctx.moveTo(route[0].x, route[0].y);
-    for (let i = 1; i < route.length; i++) {
-        ctx.lineTo(route[i].x, route[i].y);
-    }
-    ctx.lineWidth = 3;
-    ctx.strokeStyle = "green";
-    ctx.stroke();
-}//end function draw route
-
 function draw_circle (center, radius, strokeColor, strokeWidth, fillColor){  
     ctx.beginPath();
     ctx.arc(center.x, center.y, radius, 0, 2 * Math.PI);
@@ -100,15 +89,6 @@ function draw_bolt (bolt){
     draw_circle(route[bolt], 10, "black", 2, "yellow");
 }
 
-function draw_bolts(route){
-    for (let i = 1; i < route.length-1; i++) {
-        draw_bolt(i);
-        draw_vector(i);
-    }
-    draw_circle(STARTING_POINT,10, "black", 2, "blue");
-    draw_circle(route[route.length-1],10, "black", 2, "blue");
-}
-
 function draw_line(a,b,couleur, width){
     ctx.beginPath();
     ctx.moveTo(a.x, a.y);
@@ -118,12 +98,29 @@ function draw_line(a,b,couleur, width){
     ctx.stroke();
 }//end draw_line
 
+function draw_route(route, rope, vectors){
+
+    if (rope){
+        ctx.beginPath();
+        ctx.moveTo(route[0].x, route[0].y);
+        for (let i = 1; i < route.length; i++) {
+            ctx.lineTo(route[i].x, route[i].y);
+        }
+        ctx.lineWidth = 3;
+        ctx.strokeStyle = "green";
+        ctx.stroke();
+    }//end rope
+    for (let i = 1; i < route.length-1; i++) {
+        draw_bolt(i);
+        if (vectors){draw_vector(i)};
+    }
+    draw_circle(STARTING_POINT, 10, "black", 2, "blue");
+    draw_circle(route[route.length-1], 10, "black", 2, "blue");
+}//end function draw route
 
 for (let i = 0; i < 1; i++) {
-    
     create_route();
-    draw_route(route);
-    draw_bolts(route);
+    draw_route(route, true, true);
 }//end for
 
 
