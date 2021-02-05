@@ -39,7 +39,7 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("./src/img");
   eleventyConfig.addPassthroughCopy("./src/css");
   eleventyConfig.addPassthroughCopy("./src/flavicon.ico");
-  eleventyConfig.addPassthroughCopy("./src/tirage/script.js");
+  eleventyConfig.addPassthroughCopy("./src/tirage");
 
   // New slug function to bypass apostrophe
   const slugify = require("slugify");
