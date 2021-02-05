@@ -31,3 +31,21 @@ article : les cordes, Mise en place du descendeur
 section : Cordes a simple, Machard en dessous
 
 mot de pass SSH: escalade
+
+
+/* INUTILE
+function deg_to_rad(deg){
+    return deg * Math.PI / 180
+}
+function rad_to_deg(rad){
+    return rad * (180 / Math.PI)
+}
+function get_oppose(angle, hypo){
+    //angle in degrees
+    return Math.sin(deg_to_rad(angle)) * hypo;
+}
+function get_angle(a,b,c){
+    //returns angle in radient
+    return Math.acos((Math.pow(length(a,b), 2) + Math.pow(length(a,c), 2) - Math.pow(length(b,c), 2)) / (2 * length(a,b) * length(a,c)))
+}
+*/
