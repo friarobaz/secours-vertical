@@ -15,9 +15,41 @@ const Y_INCREMENT = (canvas.height-END_Y) / (NB_OF_BOLTS+1);
 const STARTING_POINT = {x:canvas.width/2, y:canvas.height};
 let route = [];
 
-function get_length(a, b){
+/* --- MATH FUNCTIONS --- */
+function length(a, b){
     return Math.sqrt(Math.pow((a.x - b.x), 2) + Math.pow((a.y - b.y), 2));
 }
+function tension_point(bolt) {
+    const AC = {
+      x: route[bolt+1].x - route[bolt-1].x,
+      y: route[bolt+1].y - route[bolt-1].y
+    };
+    const k = ((route[bolt].x - route[bolt-1].x) * AC.x + (route[bolt].y - route[bolt-1].y) * AC.y) / (AC.x * AC.x + AC.y * AC.y);
+    return {
+      x: route[bolt-1].x + k * AC.x,
+      y: route[bolt-1].y + k * AC.y
+    };
+}
+function tension_strength(bolt){
+    return length(route[bolt], tension_point[bolt]);
+}
+
+/* INUTILE
+function deg_to_rad(deg){
+    return deg * Math.PI / 180
+}
+function rad_to_deg(rad){
+    return rad * (180 / Math.PI)
+}
+function get_oppose(angle, hypo){
+    //angle in degrees
+    return Math.sin(deg_to_rad(angle)) * hypo;
+}
+function get_angle(a,b,c){
+    //returns angle in radient
+    return Math.acos((Math.pow(length(a,b), 2) + Math.pow(length(a,c), 2) - Math.pow(length(b,c), 2)) / (2 * length(a,b) * length(a,c)))
+}
+*/
 
 function create_route(){
     let current_point = STARTING_POINT;
@@ -30,9 +62,10 @@ function create_route(){
         
         //assign next position to current_point 
         current_point = {x:last_point.x+(rand*dir), y: last_point.y - Y_INCREMENT}; 
-    
     }//end for 
 } //end function create_route
+
+/* --- DRAWING FUNCTIONS --- */
 
 function draw_route(route){
     ctx.beginPath();
@@ -41,7 +74,7 @@ function draw_route(route){
         ctx.lineTo(route[i].x, route[i].y);
     }
     ctx.lineWidth = 3;
-    ctx.strokeStyle = "red";
+    ctx.strokeStyle = "green";
     ctx.stroke();
 }//end function draw route
 
@@ -59,73 +92,39 @@ function draw_circle (center, radius, strokeColor, strokeWidth, fillColor){
     };
 }//end draw_circle
 
-function draw_bolts(route){
-    for (let i = 1; i < route.length-1; i++) {
-        ctx.beginPath();
-        draw_circle(route[i], 10, "black", 2, "yellow");
-    }
+function draw_vector (bolt){
+    draw_line(route[bolt], tension_point(bolt), "red", 3);
 }
 
-function draw_line(a,b,couleur){
+function draw_bolt (bolt){
+    draw_circle(route[bolt], 10, "black", 2, "yellow");
+}
+
+function draw_bolts(route){
+    for (let i = 1; i < route.length-1; i++) {
+        draw_bolt(i);
+        draw_vector(i);
+    }
+    draw_circle(STARTING_POINT,10, "black", 2, "blue");
+    draw_circle(route[route.length-1],10, "black", 2, "blue");
+}
+
+function draw_line(a,b,couleur, width){
     ctx.beginPath();
     ctx.moveTo(a.x, a.y);
     ctx.lineTo(b.x, b.y);
-    ctx.lineWidth = 3;
+    ctx.lineWidth = width;
     ctx.strokeStyle = couleur;
     ctx.stroke();
-}
+}//end draw_line
 
-function get_oppose(a, h){
-    return Math.sin(deg_to_rad(a)) * h;
-}
-
-function deg_to_rad(deg){
-    return deg * Math.PI / 180
-}
-
-function rad_to_deg(rad){
-    return rad * (180 / Math.PI)
-}
-
-function get_angle(a,b,c){
-    return Math.acos((Math.pow(get_length(a,b), 2) + Math.pow(get_length(a,c), 2) - Math.pow(get_length(b,c), 2)) / (2 * get_length(a,b) * get_length(a,c)))
-}
-
-let test1 = {x:500, y:500}
-let test2 = {x:5, y:0}
-let test3 = {x:0, y:4}
 
 for (let i = 0; i < 1; i++) {
     
     create_route();
     draw_route(route);
     draw_bolts(route);
-    //draw_line(route[3], route[5], "green");
-    //draw_line(route[3], route[4], "blue");
-    console.log("ligne bleu : " + get_length(route[3], route[4]));
-    console.log("ligne verte : " + get_length(route[3], route[5]));
-    let angle = rad_to_deg(get_angle(route[3], route[4], route[5]));
-    let oppose = get_oppose(angle, get_length(route[3], route[4]));
-    //draw_circle(route[4].x, route[4].y, oppose);
-}
-function tension(A, B, P) {
-    const AB = {
-      x: B.x - A.x,
-      y: B.y - A.y
-    };
-    const k = ((P.x - A.x) * AB.x + (P.y - A.y) * AB.y) / (AB.x * AB.x + AB.y * AB.y);
-    return {
-      x: A.x + k * AB.x,
-      y: A.y + k * AB.y
-    };
-  }
-  
-  const A = route[3];
-  const B = route[5];
-  const P = route[4];
-  const C = tension(A, B, P);
-  console.log(C);
-  draw_line(C,P, "blue");
+}//end for
 
 
     
