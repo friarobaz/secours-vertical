@@ -1,4 +1,3 @@
-import has from 'lodash/has';
 window.addEventListener("load", () =>{
 const canvas = document.getElementById("myCanvas");
 const ctx = canvas.getContext("2d");
@@ -25,8 +24,21 @@ const MAX_X_VARIATION = canvas.width/2/(NB_OF_BOLTS+2);
 const Y_INCREMENT = (canvas.height-END_Y) / (NB_OF_BOLTS+1);
 const STARTING_POINT = {x:canvas.width/2, y:canvas.height};
 
+function deg_to_rad(deg){
+    return deg * Math.PI / 180
+}
+function rad_to_deg(rad){
+    return rad * (180 / Math.PI)
+}
+function get_oppose(angle, hypo){
+    //needs angle in degrees
+    return Math.sin(deg_to_rad(angle)) * hypo;
+}
+function get_angle(a,b,c){
+    //returns angle in radient
+    return Math.acos((Math.pow(length(a,b), 2) + Math.pow(length(a,c), 2) - Math.pow(length(b,c), 2)) / (2 * length(a,b) * length(a,c)))
+}
 
-/* --- MATH FUNCTIONS --- */
 function length(a, b){
     return Math.sqrt(Math.pow((a.x - b.x), 2) + Math.pow((a.y - b.y), 2));
 }
@@ -43,6 +55,13 @@ function tension_point(bolt, route) {
 }
 function tension_strength(bolt, route){
     return Math.floor(length(route[bolt], tension_point(bolt, route)));
+}
+function find_max_tensions(route){
+    let tensions = [];
+    for (let i = 1; i < route.length-1; i++) {
+        tensions[i-1] = tension_strength(i, route);
+    }//end for 
+    return tensions.indexOf(Math.max(...tensions))+1;
 }
 
 function create_route(){
@@ -62,15 +81,12 @@ function create_route(){
 } //end function create_route
 
 function smooth(route, smoothness){
-    let old_route = route;
-    let better_route = route;
-    //better_route[0] = STARTING_POINT; //start
-    //better_route[route.length-1] = route[route.length-1]; //finish
+    let better_route = JSON.parse(JSON.stringify(route)); //route > better_route
     for (let j = 0; j < smoothness; j++) {
-        old_route = better_route;
-        for (let i = 1; i < route.length-1; i++) {
-            if (find_max_tensions(old_route) == i){
-                better_route[i] = tension_point(i, old_route);
+        old_route = JSON.parse(JSON.stringify(better_route)); //better_route > old_route
+        for (let i = 1; i <= NB_OF_BOLTS; i++) { //for each bolt
+            if (find_max_tensions(old_route) == i){ //if it's bolt with most tension
+                better_route[i] = tension_point(i, old_route); //change it on better route
                 break;
             }//end if
         }//end for
@@ -78,13 +94,22 @@ function smooth(route, smoothness){
     return better_route;
 }
 
-function find_max_tensions(route){
-    let tensions = [];
-    for (let i = 1; i < route.length-1; i++) {
-        tensions[i-1] = tension_strength(i, route);
-    }//end for 
-    return tensions.indexOf(Math.max(...tensions))+1;
+function intersection_circle_line(a,c,radius){
+    let L = length(a,c);
+    let x = -1*((radius/L)*(c.x-a.y)-c.x);
+    let y = -1*((radius/L)*(a.y-c.y)-a.y);
+    let point = {x:x,y:y};
+    console.log(a);
+    console.log(c);
+    console.log(radius/L);
+    console.log(point);
+    return point;
 }
+
+function slope(a,b){
+    return (b.y-a.y)/(b.x-a.x)*100;
+}
+
 
 /* --- DRAWING FUNCTIONS --- */
 
@@ -128,7 +153,9 @@ function draw_path(path, color, width){
 }
 
 function draw_vector (bolt, route){
+    let newPoint = intersection_circle_line(route[bolt],tension_point(bolt, route),BOLT_RADIUS);
     draw_line(route[bolt], tension_point(bolt, route), VECTOR_COLOR, 3);
+    draw_line(route[bolt], newPoint, "purple", 3);
 }
 
 function draw_bolt (bolt, route){
@@ -155,12 +182,11 @@ function draw_route(route, rope, vectors){
 
 current_route = create_route();
 draw_route(current_route, LEVELS[level].rope, LEVELS[level].vectors);
-//let test = smooth(current_route, 1);
-
-draw_route(current_route, LEVELS[level].rope, LEVELS[level].vectors);
+//draw_path(smooth(current_route, 2), "pink");
 
 
-function on_bolt(point, route){
+
+/* function on_bolt(point, route){
     for (let i = 1; i < route.length-1; i++) {
         if(length(point, route[i])< BOLT_RADIUS){
             //console.log("yes");
@@ -168,7 +194,7 @@ function on_bolt(point, route){
         };
     }//end for
     return false;
-}
+} */
 
 /* document.addEventListener("click", function(event){
     let mouse = {};
