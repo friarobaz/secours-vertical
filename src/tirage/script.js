@@ -1,3 +1,4 @@
+import has from 'lodash/has';
 window.addEventListener("load", () =>{
 const canvas = document.getElementById("myCanvas");
 const ctx = canvas.getContext("2d");
@@ -7,8 +8,8 @@ canvas.height = window.innerHeight;
 /* YOU CAN CHANGE THIS */
 const NB_OF_BOLTS = 5;
 const END_Y = 20;
-const MIN_X_VARIATION = 10;
-const BOLT_RADIUS = 50;
+const MIN_X_VARIATION = 40;
+const BOLT_RADIUS = 30;
 const BOLT_COLOR = false;
 const START_END_COLOR = "blue";
 const ROPE_COLOR = "green";
@@ -60,13 +61,20 @@ function create_route(){
     return route;
 } //end function create_route
 
-function smooth(old_route){
-    let better_route = [];
-    better_route[0] = STARTING_POINT; //start
-    better_route[old_route.length-1] = old_route[old_route.length-1]; //finish
-    for (let i = 1; i < old_route.length-1; i++) {
-        better_route[i] = tension_point(i, old_route);
-    }
+function smooth(route, smoothness){
+    let old_route = route;
+    let better_route = route;
+    //better_route[0] = STARTING_POINT; //start
+    //better_route[route.length-1] = route[route.length-1]; //finish
+    for (let j = 0; j < smoothness; j++) {
+        old_route = better_route;
+        for (let i = 1; i < route.length-1; i++) {
+            if (find_max_tensions(old_route) == i){
+                better_route[i] = tension_point(i, old_route);
+                break;
+            }//end if
+        }//end for
+    }//end for
     return better_route;
 }
 
@@ -147,7 +155,10 @@ function draw_route(route, rope, vectors){
 
 current_route = create_route();
 draw_route(current_route, LEVELS[level].rope, LEVELS[level].vectors);
-draw_path(smooth(current_route), "pink");
+//let test = smooth(current_route, 1);
+
+draw_route(current_route, LEVELS[level].rope, LEVELS[level].vectors);
+
 
 function on_bolt(point, route){
     for (let i = 1; i < route.length-1; i++) {
@@ -159,7 +170,7 @@ function on_bolt(point, route){
     return false;
 }
 
-document.addEventListener("click", function(event){
+/* document.addEventListener("click", function(event){
     let mouse = {};
     mouse.x = event.x;
     mouse.y = event.y
@@ -182,11 +193,7 @@ document.addEventListener("click", function(event){
             draw_route(current_route, LEVELS[level].rope, LEVELS[level].vectors);
         }//end if 
     };
-
-   
-            
-     
-});//end Click
+});//end Click */
 
 
     
