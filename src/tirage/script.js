@@ -20,7 +20,7 @@ const LEVELS = [{rope: true, vectors: true},
 let level = 0;
 let win_streak = 0;
 let current_route = [];
-const MAX_X_VARIATION = canvas.width/2/(NB_OF_BOLTS+2);
+const MAX_X_VARIATION = canvas.width/2/(NB_OF_BOLTS+3);
 const Y_INCREMENT = (canvas.height-END_Y) / (NB_OF_BOLTS+1);
 const STARTING_POINT = {x:canvas.width/2, y:canvas.height};
 
@@ -63,6 +63,14 @@ function find_max_tensions(route){
     }//end for 
     return tensions.indexOf(Math.max(...tensions))+1;
 }
+function intersection_circle_line(a,c,radius){
+    let L = length(a,c);
+    if (L<radius){return c;}
+    let x = -1*((radius/L)*(a.x-c.x)-a.x);
+    let y = -1*((radius/L)*(a.y-c.y)-a.y);
+    let point = {x:x,y:y};
+    return point;
+}
 
 function create_route(){
     let route = [];
@@ -83,32 +91,18 @@ function create_route(){
 function smooth(route, smoothness){
     let better_route = JSON.parse(JSON.stringify(route)); //route > better_route
     for (let j = 0; j < smoothness; j++) {
-        old_route = JSON.parse(JSON.stringify(better_route)); //better_route > old_route
+        let last_route = JSON.parse(JSON.stringify(better_route)); //better_route > last_route
         for (let i = 1; i <= NB_OF_BOLTS; i++) { //for each bolt
-            if (find_max_tensions(old_route) == i){ //if it's bolt with most tension
-                better_route[i] = tension_point(i, old_route); //change it on better route
-                break;
+            if (find_max_tensions(last_route) == i){ //if it's bolt with most tension
+                console.log(i);
+                better_route[i] = intersection_circle_line(route[i],tension_point(i, route),BOLT_RADIUS); //change it on better route
             }//end if
         }//end for
     }//end for
     return better_route;
 }
 
-function intersection_circle_line(a,c,radius){
-    let L = length(a,c);
-    let x = -1*((radius/L)*(c.x-a.y)-c.x);
-    let y = -1*((radius/L)*(a.y-c.y)-a.y);
-    let point = {x:x,y:y};
-    console.log(a);
-    console.log(c);
-    console.log(radius/L);
-    console.log(point);
-    return point;
-}
 
-function slope(a,b){
-    return (b.y-a.y)/(b.x-a.x)*100;
-}
 
 
 /* --- DRAWING FUNCTIONS --- */
@@ -116,7 +110,7 @@ function slope(a,b){
 function draw_circle (center, radius, strokeColor, strokeWidth, fillColor){  
     ctx.beginPath();
     if (!radius){
-        ctx.arc(center.x, center.y, 5, 0, 2 * Math.PI);
+        ctx.arc(center.x, center.y, 3, 0, 2 * Math.PI);
         ctx.fill();
     }else{
         ctx.arc(center.x, center.y, radius, 0, 2 * Math.PI);
@@ -153,9 +147,10 @@ function draw_path(path, color, width){
 }
 
 function draw_vector (bolt, route){
-    let newPoint = intersection_circle_line(route[bolt],tension_point(bolt, route),BOLT_RADIUS);
-    draw_line(route[bolt], tension_point(bolt, route), VECTOR_COLOR, 3);
-    draw_line(route[bolt], newPoint, "purple", 3);
+    let a = route[bolt];
+    let b = intersection_circle_line(route[bolt],tension_point(bolt, route),BOLT_RADIUS);
+    draw_line(a, b, VECTOR_COLOR, 3);
+    draw_circle(intersection_circle_line(route[bolt],tension_point(bolt, route),BOLT_RADIUS));
 }
 
 function draw_bolt (bolt, route){
@@ -182,7 +177,7 @@ function draw_route(route, rope, vectors){
 
 current_route = create_route();
 draw_route(current_route, LEVELS[level].rope, LEVELS[level].vectors);
-//draw_path(smooth(current_route, 2), "pink");
+draw_path(smooth(current_route, 100), "pink");
 
 
 
