@@ -47,7 +47,6 @@ function create_bolts(){ //create a few random bolts
         //assign next position to current_point 
         current_point = {pos:{x:last_point.pos.x+(rand*dir),y:last_point.pos.y - Y_INCREMENT}}; 
     }//end for 
-    console.log("bolts created");
     paths = []; //empty routes
     paths[0] = JSON.parse(JSON.stringify(bolts)); //store bolts in first place of array
 }
@@ -74,24 +73,21 @@ function analyse_path(path_nb, graphic){ //calculate tensions etc and fill array
     let max_tension = Math.max(...tensions)
     let index_of_max = tensions.reduce((iMax, x, i, arr) => x > arr[iMax] ? i : iMax, 0);
     path[index_of_max].is_max_tension = true;
-    console.log(path);
     if (graphic){
         draw_circle(path[index_of_max].pos, "rgba(255,0,0,0.5)", 10);
     };
     console.log("Path["+path_nb+"] analyzed\n max tension : "+max_tension+" at bolt nb "+index_of_max);
 }
 function create_better_path(){
-    console.log("####################");
-    console.log("creating better path");
+    console.log("### creating better path");
     let old = paths.length-1;
     let working = old+1;
-    console.log("old path: "+old+"    working path: "+working);
     paths.push(JSON.parse(JSON.stringify(paths[old]))); //make copy of old path and add it to array
     
     for (let i = 1; i <= NB_OF_BOLTS; i++) { //check each bolt
         if (paths[working][i].is_max_tension){
             paths[working][i].pos = paths[working][i].contact_point; //change it to contact point
-            console.log("changed bolt nb."+i+" to "+paths[working][i].contact_point.x);
+            console.log("changed bolt nb."+i+" on Path["+working+"]");
         }
     }//end for
 }
@@ -171,7 +167,6 @@ function draw_path(path_nb, color = PATH_COLOR, width){
     if (width){ctx.lineWidth = width;}else {ctx.lineWidth = 3;}
     if (color){ctx.strokeStyle = color;}else {ctx.strokeStyle = "black";}
     ctx.stroke();
-    console.log("path["+path_nb+"] drawn in "+color);
 }
 function draw_old_paths(){
     for (let i = 0; i < paths.length; i++) {
@@ -184,7 +179,6 @@ function draw_bolts (){
     }
     draw_circle(STARTING_POINT, "blue", 10);
     draw_circle(bolts[bolts.length-1].pos, "blue", 10);
-    console.log("bolts drawn");
 } 
 
 /* function on_bolt(point, route){
