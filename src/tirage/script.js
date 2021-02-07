@@ -24,13 +24,15 @@ draw_bolts();
 analyse_path(0, true);
 draw_path(0);
 create_better_path();
-analyse_path(1, true);
-draw_path(1, "cyan");
+analyse_path(paths.length-1, true);
+draw_path(paths.length-1, "cyan");
 
     
 
 document.addEventListener("click", function(event){
     create_better_path();
+    analyse_path(paths.length-1, true);
+    draw_path(paths.length-1, "cyan");
     
     //ctx.clearRect(0, 0, canvas.width, canvas.height); //clear
    
