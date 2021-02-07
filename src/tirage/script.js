@@ -8,7 +8,7 @@ canvas.height = window.innerHeight;
 const NB_OF_BOLTS = 5;
 const END_Y = 20;
 const MIN_X_VARIATION = 40;
-const BOLT_RADIUS = 60;
+const BOLT_RADIUS = 40;
 const BOLT_COLOR = false;
 const PATH_COLOR = "blue";
 const VECTOR_COLOR = "red";
@@ -23,18 +23,15 @@ create_bolts();
 draw_bolts();
 analyse_path(0, true);
 draw_path(0);
-create_better_path();
-analyse_path(paths.length-1, true);
-draw_path(paths.length-1, "cyan");
-
-    
 
 document.addEventListener("click", function(event){
+    
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    draw_bolts()
+    draw_old_paths();
     create_better_path();
     analyse_path(paths.length-1, true);
     draw_path(paths.length-1, "cyan");
-    
-    //ctx.clearRect(0, 0, canvas.width, canvas.height); //clear
    
 });
 
@@ -91,13 +88,12 @@ function create_better_path(){
     console.log("old path: "+old+"    working path: "+working);
     paths.push(JSON.parse(JSON.stringify(paths[old]))); //make copy of old path and add it to array
     
-    for (let i = 1; i <= NB_OF_BOLTS; i++) { //for each bolt
+    for (let i = 1; i <= NB_OF_BOLTS; i++) { //check each bolt
         if (paths[working][i].is_max_tension){
             paths[working][i].pos = paths[working][i].contact_point; //change it to contact point
             console.log("changed bolt nb."+i+" to "+paths[working][i].contact_point.x);
         }
     }//end for
-    
 }
 function isMiddleValid (path, bolt){
     console.log("checking");
@@ -137,8 +133,8 @@ function intersection_circle_line(a,c,radius){
     let point = {x:x,y:y};
     return point;
 }
-function contact_point(bolt, route){
-    return intersection_circle_line(route[bolt].pos, route[bolt].tension_point, BOLT_RADIUS);
+function contact_point(bolt, path){
+    return intersection_circle_line(bolts[bolt].pos, path[bolt].tension_point, BOLT_RADIUS);
 }
 
 /* --- DRAWING FUNCTIONS --- */
@@ -176,6 +172,11 @@ function draw_path(path_nb, color = PATH_COLOR, width){
     if (color){ctx.strokeStyle = color;}else {ctx.strokeStyle = "black";}
     ctx.stroke();
     console.log("path["+path_nb+"] drawn in "+color);
+}
+function draw_old_paths(){
+    for (let i = 0; i < paths.length; i++) {
+        draw_path(i, "rgba(0,0,0,0.3)");
+    }
 }
 function draw_bolts (){
     for (let i = 1; i < bolts.length-1; i++) {
