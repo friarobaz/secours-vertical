@@ -5,40 +5,68 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 /* YOU CAN CHANGE THIS */
-let NB_OF_BOLTS = 6;
+const NB_OF_BOLTS = 6;
 const END_Y = 20;
-const MIN_X_VARIATION = 40;
-let BOLT_RADIUS = 30;
-let BIG_RADIUS = 60;
+const MIN_X_VARIATION = 50;
+const BOLT_RADIUS = 30;
+const BIG_RADIUS = 60;
 const BOLT_COLOR = false;
 const PATH_COLOR = "blue";
+const SHOW_AID = true; //rope etc
+const NB_QUICKDRAWS = 3;
 /* ------------------------- */
 let paths = [];
 let bolts = [];
+let quickdraws_left = NB_QUICKDRAWS;
 const MAX_X_VARIATION = canvas.width/2/(NB_OF_BOLTS+3);
 const Y_INCREMENT = (canvas.height-END_Y) / (NB_OF_BOLTS+1);
 const STARTING_POINT = {x:canvas.width/2, y:canvas.height};
 
+
+
+
+
+
+
+
+
+
+
 create_bolts();
 draw_bolts();
-analyse_path(0, true);
-draw_path(0);
-find_best_path();
+analyse_path(0);
+find_best_path(SHOW_AID);
+let before = paths.length-1; //remember path nb before all clicks
+write(`Tirage: ${paths[paths.length-1].tirage} / ${paths[before].tirage}`, {x:10, y:canvas.height-100});
+write(`Reduction: 0%`,{x:10, y:canvas.height-50});
+write(`Degaines longues dispo: ${quickdraws_left}`, {x:canvas.width-300, y:canvas.height-50})
+
 
 document.addEventListener("click", function(event){
     let mouse = {};
     mouse.x = event.x;
     mouse.y = event.y
-    if(on_bolt(mouse)){
-        bolts[on_bolt(mouse)].big_radius = true;
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        draw_bolts();
-        draw_path(paths.length-1, "red");
-        analyse_path(paths.length-1, true);
-        create_better_path();
-        draw_path(paths.length-1, PATH_COLOR);
-    };
-});
+    if(on_bolt(mouse) && quickdraws_left){//if you click on bolt
+        if (bolts[on_bolt(mouse)].big_radius){//if bolt already big > do nothing
+            return;
+        }else{
+            quickdraws_left--;
+            bolts[on_bolt(mouse)].big_radius = true; //make bolt bigger
+            ctx.clearRect(0, 0, canvas.width, canvas.height); //clear canva
+            draw_bolts();
+            find_best_path(SHOW_AID);
+            let new_tirage = paths[paths.length-1].tirage;
+            let reduction = Math.floor((paths[before].tirage-new_tirage)/paths[before].tirage*100);
+            write(`Tirage: ${new_tirage} / ${paths[before].tirage}`, {x:10, y:canvas.height-100});
+            write(`Reduction: ${reduction}%`,{x:10, y:canvas.height-50});
+            write(`Degaines longues dispo: ${quickdraws_left}`, {x:canvas.width-300, y:canvas.height-50})
+            if (SHOW_AID){
+                draw_path(before, "rgba(255,0,0,0.2)");
+                draw_path(paths.length-1);
+            };//end if
+        }//end else
+    };//end if
+});//end listen
 
 function on_bolt(point){//returns bolt number
     for (let i = 1; i < bolts.length-1; i++) {
@@ -87,12 +115,13 @@ function analyse_path(path_nb, graphic){ //calculate tensions etc and fill array
     let index_of_max = tensions.reduce((iMax, x, i, arr) => x > arr[iMax] ? i : iMax, 0);
     path[index_of_max].is_max_tension = true;
     if (graphic){
-        //draw_circle(path[index_of_max].pos, "rgba(255,0,0,0.5)", 10);
+        draw_circle(path[index_of_max].pos, "rgba(255,0,0,0.5)", 10);
     };
-    console.log("Path["+path_nb+"] analyzed\n max tension : "+max_tension+" at bolt nb "+index_of_max);
+    let tirage = tensions.reduce((a, b) => a + b, 0);
+    paths[path_nb].tirage = tirage;
+    //console.log("Path["+path_nb+"] tirage: "+tirage);
 }
 function create_better_path(finetune){
-    console.log("### creating better path");
     let old = paths.length-1;
     let working = old+1;
     paths.push(JSON.parse(JSON.stringify(paths[old]))); //make copy of old path and add it to array
@@ -100,30 +129,25 @@ function create_better_path(finetune){
     for (let i = 1; i <= NB_OF_BOLTS; i++) { //check each bolt
         if (paths[working][i].is_max_tension || finetune || bolts[i].big_radius){ //if current bolt is max tension bolt
             paths[working][i].pos = paths[working][i].contact_point; //change it to contact point
-            console.log("changed bolt nb."+i+" on Path["+working+"]");
         }
     }//end for
 }
-function find_best_path(){
-    
+function find_best_path(graphic){
     for (let i = 0; i < NB_OF_BOLTS; i++) {
         
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         draw_bolts()
-        draw_old_paths(30);
         create_better_path();
-        analyse_path(paths.length-1, true);
-        draw_path(paths.length-1, PATH_COLOR);
+        analyse_path(paths.length-1, false);
+        if(graphic){draw_path(paths.length-1, PATH_COLOR);}
     }
     for (let i = 0; i < 10; i++) {
         
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         draw_bolts()
-        //draw_old_paths(10);
-        console.log(`@@@@@@@@ FINE TUNING @@@@@@@`);
         create_better_path(true);
-        analyse_path(paths.length-1, true);
-        draw_path(paths.length-1, PATH_COLOR);
+        analyse_path(paths.length-1, false);
+        if(graphic){draw_path(paths.length-1, PATH_COLOR);}
     }  
 }
 function length(a, b){
@@ -164,7 +188,7 @@ function write(text, point = {x:50, y:canvas.height-50}){
     ctx.fillStyle = "black";
     ctx.fillText(text, point.x, point.y);
 }
-function draw_circle (center, fillColor, radius = 3, strokeColor, strokeWidth = 1){  
+function draw_circle (center, fillColor, radius = 2, strokeColor, strokeWidth = 1){  
     ctx.beginPath();
     ctx.arc(center.x, center.y, radius, 0, 2 * Math.PI);
     ctx.fillStyle = fillColor;
@@ -206,6 +230,7 @@ function draw_bolts (){
             radius=BOLT_RADIUS;
         }
         draw_circle(bolts[i].pos, BOLT_COLOR, radius, "black");
+        draw_circle(bolts[i].pos, "black");
     }
     draw_circle(STARTING_POINT, "blue", 10);
     draw_circle(bolts[bolts.length-1].pos, "blue", 10);
