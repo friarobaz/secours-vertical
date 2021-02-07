@@ -20,6 +20,7 @@ const LEVELS = [{rope: true, vectors: true},
 let level = 0;
 let win_streak = 0;
 let current_route = [];
+let routes = [];
 const MAX_X_VARIATION = canvas.width/2/(NB_OF_BOLTS+3);
 const Y_INCREMENT = (canvas.height-END_Y) / (NB_OF_BOLTS+1);
 const STARTING_POINT = {x:canvas.width/2, y:canvas.height};
@@ -70,12 +71,11 @@ function intersection_circle_line(a,c,radius){
     let point = {x:x,y:y};
     return point;
 }
-
-function actual_tension_point(bolt, route){
+function contact_point(bolt, route){
     return intersection_circle_line(route[bolt], tension_point(bolt, route), BOLT_RADIUS);
 }
 
-function create_route(){
+function create_route(){ //create a few random bolts
     let route = [];
     let current_point = STARTING_POINT;
     for (let i = 0; i < NB_OF_BOLTS+2; i++) {
@@ -91,20 +91,23 @@ function create_route(){
     return route;
 } //end function create_route
 
-function analyse_route(route, graphic){
+function analyse_route(route, graphic){ //calculate tensions etc and fill array with objects
+    draw_path(route,"black");
     for (let i = 1; i < route.length-1; i++) {//for each bolt
         route[i].tension = tension_strength(i, route);
         route[i].tension_point = tension_point(i, route);
+        route[i].contact_point = contact_point(i, route);
         if(graphic){
             draw_circle(route[i].tension_point, "orange");
             draw_line(route[i].tension_point, route[i]);
-            draw_circle(actual_tension_point(i, route), "red");
+            draw_circle(route[i].contact_point, "red");
         }
     }
     console.log(route);
 }
 
 function smooth(route, smoothness){
+    routes.push(JSON.parse(JSON.stringify(route))); //store copy of route before smoothing
     let better_route = JSON.parse(JSON.stringify(route)); //route > better_route
     for (let j = 0; j < 10; j++) {
         let last_route = JSON.parse(JSON.stringify(better_route)); //better_route > last_route
@@ -130,6 +133,12 @@ function smooth(route, smoothness){
 
 /* --- DRAWING FUNCTIONS --- */
 
+function write(text, point = {x:50, y:canvas.height-50}){
+    ctx.font = "20px arial";
+    ctx.fillStyle = "black";
+    ctx.fillText(text, point.x, point.y);
+}
+
 function draw_circle (center, fillColor, radius = 3, strokeColor, strokeWidth = 1){  
     ctx.beginPath();
     ctx.arc(center.x, center.y, radius, 0, 2 * Math.PI);
@@ -137,8 +146,7 @@ function draw_circle (center, fillColor, radius = 3, strokeColor, strokeWidth = 
     if (fillColor){ctx.fill();};
     ctx.lineWidth = strokeWidth;
     ctx.strokeStyle = strokeColor;
-    if (strokeColor){ctx.stroke();};
-        
+    if (strokeColor){ctx.stroke();}; 
 }
 
 function draw_line(a,b,color, width){
@@ -161,23 +169,22 @@ function draw_path(path, color, width){
     ctx.stroke();
 }
 
-function draw_vector (bolt, route){
+/* function draw_vector (bolt, route){
     let a = route[bolt];
     let b = intersection_circle_line(route[bolt],tension_point(bolt, route),BOLT_RADIUS);
     draw_line(a, b, VECTOR_COLOR, 3);
     //draw_circle(intersection_circle_line(route[bolt],tension_point(bolt, route),BOLT_RADIUS));
-}
+} */
 
 function draw_bolt (bolt, route){
     draw_circle(route[bolt], false, BOLT_RADIUS, "black");
 }
 
-function draw_route(route, rope, vectors){
+function draw_route(route, rope){
     if (rope){
         draw_path(route, ROPE_COLOR)
     }//end rope
     for (let i = 1; i < route.length-1; i++) {
-        if (vectors){draw_vector(i, route)};
         draw_bolt(i, route);
     }
     draw_circle(STARTING_POINT, "blue", 10);
@@ -191,12 +198,14 @@ function draw_route(route, rope, vectors){
 ################################################################## */
 
 current_route = create_route();
+draw_route(current_route, true);
 
-analyse_route(current_route, true);
-draw_route(current_route, true, false);
 //draw_path(smooth(current_route, 100), "pink");
 
+document.addEventListener("click", function(event){
 
+    analyse_route(current_route, true);
+});
 
 /* function on_bolt(point, route){
     for (let i = 1; i < route.length-1; i++) {
