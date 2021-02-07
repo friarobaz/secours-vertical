@@ -64,12 +64,15 @@ function find_max_tensions(route){
     return tensions.indexOf(Math.max(...tensions))+1;
 }
 function intersection_circle_line(a,c,radius){
-    let L = length(a,c);
-    if (L<radius){return c;}
-    let x = -1*((radius/L)*(a.x-c.x)-a.x);
-    let y = -1*((radius/L)*(a.y-c.y)-a.y);
+    if (length(a,c)<radius){return c;}
+    let x = -1*((radius/length(a,c))*(a.x-c.x)-a.x);
+    let y = -1*((radius/length(a,c))*(a.y-c.y)-a.y);
     let point = {x:x,y:y};
     return point;
+}
+
+function actual_tension_point(bolt, route){
+    return intersection_circle_line(route[bolt], tension_point(bolt, route), BOLT_RADIUS);
 }
 
 function create_route(){
@@ -88,15 +91,35 @@ function create_route(){
     return route;
 } //end function create_route
 
+function analyse_route(route, graphic){
+    for (let i = 1; i < route.length-1; i++) {//for each bolt
+        route[i].tension = tension_strength(i, route);
+        route[i].tension_point = tension_point(i, route);
+        if(graphic){
+            draw_circle(route[i].tension_point, "orange");
+            draw_line(route[i].tension_point, route[i]);
+            draw_circle(actual_tension_point(i, route), "red");
+        }
+    }
+    console.log(route);
+}
+
 function smooth(route, smoothness){
     let better_route = JSON.parse(JSON.stringify(route)); //route > better_route
-    for (let j = 0; j < smoothness; j++) {
+    for (let j = 0; j < 10; j++) {
         let last_route = JSON.parse(JSON.stringify(better_route)); //better_route > last_route
         for (let i = 1; i <= NB_OF_BOLTS; i++) { //for each bolt
             if (find_max_tensions(last_route) == i){ //if it's bolt with most tension
-                console.log(i);
                 better_route[i] = intersection_circle_line(route[i],tension_point(i, route),BOLT_RADIUS); //change it on better route
+                break;
             }//end if
+        }//end for
+    }//end for
+    draw_path(better_route);
+    for (let j = 0; j < 100; j++) {
+        let last_route = JSON.parse(JSON.stringify(better_route)); //better_route > last_route
+        for (let i = 1; i <= NB_OF_BOLTS; i++) { //for each bolt
+            better_route[i] = intersection_circle_line(route[i],tension_point(i, route),BOLT_RADIUS); //change it on better route
         }//end for
     }//end for
     return better_route;
@@ -107,30 +130,22 @@ function smooth(route, smoothness){
 
 /* --- DRAWING FUNCTIONS --- */
 
-function draw_circle (center, radius, strokeColor, strokeWidth, fillColor){  
+function draw_circle (center, fillColor, radius = 3, strokeColor, strokeWidth = 1){  
     ctx.beginPath();
-    if (!radius){
-        ctx.arc(center.x, center.y, 3, 0, 2 * Math.PI);
-        ctx.fill();
-    }else{
-        ctx.arc(center.x, center.y, radius, 0, 2 * Math.PI);
-        if (fillColor){
-            ctx.fillStyle = fillColor;
-            ctx.fill();
-        }; 
-        if (strokeWidth){
-            ctx.lineWidth = strokeWidth;
-            ctx.strokeStyle = strokeColor;
-            ctx.stroke();
-        };//end if
-    };//end else
-}//end draw_circle
+    ctx.arc(center.x, center.y, radius, 0, 2 * Math.PI);
+    ctx.fillStyle = fillColor;
+    if (fillColor){ctx.fill();};
+    ctx.lineWidth = strokeWidth;
+    ctx.strokeStyle = strokeColor;
+    if (strokeColor){ctx.stroke();};
+        
+}
 
 function draw_line(a,b,color, width){
     ctx.beginPath();
     ctx.moveTo(a.x, a.y);
     ctx.lineTo(b.x, b.y);
-    if (width){ctx.lineWidth = width;}else {ctx.lineWidth = 3;}
+    if (width){ctx.lineWidth = width;}else {ctx.lineWidth = 1;}
     if (color){ctx.strokeStyle = color;}else {ctx.strokeStyle = "black";}
     ctx.stroke();
 }//end draw_line
@@ -150,11 +165,11 @@ function draw_vector (bolt, route){
     let a = route[bolt];
     let b = intersection_circle_line(route[bolt],tension_point(bolt, route),BOLT_RADIUS);
     draw_line(a, b, VECTOR_COLOR, 3);
-    draw_circle(intersection_circle_line(route[bolt],tension_point(bolt, route),BOLT_RADIUS));
+    //draw_circle(intersection_circle_line(route[bolt],tension_point(bolt, route),BOLT_RADIUS));
 }
 
 function draw_bolt (bolt, route){
-    draw_circle(route[bolt], BOLT_RADIUS, "black", 1, BOLT_COLOR);
+    draw_circle(route[bolt], false, BOLT_RADIUS, "black");
 }
 
 function draw_route(route, rope, vectors){
@@ -165,8 +180,8 @@ function draw_route(route, rope, vectors){
         if (vectors){draw_vector(i, route)};
         draw_bolt(i, route);
     }
-    draw_circle(STARTING_POINT, 10, "black", 1, START_END_COLOR);
-    draw_circle(route[route.length-1], 10, "black", 1, START_END_COLOR);
+    draw_circle(STARTING_POINT, "blue", 10);
+    draw_circle(route[route.length-1], "blue", 10);
 }//end function draw route
 
 /* --- END DRAW FUNCTIONS --- */
@@ -176,8 +191,10 @@ function draw_route(route, rope, vectors){
 ################################################################## */
 
 current_route = create_route();
-draw_route(current_route, LEVELS[level].rope, LEVELS[level].vectors);
-draw_path(smooth(current_route, 100), "pink");
+
+analyse_route(current_route, true);
+draw_route(current_route, true, false);
+//draw_path(smooth(current_route, 100), "pink");
 
 
 
