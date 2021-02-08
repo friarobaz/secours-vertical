@@ -23,47 +23,35 @@ let quickdraws_left = NB_QUICKDRAWS;
 const nb = "path_nb";
 const path = "path";
 
-function last(type){
-    if (type == "path"){
-        return paths[paths.length-1];
-    }
-    else if (type == "path_nb"){
-        return paths.length-1;
-    }
+function write_data(){
+    analyse_path();
+    let reduction = Math.floor((paths[start].drag-last(path).drag)/paths[start].drag*100);
+    write(`Tirage: ${last(path).drag} / ${paths[start].drag}`, {x:10, y:canvas.height-100});
+    write(`Reduction: ${reduction}%`,{x:10, y:canvas.height-50});
+    write(`Degaines longues dispo: ${quickdraws_left}`, {x:canvas.width-300, y:canvas.height-50})
 }
 
 create_bolts();
 draw_bolts();
-analyse_path();
 find_best_path();
 draw_path();
 let start = last(nb); //remember path_nb before all clicks
-write(`Tirage: ${last(path).drag} / ${paths[start].drag}`, {x:10, y:canvas.height-100});
-write(`Reduction: 0%`,{x:10, y:canvas.height-50});
-write(`Degaines longues dispo: ${quickdraws_left}`, {x:canvas.width-300, y:canvas.height-50})
+write_data();
 
 document.addEventListener("click", function(event){
-    let mouse = {};
-    mouse.x = event.x;
-    mouse.y = event.y
-    if(on_bolt(mouse) && quickdraws_left){//if you click on bolt
+    let mouse = {x:event.x, y:event.y}
+    if(on_bolt(mouse) && quickdraws_left){//if you click on bolt and you have quickdraws
         if (bolts[on_bolt(mouse)].big_radius){//if bolt already big > do nothing
             return;
         }else{
             quickdraws_left--;
             bolts[on_bolt(mouse)].big_radius = true; //make bolt bigger
-            ctx.clearRect(0, 0, canvas.width, canvas.height); //clear canva
+            ctx.clearRect(0, 0, canvas.width, canvas.height); //clear canvas
             draw_bolts();
             find_best_path();
-            let new_drag = last(path).drag;
-            let reduction = Math.floor((paths[start].drag-new_drag)/paths[start].drag*100);
-            write(`Tirage: ${new_drag} / ${paths[start].drag}`, {x:10, y:canvas.height-100});
-            write(`Reduction: ${reduction}%`,{x:10, y:canvas.height-50});
-            write(`Degaines longues dispo: ${quickdraws_left}`, {x:canvas.width-300, y:canvas.height-50})
-            if (true){
-                draw_path(start, "rgba(255,0,0,0.2)");
-                draw_path(paths.length-1);
-            };//end if
+            write_data();
+            draw_path(start, "rgba(255,0,0,0.2)");
+            draw_path(paths.length-1);
         }//end else
     };//end if
 });//end listen
@@ -140,23 +128,21 @@ function analyse_path(path_nb){ //write tension_point, tension, contact_point, d
     let drag = tensions.reduce((a, b) => a + b, 0); 
     paths[path_nb].drag = drag;
 }
-function create_better_path(finetune){ //changes 1 bolt or all bolts in finetune mode, needs analyzing
-    paths.push(JSON.parse(JSON.stringify(last(path)))); //make copy of old path and add it to paths[] array
-    for (let i = 1; i <= last(path).length-1; i++) { //check each bolt (each point except first and last)
-        if (last(path)[i].is_max_tension || finetune){ //if current bolt is max tension bolt (or finetune mode)
-            last(path)[i].pos = last(path)[i].contact_point; //change bolt position to contact_point
-        }
-    }//end for
-}
 function find_best_path(){ //runs create_better_path() a few times in normal and finetune mode
-    
+    function create_better_path(finetune){ //changes 1 bolt or all bolts in finetune mode
+        analyse_path();
+        paths.push(JSON.parse(JSON.stringify(last(path)))); //make copy of old path and add it to paths[] array
+        for (let i = 1; i <= last(path).length-1; i++) { //check each bolt (each point except first and last)
+            if (last(path)[i].is_max_tension || finetune){ //if current bolt is max tension bolt (or finetune mode)
+                last(path)[i].pos = last(path)[i].contact_point; //change bolt position to contact_point
+            }
+        }//end for
+    }
     for (let i = 0; i < NB_OF_BOLTS; i++) { //NB_OF_BOLTS could be any number
         create_better_path();
-        analyse_path();
     }
     for (let i = 0; i < 10; i++) {
         create_better_path(true); //finetune mode
-        analyse_path();
     }  
 }
 function on_bolt(point){ //check if mouse click is on bolt, returns bolt number or false
@@ -169,6 +155,14 @@ function on_bolt(point){ //check if mouse click is on bolt, returns bolt number 
 } 
 function length(a, b){ //returns length between two points
     return Math.sqrt(Math.pow((a.x - b.x), 2) + Math.pow((a.y - b.y), 2));
+}
+function last(type){
+    if (type == "path"){
+        return paths[paths.length-1];
+    }
+    else if (type == "path_nb"){
+        return paths.length-1;
+    }
 }
 
 /* --- DRAWING FUNCTIONS --- */
