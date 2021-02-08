@@ -10,7 +10,6 @@ const BORDER = 20; //how far away from the windows edge the last point will be
 const MIN_X_VARIATION = 30; //min amount of zig zag 
 const BOLT_RADIUS = 30; //length of initial quickdraws
 const BIG_RADIUS = 60; //length of long quickdraws
-const BOLT_COLOR = false; //false for transparent
 const PATH_COLOR = "blue"; //rope color
 const NB_QUICKDRAWS = 3; //number of long quickdraws available at start
 /* ------------------------- */
@@ -84,7 +83,35 @@ function create_bolts(){ //create a few random bolts
     paths = []; //reset paths array
     paths[0] = JSON.parse(JSON.stringify(bolts)); //create first path that follows bolts centers
 }
-function analyse_path(path_nb){ //write tension_point, tension, contact_point, drag, in array
+function analyse_path(path_nb){ //write tension_point, tension, contact_point, drag
+    function tension_point(bolt, path) { //returns point towards which the bolt il pulled
+        const A = path[bolt-1].pos;
+        const B = path[bolt].pos;
+        const C = path[bolt+1].pos;
+        const AC = {x: C.x - A.x,y: C.y - A.y};
+        const k = ((B.x - A.x) * AC.x + (B.y - A.y) * AC.y) / (AC.x * AC.x + AC.y * AC.y);
+        return {
+          x: A.x + k * AC.x,
+          y: A.y + k * AC.y
+        };
+}
+    function tension_strength(bolt, path){ //returns length between bolt center and tension_point
+        return Math.floor(length(path[bolt].pos, tension_point(bolt,path)));
+    }
+    function contact_point(bolt, path){ //returns where the bolt will end up if pulled
+        function intersection_circle_line(a,c,radius){ //returns point where circle intersects with segment
+            if (length(a,c)<radius){return c;}
+            let x = -1*((radius/length(a,c))*(a.x-c.x)-a.x);
+            let y = -1*((radius/length(a,c))*(a.y-c.y)-a.y);
+            return {x:x,y:y};
+        }
+        if (bolts[bolt].big_radius){
+            return intersection_circle_line(bolts[bolt].pos, path[bolt].tension_point, BIG_RADIUS);
+        }
+        else {
+            return intersection_circle_line(bolts[bolt].pos, path[bolt].tension_point, BOLT_RADIUS)
+        };
+    }
     if(!path_nb || path_nb == "last"){ //if no argument or last
         path_nb = last(nb); //use last path
     }
@@ -113,93 +140,42 @@ function analyse_path(path_nb){ //write tension_point, tension, contact_point, d
     let drag = tensions.reduce((a, b) => a + b, 0); 
     paths[path_nb].drag = drag;
 }
-function create_better_path(finetune){
-    let old = paths.length-1; //last path
-    let working = old+1;
-    paths.push(JSON.parse(JSON.stringify(paths[old]))); //make copy of old path and add it to array
-    
-    for (let i = 1; i <= NB_OF_BOLTS; i++) { //check each bolt
-        if (paths[working][i].is_max_tension || finetune || bolts[i].big_radius){ //if current bolt is max tension bolt
-            paths[working][i].pos = paths[working][i].contact_point; //change it to contact point
+function create_better_path(finetune){ //changes 1 bolt or all bolts in finetune mode, needs analyzing
+    paths.push(JSON.parse(JSON.stringify(last(path)))); //make copy of old path and add it to paths[] array
+    for (let i = 1; i <= last(path).length-1; i++) { //check each bolt (each point except first and last)
+        if (last(path)[i].is_max_tension || finetune){ //if current bolt is max tension bolt (or finetune mode)
+            last(path)[i].pos = last(path)[i].contact_point; //change bolt position to contact_point
         }
     }//end for
 }
-function find_best_path(){
-    for (let i = 0; i < NB_OF_BOLTS; i++) {
+function find_best_path(){ //runs create_better_path() a few times in normal and finetune mode
+    
+    for (let i = 0; i < NB_OF_BOLTS; i++) { //NB_OF_BOLTS could be any number
         create_better_path();
         analyse_path();
     }
     for (let i = 0; i < 10; i++) {
-        create_better_path(true);
+        create_better_path(true); //finetune mode
         analyse_path();
     }  
 }
-function on_bolt(point){//check if mouse click is on bolt, returns bolt number or false
-    for (let i = 1; i < bolts.length-1; i++) {
+function on_bolt(point){ //check if mouse click is on bolt, returns bolt number or false
+    for (let i = 1; i < bolts.length-1; i++) { //check all bolts
         if(length(point, bolts[i].pos)< BOLT_RADIUS){
             return i;
         };
     }//end for
     return false;
 } 
-function length(a, b){
+function length(a, b){ //returns length between two points
     return Math.sqrt(Math.pow((a.x - b.x), 2) + Math.pow((a.y - b.y), 2));
-}
-function tension_point(bolt, path) { //orange point, doesn't care about the bolts
-    const A = path[bolt-1].pos;
-    const B = path[bolt].pos;
-    const C = path[bolt+1].pos;
-    const AC = {x: C.x - A.x,y: C.y - A.y};
-    const k = ((B.x - A.x) * AC.x + (B.y - A.y) * AC.y) / (AC.x * AC.x + AC.y * AC.y);
-    return {
-      x: A.x + k * AC.x,
-      y: A.y + k * AC.y
-    };
-}
-function tension_strength(bolt, path){
-    return Math.floor(length(path[bolt].pos, tension_point(bolt,path)));
-}
-function intersection_circle_line(a,c,radius){
-    if (length(a,c)<radius){return c;}
-    let x = -1*((radius/length(a,c))*(a.x-c.x)-a.x);
-    let y = -1*((radius/length(a,c))*(a.y-c.y)-a.y);
-    let point = {x:x,y:y};
-    return point;
-}
-function contact_point(bolt, path){ //red point
-    if (bolts[bolt].big_radius){
-        return intersection_circle_line(bolts[bolt].pos, path[bolt].tension_point, BIG_RADIUS);
-    }
-    else {return intersection_circle_line(bolts[bolt].pos, path[bolt].tension_point, BOLT_RADIUS)};
 }
 
 /* --- DRAWING FUNCTIONS --- */
 
-function write(text, point = {x:50, y:canvas.height-50}){
-    ctx.font = "20px arial";
-    ctx.fillStyle = "black";
-    ctx.fillText(text, point.x, point.y);
-}
-function draw_circle (center, fillColor, radius = 2, strokeColor, strokeWidth = 1){  
-    ctx.beginPath();
-    ctx.arc(center.x, center.y, radius, 0, 2 * Math.PI);
-    ctx.fillStyle = fillColor;
-    if (fillColor){ctx.fill();};
-    ctx.lineWidth = strokeWidth;
-    ctx.strokeStyle = strokeColor;
-    if (strokeColor){ctx.stroke();}; 
-}
-function draw_line(a,b,color, width){
-    ctx.beginPath();
-    ctx.moveTo(a.x, a.y);
-    ctx.lineTo(b.x, b.y);
-    if (width){ctx.lineWidth = width;}else {ctx.lineWidth = 1;}
-    if (color){ctx.strokeStyle = color;}else {ctx.strokeStyle = "black";}
-    ctx.stroke();
-}
 function draw_path(path_nb, color=PATH_COLOR, width=3){
     if(!path_nb || path_nb == "last"){ //if no argument or last
-        path_nb = paths.length-1; //use last path
+        path_nb = last(nb); //use last path
     }
     let path = paths[path_nb];
     ctx.beginPath();
@@ -211,11 +187,6 @@ function draw_path(path_nb, color=PATH_COLOR, width=3){
     ctx.strokeStyle = color;
     ctx.stroke();
 }
-function draw_old_paths(percent){
-    for (let i = 0; i < paths.length; i++) {
-        draw_path(i, "rgba(0,0,0,"+percent/100+")");
-    }
-}
 function draw_bolts (){
     for (let i = 1; i < bolts.length-1; i++) {
         let radius;
@@ -224,22 +195,44 @@ function draw_bolts (){
         }else{
             radius=BOLT_RADIUS;
         }
-        draw_circle(bolts[i].pos, BOLT_COLOR, radius, "black");
-        draw_circle(bolts[i].pos, "black");
+        draw_circle(bolts[i].pos, false, radius, "black"); //draw outside radius
+        draw_circle(bolts[i].pos, "black"); //draw center
     }
-    draw_circle(STARTING_POINT, "blue", 10);
-    draw_circle(bolts[bolts.length-1].pos, "blue", 10);
+    draw_circle(STARTING_POINT, "blue", 10); //draw starting point
+    draw_circle(bolts[bolts.length-1].pos, "blue", 10); //draw finish point
 } 
+function write(text, point={x:50, y:50}){
+    ctx.font = "20px arial";
+    ctx.fillStyle = "black";
+    ctx.fillText(text, point.x, point.y);
+}
+function draw_circle (center, fillColor, radius=2, strokeColor, strokeWidth=1){  
+    ctx.beginPath();
+    ctx.arc(center.x, center.y, radius, 0, 2 * Math.PI);
+    ctx.fillStyle = fillColor;
+    if (fillColor){ctx.fill();};
+    ctx.lineWidth = strokeWidth;
+    ctx.strokeStyle = strokeColor;
+    if (strokeColor){ctx.stroke();}; 
+}
+function draw_line(a,b,color = "black", width = 1){
+    ctx.beginPath();
+    ctx.moveTo(a.x, a.y);
+    ctx.lineTo(b.x, b.y);
+    ctx.lineWidth = width;
+    ctx.strokeStyle = color;
+    ctx.stroke();
+}
+function draw_old_paths(percent=10){
+    for (let i = 0; i < paths.length; i++) {
+        draw_path(i, "rgba(0,0,0,"+percent/100+")");
+    }
+}
 
-/* function on_bolt(point, route){
-    for (let i = 1; i < route.length-1; i++) {
-        if(length(point, route[i])< BOLT_RADIUS){
-            //console.log("yes");
-            return i;
-        };
-    }//end for
-    return false;
-} */
+
+
+
+
 
 /* document.addEventListener("click", function(event){
     let mouse = {};
