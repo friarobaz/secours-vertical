@@ -6,41 +6,42 @@ canvas.height = window.innerHeight;
 
 /* YOU CAN CHANGE THIS */
 const NB_OF_BOLTS = 6;
-const END_Y = 20;
-const MIN_X_VARIATION = 50;
-const BOLT_RADIUS = 30;
-const BIG_RADIUS = 60;
-const BOLT_COLOR = false;
-const PATH_COLOR = "blue";
-const SHOW_AID = true; //rope etc
-const NB_QUICKDRAWS = 3;
+const BORDER = 20; //how far away from the windows edge the last point will be
+const MIN_X_VARIATION = 30; //min amount of zig zag 
+const BOLT_RADIUS = 30; //length of initial quickdraws
+const BIG_RADIUS = 60; //length of long quickdraws
+const BOLT_COLOR = false; //false for transparent
+const PATH_COLOR = "blue"; //rope color
+const NB_QUICKDRAWS = 3; //number of long quickdraws available at start
 /* ------------------------- */
+const MAX_X_VARIATION = (canvas.width/2/(NB_OF_BOLTS+1))-(BORDER/NB_OF_BOLTS); //find x variation that doesn't leave the frame
+if(MIN_X_VARIATION > MAX_X_VARIATION){alert("MIN_X_VARIATION too high");};
+const Y_INCREMENT = (canvas.height-BORDER) / (NB_OF_BOLTS+1);
+const STARTING_POINT = {x:canvas.width/2, y:canvas.height};
 let paths = [];
 let bolts = [];
 let quickdraws_left = NB_QUICKDRAWS;
-const MAX_X_VARIATION = canvas.width/2/(NB_OF_BOLTS+3);
-const Y_INCREMENT = (canvas.height-END_Y) / (NB_OF_BOLTS+1);
-const STARTING_POINT = {x:canvas.width/2, y:canvas.height};
+const nb = "path_nb";
+const path = "path";
 
-
-
-
-
-
-
-
-
-
+function last(type){
+    if (type == "path"){
+        return paths[paths.length-1];
+    }
+    else if (type == "path_nb"){
+        return paths.length-1;
+    }
+}
 
 create_bolts();
 draw_bolts();
-analyse_path(0);
-find_best_path(SHOW_AID);
-let before = paths.length-1; //remember path nb before all clicks
-write(`Tirage: ${paths[paths.length-1].tirage} / ${paths[before].tirage}`, {x:10, y:canvas.height-100});
+analyse_path();
+find_best_path();
+draw_path();
+let start = last(nb); //remember path_nb before all clicks
+write(`Tirage: ${last(path).drag} / ${paths[start].drag}`, {x:10, y:canvas.height-100});
 write(`Reduction: 0%`,{x:10, y:canvas.height-50});
 write(`Degaines longues dispo: ${quickdraws_left}`, {x:canvas.width-300, y:canvas.height-50})
-
 
 document.addEventListener("click", function(event){
     let mouse = {};
@@ -54,75 +55,66 @@ document.addEventListener("click", function(event){
             bolts[on_bolt(mouse)].big_radius = true; //make bolt bigger
             ctx.clearRect(0, 0, canvas.width, canvas.height); //clear canva
             draw_bolts();
-            find_best_path(SHOW_AID);
-            let new_tirage = paths[paths.length-1].tirage;
-            let reduction = Math.floor((paths[before].tirage-new_tirage)/paths[before].tirage*100);
-            write(`Tirage: ${new_tirage} / ${paths[before].tirage}`, {x:10, y:canvas.height-100});
+            find_best_path();
+            let new_drag = last(path).drag;
+            let reduction = Math.floor((paths[start].drag-new_drag)/paths[start].drag*100);
+            write(`Tirage: ${new_drag} / ${paths[start].drag}`, {x:10, y:canvas.height-100});
             write(`Reduction: ${reduction}%`,{x:10, y:canvas.height-50});
             write(`Degaines longues dispo: ${quickdraws_left}`, {x:canvas.width-300, y:canvas.height-50})
-            if (SHOW_AID){
-                draw_path(before, "rgba(255,0,0,0.2)");
+            if (true){
+                draw_path(start, "rgba(255,0,0,0.2)");
                 draw_path(paths.length-1);
             };//end if
         }//end else
     };//end if
 });//end listen
 
-function on_bolt(point){//returns bolt number
-    for (let i = 1; i < bolts.length-1; i++) {
-        if(length(point, bolts[i].pos)< BOLT_RADIUS){
-            return i;
-        };
-    }//end for
-    return false;
-} 
 function create_bolts(){ //create a few random bolts
     let current_point = {pos:STARTING_POINT};
-    for (let i = 0; i < NB_OF_BOLTS+2; i++) {
-        let rand = Math.floor(Math.random() * MAX_X_VARIATION) + MIN_X_VARIATION;
+    for (let i = 0; i < NB_OF_BOLTS+2; i++){ //+2 because we need to create first and last point too
+        let rand = Math.random() * (MAX_X_VARIATION - MIN_X_VARIATION) + MIN_X_VARIATION; //how far to deviate
         let dir = Math.round(Math.random()) * 2 - 1; //right or left
         
         let last_point = current_point; //remember current point, keep it in last point
-        bolts[i] = current_point; //store current point in bolts
+        bolts[i] = current_point; //write current point in bolts
         
         //assign next position to current_point 
         current_point = {pos:{x:last_point.pos.x+(rand*dir),y:last_point.pos.y - Y_INCREMENT}}; 
     }//end for 
-    paths = []; //empty routes
-    paths[0] = JSON.parse(JSON.stringify(bolts)); //store bolts in first place of array
+    paths = []; //reset paths array
+    paths[0] = JSON.parse(JSON.stringify(bolts)); //create first path that follows bolts centers
 }
-function analyse_path(path_nb, graphic){ //calculate tensions etc and fill array with objects
+function analyse_path(path_nb){ //write tension_point, tension, contact_point, drag, in array
+    if(!path_nb || path_nb == "last"){ //if no argument or last
+        path_nb = last(nb); //use last path
+    }
     let path = paths[path_nb];
+    //initialize first and last point in path
     path[0].tension_point = path[0].pos;
     path[0].tension = 0;
     path[0].contact_point = path[0].pos;
     path[path.length-1].tension_point = path[path.length-1].pos;
     path[path.length-1].tension = 0;
     path[path.length-1].contact_point = path[path.length-1].pos;
-    for (let i = 1; i < path.length-1; i++) {//for each bolt
+
+    for (let i = 1; i < path.length-1; i++) {//for each bolt (all points except first and last)
         path[i].is_max_tension = false; //reset
         path[i].tension_point = tension_point(i, path);
         path[i].tension = tension_strength(i, path);
         path[i].contact_point = contact_point(i, path);
-        if(graphic){
-            draw_circle(path[i].tension_point, "orange");
-            draw_line(path[i].tension_point, path[i].pos);
-            draw_circle(path[i].contact_point, "red");
-        }
     }
-    let tensions = path.map(x => x.tension);
-    let max_tension = Math.max(...tensions)
+    let tensions = path.map(x => x.tension); //create array with tension strength at each point
+    
+    //find point with most tension and assign it "is_max_tension"
     let index_of_max = tensions.reduce((iMax, x, i, arr) => x > arr[iMax] ? i : iMax, 0);
-    path[index_of_max].is_max_tension = true;
-    if (graphic){
-        draw_circle(path[index_of_max].pos, "rgba(255,0,0,0.5)", 10);
-    };
-    let tirage = tensions.reduce((a, b) => a + b, 0);
-    paths[path_nb].tirage = tirage;
-    //console.log("Path["+path_nb+"] tirage: "+tirage);
+    path[index_of_max].is_max_tension = true; 
+
+    //create drag, the sum of all tensions in path and assign it to path
+    let drag = tensions.reduce((a, b) => a + b, 0); 
+    paths[path_nb].drag = drag;
 }
 function create_better_path(finetune){
-    let old = paths.length-1;
+    let old = paths.length-1; //last path
     let working = old+1;
     paths.push(JSON.parse(JSON.stringify(paths[old]))); //make copy of old path and add it to array
     
@@ -132,24 +124,24 @@ function create_better_path(finetune){
         }
     }//end for
 }
-function find_best_path(graphic){
+function find_best_path(){
     for (let i = 0; i < NB_OF_BOLTS; i++) {
-        
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        draw_bolts()
         create_better_path();
-        analyse_path(paths.length-1, false);
-        if(graphic){draw_path(paths.length-1, PATH_COLOR);}
+        analyse_path();
     }
     for (let i = 0; i < 10; i++) {
-        
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        draw_bolts()
         create_better_path(true);
-        analyse_path(paths.length-1, false);
-        if(graphic){draw_path(paths.length-1, PATH_COLOR);}
+        analyse_path();
     }  
 }
+function on_bolt(point){//check if mouse click is on bolt, returns bolt number or false
+    for (let i = 1; i < bolts.length-1; i++) {
+        if(length(point, bolts[i].pos)< BOLT_RADIUS){
+            return i;
+        };
+    }//end for
+    return false;
+} 
 function length(a, b){
     return Math.sqrt(Math.pow((a.x - b.x), 2) + Math.pow((a.y - b.y), 2));
 }
@@ -205,15 +197,18 @@ function draw_line(a,b,color, width){
     if (color){ctx.strokeStyle = color;}else {ctx.strokeStyle = "black";}
     ctx.stroke();
 }
-function draw_path(path_nb, color = PATH_COLOR, width){
+function draw_path(path_nb, color=PATH_COLOR, width=3){
+    if(!path_nb || path_nb == "last"){ //if no argument or last
+        path_nb = paths.length-1; //use last path
+    }
     let path = paths[path_nb];
     ctx.beginPath();
     ctx.moveTo(path[0].pos.x, path[0].pos.y);
     for (let i = 1; i < path.length; i++) {
         ctx.lineTo(path[i].pos.x, path[i].pos.y);
     }
-    if (width){ctx.lineWidth = width;}else {ctx.lineWidth = 3;}
-    if (color){ctx.strokeStyle = color;}else {ctx.strokeStyle = "black";}
+    ctx.lineWidth = width;
+    ctx.strokeStyle = color;
     ctx.stroke();
 }
 function draw_old_paths(percent){
@@ -301,4 +296,11 @@ function get_angle(a,b,c){
     return Math.acos((Math.pow(length(a,b), 2) + Math.pow(length(a,c), 2) - Math.pow(length(b,c), 2)) / (2 * length(a,b) * length(a,c)))
 } */
 
+/* if(graphic){
+    draw_circle(path[i].tension_point, "orange");
+    draw_line(path[i].tension_point, path[i].pos);
+    draw_circle(path[i].contact_point, "red");
+} */
+
+/* let max_tension = Math.max(...tensions); */
 
