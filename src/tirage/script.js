@@ -23,14 +23,6 @@ let quickdraws_left = NB_QUICKDRAWS;
 const nb = "path_nb";
 const path = "path";
 
-function write_data(){
-    analyse_path();
-    let reduction = Math.floor((paths[start].drag-last(path).drag)/paths[start].drag*100);
-    write(`Tirage: ${last(path).drag} / ${paths[start].drag}`, {x:10, y:canvas.height-100});
-    write(`Reduction: ${reduction}%`,{x:10, y:canvas.height-50});
-    write(`Degaines longues dispo: ${quickdraws_left}`, {x:canvas.width-300, y:canvas.height-50})
-}
-
 create_bolts();
 draw_bolts();
 find_best_path();
@@ -38,10 +30,10 @@ draw_path();
 let start = last(nb); //remember path_nb before all clicks
 write_data();
 
-document.addEventListener("click", function(event){
+document.addEventListener("click", function(event){ //on mouse click
     let mouse = {x:event.x, y:event.y}
     if(on_bolt(mouse) && quickdraws_left){//if you click on bolt and you have quickdraws
-        if (bolts[on_bolt(mouse)].big_radius){//if bolt already big > do nothing
+        if (bolts[on_bolt(mouse)].big_radius){//if bolt is already big > do nothing
             return;
         }else{
             quickdraws_left--;
@@ -51,10 +43,10 @@ document.addEventListener("click", function(event){
             find_best_path();
             write_data();
             draw_path(start, "rgba(255,0,0,0.2)");
-            draw_path(paths.length-1);
+            draw_path();
         }//end else
     };//end if
-});//end listen
+});
 
 function create_bolts(){ //create a few random bolts
     let current_point = {pos:STARTING_POINT};
@@ -199,6 +191,13 @@ function write(text, point={x:50, y:50}){
     ctx.font = "20px arial";
     ctx.fillStyle = "black";
     ctx.fillText(text, point.x, point.y);
+}
+function write_data(){
+    analyse_path();
+    let reduction = Math.floor((paths[start].drag-last(path).drag)/paths[start].drag*100);
+    write(`Tirage: ${last(path).drag} / ${paths[start].drag}`, {x:10, y:canvas.height-100});
+    write(`Reduction: ${reduction}%`,{x:10, y:canvas.height-50});
+    write(`Degaines longues dispo: ${quickdraws_left}`, {x:canvas.width-300, y:canvas.height-50})
 }
 function draw_circle (center, fillColor, radius=2, strokeColor, strokeWidth=1){  
     ctx.beginPath();
