@@ -27,62 +27,11 @@ create_bolts();
 draw_bolts();
 find_best_path();
 draw_path();
+draw_quickdraws();
 let start = last(nb); //remember path_nb before all clicks
 write_data();
 
 
-/* for (let i = 1; i <= NB_OF_BOLTS; i++){
-    let bolt = bolts[i].pos;
-    let a = {x:bolt.x-BOLT_RADIUS, y:bolt.y};
-    let b = bolt;
-    let c = last(path)[i].contact_point;
-    
-    drawRotatedImage(bolts[i].pos,get_angle(a,b,c));
-    console.log(rad_to_deg(get_angle(a,b,c)));
-    draw_circle(a, "red", 2);
-    draw_circle(b, "red", 2);
-    draw_circle(c, "red", 2);
-} */
-
-let A = bolts[3].pos;
-let B = last(path)[3].contact_point;
-let D = last(path)[2].contact_point;
-
-let AC = BOLT_RADIUS;
-let AB = length(A,B);
-let BD = length(B,D);
-let beta = get_angle(B,A,D);
-
-let BC = AB*Math.cos(beta)+(Math.sqrt(Math.pow(AB,2)*((1+Math.cos(2*beta))/2)-Math.pow(AB,2)+Math.pow(AC,2)));
-
-let distance = BC;
-let C = intersection_circle_line_2(B,D, distance );
-let R = {x:A.x, y:A.y+BOLT_RADIUS};
-let gauche = 1;
-if (C.x > R.x){gauche = -1};
-let angle_2 = get_angle(A, C, R) * gauche;
-drawRotatedImage(A,angle_2);
-
-
-    
-function drawRotatedImage(point, angle)
-{ 
-    image = new Image();
-    image.src = "quickdraw.png"; // can also be a remote URL e.g. http://
-    //var TO_RADIANS = Math.PI/180; 
-    image.onload = function() {
-        ctx.save(); 
-        ctx.translate(point.x, point.y);
-        ctx.rotate(angle); // in radian
-        let ratio =  BOLT_RADIUS / image.height*1.12;
-        ctx.scale(ratio, ratio);
-        ctx.drawImage(image, -(image.width/1.5),-(image.height/20));
-        ctx.restore(); 
-    }
-}
-function rad_to_deg(rad){
-    return rad * (180 / Math.PI)
-}
 function get_angle(center,b,c){
     //returns angle in radient
     return Math.acos((Math.pow(length(center,b), 2) + Math.pow(length(center,c), 2) - Math.pow(length(b,c), 2)) / (2 * length(center,b) * length(center,c)))
@@ -214,19 +163,10 @@ function intersection_circle_line(a,c,radius){ //returns point where circle inte
     let y = -1*((radius/length(a,c))*(a.y-c.y)-a.y);
     return {x:x,y:y};
 }
-function intersection_circle_line_2(a,c,radius){ //returns point where circle intersects with segment
-    
-    let x = -1*((radius/length(a,c))*(a.x-c.x)-a.x);
-    let y = -1*((radius/length(a,c))*(a.y-c.y)-a.y);
-    return {x:x,y:y};
-}
 
 /* --- DRAWING FUNCTIONS --- */
 
-function draw_path(path_nb, color=PATH_COLOR, width=3){
-    if(!path_nb || path_nb == "last"){ //if no argument or last
-        path_nb = last(nb); //use last path
-    }
+function draw_path(path_nb=last(nb), color=PATH_COLOR, width=3){
     let path = paths[path_nb];
     ctx.beginPath();
     ctx.moveTo(path[0].pos.x, path[0].pos.y);
@@ -237,8 +177,37 @@ function draw_path(path_nb, color=PATH_COLOR, width=3){
     ctx.strokeStyle = color;
     ctx.stroke();
 }
+function draw_quickdraws(path_nb=last(nb)){
+    function drawRotatedImage(point, angle){ 
+        image = new Image();
+        image.src = "quickdraw.png";
+        image.onload = function() {
+            ctx.save(); 
+            ctx.translate(point.x, point.y);
+            ctx.rotate(angle); // in radian
+            let ratio =  BOLT_RADIUS / image.height*1.12;
+            ctx.scale(ratio, ratio);
+            ctx.drawImage(image, -(image.width/1.5),-(image.height/20));
+            ctx.restore(); 
+        }
+    }   
+    let path = paths[path_nb];
+    for (let i = 1; i <= NB_OF_BOLTS; i++){
+        let A = bolts[i].pos;
+        let B = path[i].contact_point;
+        let D = path[i-1].contact_point;
+        let AB = length(A,B);
+        let beta = get_angle(B,A,D);
+        let BC = AB*Math.cos(beta)+(Math.sqrt(Math.pow(AB,2)*((1+Math.cos(2*beta))/2)-Math.pow(AB,2)+Math.pow(BOLT_RADIUS,2)));
+        let C = intersection_circle_line(B,D,BC);
+        let R = {x:A.x, y:A.y+BOLT_RADIUS};
+        let gauche = 1;
+        if (C.x > R.x){gauche = -1};
+        let angle = get_angle(A, C, R) * gauche;
+        drawRotatedImage(A,angle);
+    }
+}
 function draw_bolts (){
-    //draw_quickdraws();
     for (let i = 1; i < bolts.length-1; i++) {
         let radius;
         if (bolts[i].big_radius){
