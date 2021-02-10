@@ -11,7 +11,7 @@ const MIN_X_VARIATION = 40; //min amount of zig zag
 const BOLT_RADIUS = 40; //length of initial quickdraws
 const BIG_RADIUS = 60; //length of long quickdraws
 const PATH_COLOR = "blue"; //rope color
-const NB_QUICKDRAWS = 3; //number of long quickdraws available at start
+const NB_QUICKDRAWS = 30; //number of long quickdraws available at start
 /* ------------------------- */
 const MAX_X_VARIATION = (canvas.width/2/(NB_OF_BOLTS+1))-(BORDER/NB_OF_BOLTS); //find x variation that doesn't leave the frame
 if(MIN_X_VARIATION > MAX_X_VARIATION){alert("MIN_X_VARIATION too high");};
@@ -49,8 +49,9 @@ document.addEventListener("click", function(event){ //on mouse click
             draw_bolts();
             find_best_path();
             write_data();
-            draw_path(start, "rgba(255,0,0,0.2)");
+            //draw_path(start, "rgba(255,0,0,0.2)");
             draw_path();
+            draw_quickdraws();
         }//end else
     };//end if
 });
@@ -178,14 +179,14 @@ function draw_path(path_nb=last(nb), color=PATH_COLOR, width=3){
     ctx.stroke();
 }
 function draw_quickdraws(path_nb=last(nb)){
-    function drawRotatedImage(point, angle){ 
+    function drawRotatedImage(point, angle, size){ 
         image = new Image();
         image.src = "quickdraw.png";
         image.onload = function() {
             ctx.save(); 
             ctx.translate(point.x, point.y);
             ctx.rotate(angle); // in radian
-            let ratio =  BOLT_RADIUS / image.height*1.12;
+            let ratio = size / image.height*1.12;
             ctx.scale(ratio, ratio);
             ctx.drawImage(image, -(image.width/1.5),-(image.height/20));
             ctx.restore(); 
@@ -193,18 +194,25 @@ function draw_quickdraws(path_nb=last(nb)){
     }   
     let path = paths[path_nb];
     for (let i = 1; i <= NB_OF_BOLTS; i++){
+        
         let A = bolts[i].pos;
         let B = path[i].contact_point;
         let D = path[i-1].contact_point;
         let AB = length(A,B);
+        let AC = BOLT_RADIUS;
+        if(bolts[i].big_radius){AC = BIG_RADIUS;}
         let beta = get_angle(B,A,D);
-        let BC = AB*Math.cos(beta)+(Math.sqrt(Math.pow(AB,2)*((1+Math.cos(2*beta))/2)-Math.pow(AB,2)+Math.pow(BOLT_RADIUS,2)));
+        let BC = AB*Math.cos(beta)+(Math.sqrt(Math.pow(AB,2)*((1+Math.cos(2*beta))/2)-Math.pow(AB,2)+Math.pow(AC,2)));
         let C = intersection_circle_line(B,D,BC);
         let R = {x:A.x, y:A.y+BOLT_RADIUS};
         let gauche = 1;
         if (C.x > R.x){gauche = -1};
         let angle = get_angle(A, C, R) * gauche;
-        drawRotatedImage(A,angle);
+        drawRotatedImage(A,angle, AC);
+        //draw_circle(A, "green", 3);
+        //draw_circle(B, "blue", 3);
+        //draw_circle(D, "orange", 3);
+        //draw_circle(C, "red", 3);
     }
 }
 function draw_bolts (){
@@ -215,7 +223,7 @@ function draw_bolts (){
         }else{
             radius=BOLT_RADIUS;
         }
-        draw_circle(bolts[i].pos, false, radius, "black"); //draw outside radius
+        //draw_circle(bolts[i].pos, false, radius, "black"); //draw outside radius
         draw_circle(bolts[i].pos, "black"); //draw center
     }
     draw_circle(STARTING_POINT, "blue", 10); //draw starting point
