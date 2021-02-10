@@ -8,10 +8,10 @@ canvas.height = window.innerHeight;
 const NB_OF_BOLTS = 4;
 const BORDER = 20; //how far away from the windows edge the last point will be
 const MIN_X_VARIATION = 40; //min amount of zig zag 
-const BOLT_RADIUS = 50; //length of initial quickdraws
+const BOLT_RADIUS = 40; //length of initial quickdraws
 const BIG_RADIUS = 60; //length of long quickdraws
 const PATH_COLOR = "blue"; //rope color
-const NB_QUICKDRAWS = 10; //number of long quickdraws available at start
+const NB_QUICKDRAWS = 3; //number of long quickdraws available at start
 /* ------------------------- */
 const MAX_X_VARIATION = (canvas.width/2/(NB_OF_BOLTS+1))-(BORDER/NB_OF_BOLTS); //find x variation that doesn't leave the frame
 if(MIN_X_VARIATION > MAX_X_VARIATION){alert("MIN_X_VARIATION too high");};
@@ -32,24 +32,25 @@ let start = last(nb); //remember path_nb before all clicks
 write_data();
 
 
+function get_angle(center,b,c){
+    //returns angle in radient
+    return Math.acos((Math.pow(length(center,b), 2) + Math.pow(length(center,c), 2) - Math.pow(length(b,c), 2)) / (2 * length(center,b) * length(center,c)))
+}
+
 document.addEventListener("click", function(event){ //on mouse click
     let mouse = {x:event.x, y:event.y}
     if(on_bolt(mouse) && quickdraws_left){//if you click on bolt and you have quickdraws
-        let bolt = on_bolt(mouse);
-        if (bolts[bolt].big_radius){//if bolt is already big > do nothing
+        if (bolts[on_bolt(mouse)].big_radius){//if bolt is already big > do nothing
             return;
         }else{
             quickdraws_left--;
-            bolts[bolt].big_radius = true; //make bolt bigger
+            bolts[on_bolt(mouse)].big_radius = true; //make bolt bigger
             ctx.clearRect(0, 0, canvas.width, canvas.height); //clear canvas
             draw_bolts();
             find_best_path();
             write_data();
             draw_path(start, "rgba(255,0,0,0.2)");
             draw_path();
-            draw_quickdraws();
-            console.log(bolts[bolt])
-            console.log(last(path)[bolt]);
         }//end else
     };//end if
 });
@@ -69,7 +70,7 @@ function create_bolts(){ //create a few random bolts
     paths = []; //reset paths array
     paths[0] = JSON.parse(JSON.stringify(bolts)); //create first path that follows bolts centers
 }
-function analyse_path(path_nb=last(nb)){ //write tension_point, tension, contact_point, drag
+function analyse_path(path_nb){ //write tension_point, tension, contact_point, drag
     function tension_point(bolt, path) { //returns point towards which the bolt il pulled
         const A = path[bolt-1].pos;
         const B = path[bolt].pos;
@@ -91,6 +92,9 @@ function analyse_path(path_nb=last(nb)){ //write tension_point, tension, contact
         else {
             return intersection_circle_line(bolts[bolt].pos, path[bolt].tension_point, BOLT_RADIUS)
         };
+    }
+    if(!path_nb || path_nb == "last"){ //if no argument or last
+        path_nb = last(nb); //use last path
     }
     let path = paths[path_nb];
     //initialize first and last point in path
@@ -159,10 +163,6 @@ function intersection_circle_line(a,c,radius){ //returns point where circle inte
     let y = -1*((radius/length(a,c))*(a.y-c.y)-a.y);
     return {x:x,y:y};
 }
-function get_angle(center,b,c){
-    //returns angle in radient
-    return Math.acos((Math.pow(length(center,b), 2) + Math.pow(length(center,c), 2) - Math.pow(length(b,c), 2)) / (2 * length(center,b) * length(center,c)))
-}
 
 /* --- DRAWING FUNCTIONS --- */
 
@@ -193,43 +193,18 @@ function draw_quickdraws(path_nb=last(nb)){
     }   
     let path = paths[path_nb];
     for (let i = 1; i <= NB_OF_BOLTS; i++){
-        let radius = BOLT_RADIUS;
-        if (path[i].big_radius){radius = BIG_RADIUS;}
         let A = bolts[i].pos;
         let B = path[i].contact_point;
         let D = path[i-1].contact_point;
         let AB = length(A,B);
-        let AC = radius;
-
-        let alpha = get_angle(A,B,D);
-        function deg_to_rad(deg){
-            return deg * Math.PI / 180
-        }
-
-        let BC = Math.sqrt(Math.pow(AC,2)+Math.pow(AB,2)-2*AC*AB*Math.cos(alpha));
-
-        //draw_circle(B,false, BC,"purple");
-        
+        let beta = get_angle(B,A,D);
+        let BC = AB*Math.cos(beta)+(Math.sqrt(Math.pow(AB,2)*((1+Math.cos(2*beta))/2)-Math.pow(AB,2)+Math.pow(BOLT_RADIUS,2)));
         let C = intersection_circle_line(B,D,BC);
-        let CC = intersection_circle_line(B,D,-BC);
-
-        draw_line(A,B);
-        draw_line(B,C);
-        draw_line(A,C);
-        draw_circle(A, "green",3);
-        draw_circle(B, "blue", 3);
-        draw_circle(C, "red", 3);
-        draw_circle(CC, "red", 3);
-        draw_circle(D, "orange", 3);
-        let R = {x:A.x, y:A.y+radius};
+        let R = {x:A.x, y:A.y+BOLT_RADIUS};
         let gauche = 1;
         if (C.x > R.x){gauche = -1};
         let angle = get_angle(A, C, R) * gauche;
-        //drawRotatedImage(A,angle);
-        
-        console.log ("#################################");
-        console.log(`BC: ${BC}`);
-        console.log ("#################################");
+        drawRotatedImage(A,angle);
     }
 }
 function draw_bolts (){
@@ -241,7 +216,7 @@ function draw_bolts (){
             radius=BOLT_RADIUS;
         }
         draw_circle(bolts[i].pos, false, radius, "black"); //draw outside radius
-        draw_circle(bolts[i].pos, "black", 2); //draw center
+        draw_circle(bolts[i].pos, "black"); //draw center
     }
     draw_circle(STARTING_POINT, "blue", 10); //draw starting point
     draw_circle(bolts[bolts.length-1].pos, "blue", 10); //draw finish point
