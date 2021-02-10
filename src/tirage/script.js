@@ -5,10 +5,10 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 /* YOU CAN CHANGE THIS */
-const NB_OF_BOLTS = 6;
+const NB_OF_BOLTS = 4;
 const BORDER = 20; //how far away from the windows edge the last point will be
-const MIN_X_VARIATION = 30; //min amount of zig zag 
-const BOLT_RADIUS = 30; //length of initial quickdraws
+const MIN_X_VARIATION = 40; //min amount of zig zag 
+const BOLT_RADIUS = 40; //length of initial quickdraws
 const BIG_RADIUS = 60; //length of long quickdraws
 const PATH_COLOR = "blue"; //rope color
 const NB_QUICKDRAWS = 3; //number of long quickdraws available at start
@@ -29,6 +29,64 @@ find_best_path();
 draw_path();
 let start = last(nb); //remember path_nb before all clicks
 write_data();
+
+
+/* for (let i = 1; i <= NB_OF_BOLTS; i++){
+    let bolt = bolts[i].pos;
+    let a = {x:bolt.x-BOLT_RADIUS, y:bolt.y};
+    let b = bolt;
+    let c = last(path)[i].contact_point;
+    
+    drawRotatedImage(bolts[i].pos,get_angle(a,b,c));
+    console.log(rad_to_deg(get_angle(a,b,c)));
+    draw_circle(a, "red", 2);
+    draw_circle(b, "red", 2);
+    draw_circle(c, "red", 2);
+} */
+
+let A = bolts[3].pos;
+let B = last(path)[3].contact_point;
+let D = last(path)[2].contact_point;
+
+let AC = BOLT_RADIUS;
+let AB = length(A,B);
+let BD = length(B,D);
+let beta = get_angle(B,A,D);
+
+let BC = AB*Math.cos(beta)+(Math.sqrt(Math.pow(AB,2)*((1+Math.cos(2*beta))/2)-Math.pow(AB,2)+Math.pow(AC,2)));
+
+let distance = BC;
+let C = intersection_circle_line_2(B,D, distance );
+let R = {x:A.x, y:A.y+BOLT_RADIUS};
+let gauche = 1;
+if (C.x > R.x){gauche = -1};
+let angle_2 = get_angle(A, C, R) * gauche;
+drawRotatedImage(A,angle_2);
+
+
+    
+function drawRotatedImage(point, angle)
+{ 
+    image = new Image();
+    image.src = "quickdraw.png"; // can also be a remote URL e.g. http://
+    //var TO_RADIANS = Math.PI/180; 
+    image.onload = function() {
+        ctx.save(); 
+        ctx.translate(point.x, point.y);
+        ctx.rotate(angle); // in radian
+        let ratio =  BOLT_RADIUS / image.height*1.12;
+        ctx.scale(ratio, ratio);
+        ctx.drawImage(image, -(image.width/1.5),-(image.height/20));
+        ctx.restore(); 
+    }
+}
+function rad_to_deg(rad){
+    return rad * (180 / Math.PI)
+}
+function get_angle(center,b,c){
+    //returns angle in radient
+    return Math.acos((Math.pow(length(center,b), 2) + Math.pow(length(center,c), 2) - Math.pow(length(b,c), 2)) / (2 * length(center,b) * length(center,c)))
+}
 
 document.addEventListener("click", function(event){ //on mouse click
     let mouse = {x:event.x, y:event.y}
@@ -79,12 +137,6 @@ function analyse_path(path_nb){ //write tension_point, tension, contact_point, d
         return Math.floor(length(path[bolt].pos, tension_point(bolt,path)));
     }
     function contact_point(bolt, path){ //returns where the bolt will end up if pulled
-        function intersection_circle_line(a,c,radius){ //returns point where circle intersects with segment
-            if (length(a,c)<radius){return c;}
-            let x = -1*((radius/length(a,c))*(a.x-c.x)-a.x);
-            let y = -1*((radius/length(a,c))*(a.y-c.y)-a.y);
-            return {x:x,y:y};
-        }
         if (bolts[bolt].big_radius){
             return intersection_circle_line(bolts[bolt].pos, path[bolt].tension_point, BIG_RADIUS);
         }
@@ -156,6 +208,18 @@ function last(type){
         return paths.length-1;
     }
 }
+function intersection_circle_line(a,c,radius){ //returns point where circle intersects with segment
+    if (length(a,c)<radius){return c;}
+    let x = -1*((radius/length(a,c))*(a.x-c.x)-a.x);
+    let y = -1*((radius/length(a,c))*(a.y-c.y)-a.y);
+    return {x:x,y:y};
+}
+function intersection_circle_line_2(a,c,radius){ //returns point where circle intersects with segment
+    
+    let x = -1*((radius/length(a,c))*(a.x-c.x)-a.x);
+    let y = -1*((radius/length(a,c))*(a.y-c.y)-a.y);
+    return {x:x,y:y};
+}
 
 /* --- DRAWING FUNCTIONS --- */
 
@@ -174,6 +238,7 @@ function draw_path(path_nb, color=PATH_COLOR, width=3){
     ctx.stroke();
 }
 function draw_bolts (){
+    //draw_quickdraws();
     for (let i = 1; i < bolts.length-1; i++) {
         let radius;
         if (bolts[i].big_radius){
@@ -194,7 +259,12 @@ function write(text, point={x:50, y:50}){
 }
 function write_data(){
     analyse_path();
-    let reduction = Math.floor((paths[start].drag-last(path).drag)/paths[start].drag*100);
+    let drag = paths[start].drag*100;
+    let reduction
+    if (drag){
+        reduction = Math.floor((paths[start].drag-last(path).drag)/drag);
+    }else{reduction = 0;}
+    
     write(`Tirage: ${last(path).drag} / ${paths[start].drag}`, {x:10, y:canvas.height-100});
     write(`Reduction: ${reduction}%`,{x:10, y:canvas.height-50});
     write(`Degaines longues dispo: ${quickdraws_left}`, {x:canvas.width-300, y:canvas.height-50})
