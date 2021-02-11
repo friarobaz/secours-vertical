@@ -5,11 +5,12 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 /* YOU CAN CHANGE THIS */
-const NB_OF_BOLTS = 4;
+const BACKGROUND_COLOR = "#EEEEEE";
+const NB_OF_BOLTS = 6;
 const BORDER = 20; //how far away from the windows edge the last point will be
-const MIN_X_VARIATION = 40; //min amount of zig zag 
+const MIN_X_VARIATION = 60; //min amount of zig zag 
 const BOLT_RADIUS = 40; //length of initial quickdraws
-const BIG_RADIUS = 60; //length of long quickdraws
+const BIG_RADIUS = 80; //length of long quickdraws
 const PATH_COLOR = "blue"; //rope color
 const NB_QUICKDRAWS = 30; //number of long quickdraws available at start
 /* ------------------------- */
@@ -23,11 +24,14 @@ let quickdraws_left = NB_QUICKDRAWS;
 const nb = "path_nb";
 const path = "path";
 
+ctx.fillStyle = BACKGROUND_COLOR;
+ctx.fillRect(0,0,canvas.width, canvas.height);
 create_bolts();
 draw_bolts();
 find_best_path();
 draw_path();
 draw_quickdraws();
+//console.log(last(path));
 let start = last(nb); //remember path_nb before all clicks
 write_data();
 
@@ -46,10 +50,12 @@ document.addEventListener("click", function(event){ //on mouse click
             quickdraws_left--;
             bolts[on_bolt(mouse)].big_radius = true; //make bolt bigger
             ctx.clearRect(0, 0, canvas.width, canvas.height); //clear canvas
+            ctx.fillStyle = BACKGROUND_COLOR;
+            ctx.fillRect(0,0,canvas.width, canvas.height);
             draw_bolts();
             find_best_path();
             write_data();
-            //draw_path(start, "rgba(255,0,0,0.2)");
+            //draw_path(start, "rgba(255,0,0,0.2)"); //draw old path in pink
             draw_path();
             draw_quickdraws();
         }//end else
@@ -94,6 +100,18 @@ function analyse_path(path_nb){ //write tension_point, tension, contact_point, d
             return intersection_circle_line(bolts[bolt].pos, path[bolt].tension_point, BOLT_RADIUS)
         };
     }
+    function quickdraw_entry (bolt, path){
+        let A = bolts[bolt].pos;
+        let B = path[bolt].contact_point;
+        let D = path[bolt-1].contact_point;
+        let AB = length(A,B);
+        let AC = BOLT_RADIUS;
+        if(bolts[bolt].big_radius){AC = BIG_RADIUS;}
+        let beta = get_angle(B,A,D);
+        let BC = AB*Math.cos(beta)+(Math.sqrt(Math.pow(AB,2)*((1+Math.cos(2*beta))/2)-Math.pow(AB,2)+Math.pow(AC,2)));
+        let C = intersection_circle_line(B,D,BC);
+        return C;
+    }
     if(!path_nb || path_nb == "last"){ //if no argument or last
         path_nb = last(nb); //use last path
     }
@@ -111,6 +129,7 @@ function analyse_path(path_nb){ //write tension_point, tension, contact_point, d
         path[i].tension_point = tension_point(i, path);
         path[i].tension = tension_strength(i, path);
         path[i].contact_point = contact_point(i, path);
+        path[i].quickdraw_entry = quickdraw_entry(i, path);
     }
     let tensions = path.map(x => x.tension); //create array with tension strength at each point
     
@@ -179,40 +198,57 @@ function draw_path(path_nb=last(nb), color=PATH_COLOR, width=3){
     ctx.stroke();
 }
 function draw_quickdraws(path_nb=last(nb)){
-    function drawRotatedImage(point, angle, size){ 
-        image = new Image();
-        image.src = "quickdraw.png";
-        image.onload = function() {
-            ctx.save(); 
-            ctx.translate(point.x, point.y);
-            ctx.rotate(angle); // in radian
-            let ratio = size / image.height*1.12;
-            ctx.scale(ratio, ratio);
-            ctx.drawImage(image, -(image.width/1.5),-(image.height/20));
-            ctx.restore(); 
-        }
-    }   
-    let path = paths[path_nb];
-    for (let i = 1; i <= NB_OF_BOLTS; i++){
-        
-        let A = bolts[i].pos;
-        let B = path[i].contact_point;
-        let D = path[i-1].contact_point;
-        let AB = length(A,B);
-        let AC = BOLT_RADIUS;
-        if(bolts[i].big_radius){AC = BIG_RADIUS;}
-        let beta = get_angle(B,A,D);
-        let BC = AB*Math.cos(beta)+(Math.sqrt(Math.pow(AB,2)*((1+Math.cos(2*beta))/2)-Math.pow(AB,2)+Math.pow(AC,2)));
-        let C = intersection_circle_line(B,D,BC);
-        let R = {x:A.x, y:A.y+BOLT_RADIUS};
+ 
+    function draw_short_quickdraw(path, bolt){
+        //console.log(`bolt ${bolt} drawing ${quickdraw_length} quickdraw`);
+        let A = bolts[bolt].pos; //quickdraw center
+        let C = path[bolt].quickdraw_entry; //quickdraw entry point
+        let R = {x:A.x, y:A.y+69420}; //reference point
+        let AC = length(A,C); //radius
         let gauche = 1;
         if (C.x > R.x){gauche = -1};
         let angle = get_angle(A, C, R) * gauche;
-        drawRotatedImage(A,angle, AC);
-        //draw_circle(A, "green", 3);
-        //draw_circle(B, "blue", 3);
-        //draw_circle(D, "orange", 3);
-        //draw_circle(C, "red", 3);
+        image = new Image();
+            image.src = `quickdraw_short.png`;
+            image.onload = function() {
+                ctx.save(); 
+                ctx.translate(A.x, A.y);
+                ctx.rotate(angle); // in radian
+                let ratio = AC / image.height*1.12;
+                ctx.scale(ratio, ratio);
+                ctx.drawImage(image, -(image.width/1.5),-(image.height/20));
+                ctx.restore(); 
+            }
+    }
+    function draw_long_quickdraw(path, bolt){
+        //console.log(`bolt ${bolt} drawing ${quickdraw_length} quickdraw`);
+        let A = bolts[bolt].pos; //quickdraw center
+        let C = path[bolt].quickdraw_entry; //quickdraw entry point
+        let R = {x:A.x, y:A.y+69420}; //reference point
+        let AC = length(A,C); //radius
+        let gauche = 1;
+        if (C.x > R.x){gauche = -1};
+        let angle = get_angle(A, C, R) * gauche;
+        image2 = new Image();
+            image2.src = `quickdraw_long.png`;
+            image2.onload = function() {
+                ctx.save(); 
+                ctx.translate(A.x, A.y);
+                ctx.rotate(angle); // in radian
+                let ratio = AC / image2.height*1.12;
+                ctx.scale(ratio, ratio);
+                ctx.drawImage(image2, -(image2.width/1.5),-(image2.height/40));
+                ctx.restore(); 
+            }
+    }
+    let path = paths[path_nb];
+    for (let i = 1; i <= NB_OF_BOLTS; i++){
+        if(bolts[i].big_radius){
+            draw_long_quickdraw(path,i);
+        }else{
+            draw_short_quickdraw(path,i);
+        };
+        
     }
 }
 function draw_bolts (){
@@ -236,12 +272,11 @@ function write(text, point={x:50, y:50}){
 }
 function write_data(){
     analyse_path();
-    let drag = paths[start].drag*100;
-    let reduction
+    let drag = paths[start].drag;
+    let reduction;
     if (drag){
-        reduction = Math.floor((paths[start].drag-last(path).drag)/drag);
-    }else{reduction = 0;}
-    
+        reduction = Math.floor((paths[start].drag-last(path).drag)/drag*100);
+    }else{reduction = 0;}    
     write(`Tirage: ${last(path).drag} / ${paths[start].drag}`, {x:10, y:canvas.height-100});
     write(`Reduction: ${reduction}%`,{x:10, y:canvas.height-50});
     write(`Degaines longues dispo: ${quickdraws_left}`, {x:canvas.width-300, y:canvas.height-50})
