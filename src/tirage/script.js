@@ -35,12 +35,6 @@ draw_quickdraws();
 let start = last(nb); //remember path_nb before all clicks
 write_data();
 
-
-function get_angle(center,b,c){
-    //returns angle in radient
-    return Math.acos((Math.pow(length(center,b), 2) + Math.pow(length(center,c), 2) - Math.pow(length(b,c), 2)) / (2 * length(center,b) * length(center,c)))
-}
-
 document.addEventListener("click", function(event){ //on mouse click
     let mouse = {x:event.x, y:event.y}
     if(on_bolt(mouse) && quickdraws_left){//if you click on bolt and you have quickdraws
@@ -182,6 +176,10 @@ function intersection_circle_line(a,c,radius){ //returns point where circle inte
     let x = -1*((radius/length(a,c))*(a.x-c.x)-a.x);
     let y = -1*((radius/length(a,c))*(a.y-c.y)-a.y);
     return {x:x,y:y};
+}
+function get_angle(center,b,c){
+    //returns angle in radient
+    return Math.acos((Math.pow(length(center,b), 2) + Math.pow(length(center,c), 2) - Math.pow(length(b,c), 2)) / (2 * length(center,b) * length(center,c)))
 }
 
 /* --- DRAWING FUNCTIONS --- */
