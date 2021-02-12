@@ -33,6 +33,8 @@ section : Cordes a simple, Machard en dessous
 mot de pass SSH: escalade
 
 
+utiliser forEach plus souvent ?
+
 /* INUTILE
 function deg_to_rad(deg){
     return deg * Math.PI / 180
