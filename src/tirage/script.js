@@ -30,51 +30,75 @@ let on_display = {
     bolts: true,
     bolt_radius: false,
     quickdraws: true,
-    path: false,
+    path: true,
     info: true,
-    straight_line: true,
-    buttons: false,
+    straight_line: false,
+    buttons: true,
+    status: true,
+    tension: true,
+    AI_bolts: false,
 };
 const buttons = [
     {
-        x: 100,
+        x: 0,
         y: 100,
         bgColor: "green",
-        width: 200,
-        height: 100,
-        text: "Toggle straight line",
+        width: 150,
+        height: 50,
+        text: "Line",
         txtColor: "black",
         action: function () {
             on_display.straight_line = !on_display.straight_line;
-             draw();
+            draw();
         }
     },
     {
-        x: 500,
-        y: 100,
+        x: 0,
+        y: 50,
         bgColor: "blue",
-        width: 200,
-        height: 100,
-        text: "lol",
+        width: 150,
+        height: 50,
+        text: "Path",
         txtColor: "black",
         action: function () {
-            console.log("lol");
+            on_display.path = !on_display.path;
+            draw();
         }
-    }
+    },
+    {
+        x: 0,
+        y: 0,
+        bgColor: "red",
+        width: 150,
+        height: 50,
+        text: "Quickdraws",
+        txtColor: "black",
+        action: function () {
+            on_display.quickdraws = !on_display.quickdraws;
+            draw();
+        }
+    },
+    {
+        x: 0,
+        y: 150,
+        bgColor: "yellow",
+        width: 150,
+        height: 50,
+        text: "Tension",
+        txtColor: "black",
+        action: function () {
+            on_display.tension = !on_display.tension;
+            draw();
+        }
+    },
     ];//end buttons
 
 
 create_bolts();
 find_best_path();
 let start = last(nb); //remember path_nb before AI
-console.log(`Path[${start}] before AI`);
-draw();
 AI();
-console.log(`Path[${last(nb)}] after AI`);
-console.log(paths[start] == last(path));
 draw();
-
-
 
 function draw(){
     ctx.clearRect(0, 0, canvas.width, canvas.height); //clear canvas
@@ -82,12 +106,21 @@ function draw(){
         ctx.fillStyle = BACKGROUND_COLOR;
         ctx.fillRect(0,0,canvas.width, canvas.height);
     }
-    if (on_display.bolts){draw_bolts();}
-    if (on_display.quickdraws && !on_display.path){draw_quickdraws(true);}
+    if (on_display.quickdraws){draw_quickdraws(!on_display.path);}
+    if (on_display.status){draw_status();}
     if (on_display.path){draw_path();}
+    if (on_display.tension && on_display.path){draw_tension();}
+    if (on_display.bolts){draw_bolts();}
     if (on_display.info){write_data();}
-    if (on_display.straight_line && !on_display.path){draw_line(bolts[0].pos,bolts[bolts.length-1].pos, "blue", 1);}
+    if (on_display.straight_line){draw_line(bolts[0].pos,bolts[bolts.length-1].pos, "blue", 1);}
     if (on_display.buttons){buttons.forEach(element => draw_button(element));}
+    
+    if(on_display.AI_bolts){draw_AI_bolts();}
+}
+function draw_AI_bolts(){
+    for (let i = 0; i < bolts_chosen_AI.length; i++) {
+        draw_circle(bolts[bolts_chosen_AI[i]].pos, false, 30, "green", 2 );
+    }
 }
 function AI(){
     for (let j = 0; j < NB_QUICKDRAWS; j++) {
@@ -121,11 +154,20 @@ function AI(){
     }
     analyse_path();
 }
+function draw_status(){
+    for (let i = 1; i <= NB_OF_BOLTS; i++) {
+        if(bolts[i].status=="right"){
+            draw_circle(bolts[i].pos, "rgba(0,255,0,0.3)", 20);
+        }else if(bolts[i].status=="wrong"){
+            draw_circle(bolts[i].pos, "rgba(255,0,0,0.3)", 20);
+        }
+    }
+}
 function draw_button(button){
     let center = {x:button.x+button.width/2, y:button.y+button.height/2};
     ctx.fillStyle = button.bgColor;
     ctx.fillRect(button.x,button.y,button.width, button.height);
-    write(button.text, center );
+    write(button.text, {x:button.x, y:button.y+20} );
 }
 function on_button(mouse, button){
     if(button.x < mouse.x && mouse.x < button.x+button.width && button.y < mouse.y && mouse.y < button.y+button.height){
@@ -153,13 +195,21 @@ document.addEventListener("click", function(event){ //on mouse click
             quickdraws_left--;
             bolts_chosen.push(bolt);
             bolts[bolt].radius = BIG_RADIUS; //make bolt bigger
+            if(bolts_chosen_AI.includes(bolt)){
+                bolts[bolt].status = "right";
+            }else {
+                bolts[bolt].status = "wrong";
+            }
+            
             find_best_path();
             
             if (!quickdraws_left){
+                //on_display.status = true;
                 on_display.path = true;
                 on_display.straight_line = false;
                 bolts_chosen.sort(function(a, b){return a-b});
                 console.log(`Bolts chosen: ${bolts_chosen}`);
+                on_display.AI_bolts = true;
             }
             draw();
         }//end else
@@ -198,9 +248,7 @@ function analyse_path(path_nb=last(nb)){ //write tension_point, tension, contact
         return Math.floor(length(path[bolt].pos, tension_point(bolt,path)));
     }
     function contact_point(bolt, path){ //returns where the bolt will end up if pulled
-        
         return intersection_circle_line(bolts[bolt].pos, path[bolt].tension_point, bolts[bolt].radius);
-        
     }
     function quickdraw_entry (bolt, path){
         let A = bolts[bolt].pos;
@@ -218,9 +266,11 @@ function analyse_path(path_nb=last(nb)){ //write tension_point, tension, contact
     path[0].tension_point = path[0].pos;
     path[0].tension = 0;
     path[0].contact_point = path[0].pos;
+    path[0].quickdraw_entry = path[0].pos;
     path[path.length-1].tension_point = path[path.length-1].pos;
     path[path.length-1].tension = 0;
     path[path.length-1].contact_point = path[path.length-1].pos;
+    path[path.length-1].quickdraw_entry = path[path.length-1].pos;
 
     for (let i = 1; i < path.length-1; i++) {//for each bolt (all points except first and last)
         path[i].is_max_tension = false; //reset
@@ -296,7 +346,6 @@ function draw_path(path_nb=last(nb), color=PATH_COLOR, width=3){
     ctx.lineWidth = width;
     ctx.strokeStyle = color;
     ctx.stroke();
-    draw_quickdraws();
 }
 function draw_quickdraws(loose, path_nb=last(nb)){
     function draw_quickdraw(path, bolt,loose, big){
@@ -351,8 +400,8 @@ function draw_bolts (){
         }
         draw_circle(bolts[i].pos, "black"); //draw center
     }
-    draw_circle(STARTING_POINT, "blue", 10); //draw starting point
-    draw_circle(bolts[bolts.length-1].pos, "blue", 10); //draw finish point
+    draw_circle(STARTING_POINT, PATH_COLOR, 10); //draw starting point
+    draw_circle(bolts[bolts.length-1].pos, PATH_COLOR, 10); //draw finish point
 } 
 function write(text, point={x:50, y:50}){
     ctx.font = "20px arial";
@@ -386,6 +435,22 @@ function draw_line(a,b,color = "black", width = 1){
     ctx.lineWidth = width;
     ctx.strokeStyle = color;
     ctx.stroke();
+}
+function draw_tension(path_nb=last(nb), width = 3){
+    let path = paths[path_nb];
+    for (let i = 1; i < path.length-1; i++) {
+        ctx.beginPath();
+        ctx.moveTo(path[0].pos.x, path[0].pos.y);
+        for (let j = 1; j < path.length; j++) {
+            ctx.lineTo(path[j].pos.x, path[j].pos.y);
+        }
+        var grad = ctx.createRadialGradient(path[i].quickdraw_entry.x, path[i].quickdraw_entry.y, 0, path[i].quickdraw_entry.x, path[i].quickdraw_entry.y, path[i].tension*4);
+        grad.addColorStop(0, "red");
+        grad.addColorStop(1, "rgba(0,0,0,0)");
+        ctx.strokeStyle = grad;
+        ctx.lineWidth = width;
+        ctx.stroke();
+    }
 }
 function draw_old_paths(percent=10){
     for (let i = 0; i < paths.length; i++) {
