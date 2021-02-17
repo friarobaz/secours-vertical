@@ -1,0 +1,71 @@
+* { margin: 0;
+    overflow: hidden;
+    box-sizing: border-box;}
+body {
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+    background: rgb(255, 208, 0);
+    color: rgb(49, 49, 49);
+    font-family: 'Nunito', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    padding-left: 5vw;
+    padding-right: 5vw;
+    width: 70vw;
+    height: 70vh;
+    border: 1px solid black;
+}
+
+header{
+    font-size: 3em;
+    font-weight: bold;
+    font-family: 'Oswald', sans-serif;
+}
+
+button{
+    border: 1px solid rgb(255, 208, 0);
+    background: rgb(255, 208, 0);
+    font-size: 1.3em;
+    font-family: 'Nunito', sans-serif;
+    padding: 15px;
+    transition-duration: 0.3s;
+    color: inherit;
+}
+button:hover{
+    
+    cursor: pointer;
+    border: 1px solid rgb(49, 49, 49);
+}
+
+#levels{
+    display: flex;
+    flex: 1;
+    flex-wrap: wrap;
+}
+
+.level{
+    flex:1;
+    height: 50vh;
+    margin: 1vw;
+    padding: 1vw;
+    border: 1px solid rgb(49, 49, 49);
+}
+
+.level header{
+    font-size: 1em;
+}
+
+.level canvas{
+    display: block;
+}
+
+

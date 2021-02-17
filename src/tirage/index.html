@@ -3,17 +3,47 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Le jeu du tirage</title>
+    <link rel="stylesheet" href="style.css">
 
 </head>
-
-
 <body>
-<style>
-    * { margin: 0;
-    overflow: hidden;}
-</style>
 
-<canvas id="myCanvas">Your browser does not support the HTML canvas tag.</canvas>
+<div id="welcome" class="main" style="display: none;">
+    <header>Bienvenue</header>
+    <div>
+        Le but de ce jeu est d'apprendre à gérer le tirage en escalade.
+    </div>
+    <button onclick="start_game()">Commencer</button>
+</div>
+
+<div id="levels" style="display: none;">
+    <div class="level">
+        <header>Niveau 1</header>
+        <div>sdlqjsdsqdqs</div>
+        <canvas id="level_1"></canvas>
+    </div>
+    <div class="level">
+        <header>Niveau 2</header>
+        <div>sdlqjsdsqdqs</div>
+        <canvas id="level_2"></canvas>
+    </div>
+    <div class="level">
+        <header>Niveau 3</header>
+        <div>sdlqjsdsqdqs</div>
+        <canvas id="level_3"></canvas>
+    </div>
+    <div class="level">
+        <header>Niveau 4</header>
+        <div>sdlqjsdsqdqs</div>
+        <canvas id="level_4"></canvas>
+    </div>
+</div>
+
+    
+
+
+<canvas id="myCanvas" style="display: block;">Your browser does not support the HTML canvas tag.</canvas>
+
 <script src="script.js"></script>
 </body>
 
