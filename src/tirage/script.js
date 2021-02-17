@@ -14,8 +14,10 @@ const BACKGROUND_COLOR = "#EEEEEE";
 const NB_OF_BOLTS = 6;
 const BORDER = 20; //how far away from the windows edge the last point will be
 const MIN_X_VARIATION = 60; //min amount of zig zag 
-let BOLT_RADIUS = 40; //length of initial quickdraws
+let BOLT_RADIUS = 50; //length of initial quickdraws
 const BIG_RADIUS = 80; //length of long quickdraws
+const CARABINER_SCALE = 12; 
+const QUICKDRAW_SLING_COLOR = "orange";
 const PATH_COLOR = "blue"; //rope color
 const NB_QUICKDRAWS = 3; //number of long quickdraws available at start
 /* ------------------------- */
@@ -28,19 +30,20 @@ let bolts = [];
 let quickdraws_left = NB_QUICKDRAWS;
 const nb = "path_nb";
 const path = "path";
+let end = false; //when user has spent all his quickdraws
 let bolts_chosen = [];
 let bolts_chosen_AI = [];
-let first = true;
+let first = true; //used to cancel first click
 let on_display = {
     background: true,
     bolts: true,
-    bolt_radius: true,
+    bolt_radius: false,
     quickdraws: true,
     path: true,
     info: true,
     straight_line: false,
-    buttons: false,
-    status: true,
+    buttons: true,
+    status: false,
     tension: true,
     AI_bolts: false,
 };
@@ -106,7 +109,6 @@ let start = last(nb); //remember path_nb before AI
 AI();
 draw();
 
-//degaine({x:800, y:100}, 500, 1, 50);
 //info_box();
 
 
@@ -158,7 +160,7 @@ function degaine(point={x:0, y:0}, length=100, angle=0, scale=60){
     carabiner(scale, A);
     carabiner_down(scale, B);
     //draw_line(A, B, "red", 1);
-    draw_line(C, D, "grey", scale/6);
+    draw_line(C, D, QUICKDRAW_SLING_COLOR, scale/6);
     ctx.restore();
 }
 
@@ -196,11 +198,11 @@ document.addEventListener("click", function(event){ //on mouse click
                 
                 if (!quickdraws_left){
                     //on_display.status = true;
+                    end = true;
                     on_display.path = true;
                     on_display.straight_line = false;
                     bolts_chosen.sort(function(a, b){return a-b});
                     console.log(`Bolts chosen: ${bolts_chosen}`);
-                    on_display.AI_bolts = true;
                 }
                 draw();
             }//end else
@@ -382,14 +384,15 @@ function draw(){
         ctx.fillRect(0,0,canvas.width, canvas.height);
     }
     if (on_display.status){draw_status();}
-    if (on_display.quickdraws){draw_quickdraws(!on_display.path);}
     if (on_display.path){draw_path();}
     if (on_display.tension && on_display.path){draw_tension();}
+    if (on_display.quickdraws){draw_quickdraws(!on_display.path);}
+    
     if (on_display.bolts){draw_bolts();}
     if (on_display.info){write_data();}
     if (on_display.straight_line){draw_line(bolts[0].pos,bolts[bolts.length-1].pos, "blue", 1);}
     if (on_display.buttons){buttons.forEach(element => draw_button(element));}
-    if(on_display.AI_bolts){draw_AI_bolts();}
+    if(on_display.AI_bolts && end){draw_AI_bolts();}
     
 }
 function draw_AI_bolts(){
@@ -423,7 +426,6 @@ function draw_path(path_nb=last(nb), color=PATH_COLOR, width=3){
     ctx.strokeStyle = color;
     ctx.stroke();
 }
-
 function draw_quickdraws(loose, path_nb=last(nb)){
     let path = paths[path_nb];
     for (let i = 1; i <= NB_OF_BOLTS; i++){
@@ -435,7 +437,7 @@ function draw_quickdraws(loose, path_nb=last(nb)){
         if (C.x > R.x){gauche = -1};
         let angle = get_angle(A, C, R) * gauche;
         if (loose){angle = 0;};
-        degaine(A, AC, angle, 10);
+        degaine(A, AC, angle, CARABINER_SCALE);
     }
 }
 function draw_bolts (){
