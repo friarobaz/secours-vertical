@@ -13,7 +13,7 @@ canvas.height = window.innerHeight;
 const BACKGROUND_COLOR = "#EEEEEE";
 const NB_OF_BOLTS = 6;
 const BORDER = 20; //how far away from the windows edge the last point will be
-const MIN_X_VARIATION = 60; //min amount of zig zag 
+let MIN_X_VARIATION = 60; //min amount of zig zag 
 let BOLT_RADIUS = 50; //length of initial quickdraws
 const BIG_RADIUS = 80; //length of long quickdraws
 const CARABINER_SCALE = 12; 
@@ -22,31 +22,35 @@ const PATH_COLOR = "blue"; //rope color
 const NB_QUICKDRAWS = 3; //number of long quickdraws available at start
 /* ------------------------- */
 const MAX_X_VARIATION = (canvas.width/2/(NB_OF_BOLTS+1))-(BORDER/NB_OF_BOLTS); //find x variation that doesn't leave the frame
+MIN_X_VARIATION = MAX_X_VARIATION;
 if(MIN_X_VARIATION > MAX_X_VARIATION){alert("MIN_X_VARIATION too high");};
 const Y_INCREMENT = (canvas.height-BORDER) / (NB_OF_BOLTS+1);
 const STARTING_POINT = {x:canvas.width/2, y:canvas.height};
 let paths = [];
 let bolts = [];
-let quickdraws_left = NB_QUICKDRAWS;
+let quickdraws_left = 0;
+let reduction_user;
+let reduction_AI;
 const nb = "path_nb";
 const path = "path";
 let end = false; //when user has spent all his quickdraws
 let bolts_chosen = [];
 let bolts_chosen_AI = [];
-let first = true; //used to cancel first click
 let on_display = {
     background: true,
     bolts: true,
     bolt_radius: false,
     quickdraws: true,
     path: true,
-    info: true,
+    info: false,
     straight_line: false,
-    buttons: true,
+    buttons: false,
     status: false,
     tension: true,
     AI_bolts: false,
+    quickdraws_left: true,
 };
+let start;
 const buttons = [
     {
         x: 0,
@@ -102,82 +106,19 @@ const buttons = [
     },
     ];//end buttons
 
+while(quickdraws_left < 2){
+    create_bolts();
+    find_best_path();
+    start = last(nb); //remember path_nb before AI
+    AI();
+}
 
-create_bolts();
-find_best_path();
-let start = last(nb); //remember path_nb before AI
-AI();
 draw();
 
-//info_box();
 
-
-
-function degaine(point={x:0, y:0}, length=100, angle=0, scale=60){
-    function carabiner(scale=60, point = {x: 0, y:0}){
-        let X = point.x+(scale/6);
-        let Y = point.y-(scale/40);
-        let A = {x:X, y:Y+(scale/10)};
-        let B = {x:X , y: Y+(scale/20)+scale};
-        let C1 = {x:B.x-(scale/5), y:B.y+(scale/5)};
-        let C = {x:X-(scale/2.4) ,y: Y+scale};
-        let D = {x: X-(scale/1.8), y: Y+(scale/4)};
-        let C2 = {x:X-(scale/2.3), y:Y-(scale/8)};
-        let C3 = {x: X, y: Y-(scale/10)};
-        ctx.lineWidth = scale/10;
-        //draw gate
-        ctx.beginPath();
-        ctx.moveTo(B.x, B.y);
-        ctx.quadraticCurveTo(C1.x, C1.y, C.x, C.y);
-        ctx.lineTo(D.x, D.y);
-        ctx.bezierCurveTo(C2.x, C2.y, C3.x, C3.y, A.x, A.y);
-        ctx.strokeStyle = "grey";
-        ctx.stroke();
-        //draw body
-        ctx.beginPath();
-        ctx.moveTo(D.x, D.y);
-        ctx.bezierCurveTo(C2.x, C2.y, C3.x, C3.y, A.x, A.y);
-        ctx.lineTo(B.x, B.y);
-        ctx.quadraticCurveTo(C1.x, C1.y, C.x, C.y);
-        ctx.moveTo(X-(scale/8), Y+scale+(scale/8));
-        ctx.strokeStyle = "black";
-        ctx.stroke();
-    }
-    function carabiner_down(scale=60, point = {x: 0, y:0}){
-        ctx.save();
-        ctx.translate(point.x, point.y);
-        ctx.rotate(Math.PI);
-        carabiner(scale);
-        ctx.restore();
-    }
-    ctx.save();
-    ctx.translate(point.x, point.y);
-    ctx.rotate(angle);
-    let A = {x:0, y:0};
-    let B = {x:0, y:length};
-    let C = {x:0, y:scale*1.15};
-    let D = {x:0, y:B.y-scale*1.15};
-    carabiner(scale, A);
-    carabiner_down(scale, B);
-    //draw_line(A, B, "red", 1);
-    draw_line(C, D, QUICKDRAW_SLING_COLOR, scale/6);
-    ctx.restore();
-}
-
-function info_box(text){
-    let ratio = 1.5;
-    let box_width = canvas.width/ratio;
-    let box_height = canvas.height/ratio;
-    let x_margin = (canvas.width-(box_width))/2;
-    let y_margin = (canvas.height-(box_height))/2;
-    
-    ctx.fillStyle = "white";
-    ctx.fillRect(x_margin,y_margin,box_width, box_height);
-}
 
 document.addEventListener("click", function(event){ //on mouse click
     if(document.getElementById("myCanvas").style.display == 'block'){
-        //if (first){first = false;return}//ignore first click (oui oui je sais...)
         let mouse = {x:event.x, y:event.y}
         check_buttons(mouse);
         let bolt = on_bolt(mouse);
@@ -202,7 +143,18 @@ document.addEventListener("click", function(event){ //on mouse click
                     on_display.path = true;
                     on_display.straight_line = false;
                     bolts_chosen.sort(function(a, b){return a-b});
+                    console.log("______ USER _________");
                     console.log(`Bolts chosen: ${bolts_chosen}`);
+                    analyse_path();
+                    let drag = paths[start].drag;
+                    
+                    if (drag){
+                        reduction_user = Math.floor((paths[start].drag-last(path).drag)/drag*100);
+                    }else{reduction_user = 0;}
+                    console.log(`reduction_user: ${reduction_user}%`);
+                    let win_ratio = reduction_user/reduction_AI;
+                    console.log(`Win ratio: ${win_ratio}`);
+                    if (win_ratio>0.95){alert()};
                 }
                 draw();
             }//end else
@@ -212,29 +164,33 @@ document.addEventListener("click", function(event){ //on mouse click
 function AI(){
     for (let j = 0; j < NB_QUICKDRAWS; j++) {
         let tensions = last(path).map(x => x.tension); //make array with all tensions
+        console.log(`___________ ${j+1} ____________`)
+        console.log(tensions);
         for (let i = 1; i <= NB_OF_BOLTS; i++) { //for all bolts
             if(bolts[i].radius == BIG_RADIUS){
                 tensions[i] = 0;
             }
         }
+        console.log(tensions);
         let index_of_max = tensions.reduce((iMax, x, i, arr) => x > arr[iMax] ? i : iMax, 0); //get index of max tension
         if(index_of_max != 0){ //if not first bolt (starting point)
+            console.log(`Most tension at bolt ${index_of_max}, making it big`);
             bolts_chosen_AI.push(index_of_max); //add to chosen bolts
             bolts[index_of_max].radius = BIG_RADIUS; //make radius big
         }
         find_best_path();
     }
     bolts_chosen_AI.sort(function(a, b){return a-b}); //sort array
+    console.log("_______ AI ________");
     console.log(`Bolts chosen by AI: ${bolts_chosen_AI}`);
     quickdraws_left = bolts_chosen_AI.length;
     console.log(`Number of quickdraws needed: ${quickdraws_left}`);
     analyse_path();
-    let reduction;
     if (paths[start].drag){
-        reduction = Math.floor((paths[start].drag-last(path).drag)/paths[start].drag*100);
-    }else{reduction = 0;}   
-    console.log(`Tirage: ${last(path).drag} / ${paths[start].drag}`); 
-    console.log(`Reduction: ${reduction}%`); 
+        reduction_AI = Math.floor((paths[start].drag-last(path).drag)/paths[start].drag*100);
+    }else{reduction_AI = 0;}   
+    //console.log(`Tirage: ${last(path).drag} / ${paths[start].drag}`); 
+    console.log(`Reduction_AI: ${reduction_AI}%`); 
     paths.push(paths[start]); //reset path to start position
     for (let i = 0; i < bolts.length-1; i++) { //reset bolts to start position
     bolts[i].radius = BOLT_RADIUS; 
@@ -393,7 +349,14 @@ function draw(){
     if (on_display.straight_line){draw_line(bolts[0].pos,bolts[bolts.length-1].pos, "blue", 1);}
     if (on_display.buttons){buttons.forEach(element => draw_button(element));}
     if(on_display.AI_bolts && end){draw_AI_bolts();}
+    if(on_display.quickdraws_left){draw_quickdraws_left();}
     
+}
+function draw_quickdraws_left(){
+    for (let i = 0; i < quickdraws_left; i++) {
+        let point = {x:20, y:20+BIG_RADIUS*1.5*i*1.2};
+        draw_quickdraw(point, BIG_RADIUS*1.5, 0, CARABINER_SCALE*1.5);
+    }
 }
 function draw_AI_bolts(){
     for (let i = 0; i < bolts_chosen_AI.length; i++) {
@@ -426,6 +389,56 @@ function draw_path(path_nb=last(nb), color=PATH_COLOR, width=3){
     ctx.strokeStyle = color;
     ctx.stroke();
 }
+function draw_quickdraw(point={x:0, y:0}, length=100, angle=0, scale=60){
+    function carabiner(scale=60, point = {x: 0, y:0}){
+        let X = point.x+(scale/6);
+        let Y = point.y-(scale/40);
+        let A = {x:X, y:Y+(scale/10)};
+        let B = {x:X , y: Y+(scale/20)+scale};
+        let C1 = {x:B.x-(scale/5), y:B.y+(scale/5)};
+        let C = {x:X-(scale/2.4) ,y: Y+scale};
+        let D = {x: X-(scale/1.8), y: Y+(scale/4)};
+        let C2 = {x:X-(scale/2.3), y:Y-(scale/8)};
+        let C3 = {x: X, y: Y-(scale/10)};
+        ctx.lineWidth = scale/10;
+        //draw gate
+        ctx.beginPath();
+        ctx.moveTo(B.x, B.y);
+        ctx.quadraticCurveTo(C1.x, C1.y, C.x, C.y);
+        ctx.lineTo(D.x, D.y);
+        ctx.bezierCurveTo(C2.x, C2.y, C3.x, C3.y, A.x, A.y);
+        ctx.strokeStyle = "grey";
+        ctx.stroke();
+        //draw body
+        ctx.beginPath();
+        ctx.moveTo(D.x, D.y);
+        ctx.bezierCurveTo(C2.x, C2.y, C3.x, C3.y, A.x, A.y);
+        ctx.lineTo(B.x, B.y);
+        ctx.quadraticCurveTo(C1.x, C1.y, C.x, C.y);
+        ctx.moveTo(X-(scale/8), Y+scale+(scale/8));
+        ctx.strokeStyle = "black";
+        ctx.stroke();
+    }
+    function carabiner_down(scale=60, point = {x: 0, y:0}){
+        ctx.save();
+        ctx.translate(point.x, point.y);
+        ctx.rotate(Math.PI);
+        carabiner(scale);
+        ctx.restore();
+    }
+    ctx.save();
+    ctx.translate(point.x, point.y);
+    ctx.rotate(angle);
+    let A = {x:0, y:0};
+    let B = {x:0, y:length};
+    let C = {x:0, y:scale*1.15};
+    let D = {x:0, y:B.y-scale*1.15};
+    carabiner(scale, A);
+    carabiner_down(scale, B);
+    //draw_line(A, B, "red", 1);
+    draw_line(C, D, QUICKDRAW_SLING_COLOR, scale/6);
+    ctx.restore();
+}
 function draw_quickdraws(loose, path_nb=last(nb)){
     let path = paths[path_nb];
     for (let i = 1; i <= NB_OF_BOLTS; i++){
@@ -437,7 +450,7 @@ function draw_quickdraws(loose, path_nb=last(nb)){
         if (C.x > R.x){gauche = -1};
         let angle = get_angle(A, C, R) * gauche;
         if (loose){angle = 0;};
-        degaine(A, AC, angle, CARABINER_SCALE);
+        draw_quickdraw(A, AC, angle, CARABINER_SCALE);
     }
 }
 function draw_bolts (){
@@ -459,12 +472,11 @@ function write(text, point={x:50, y:50}){
 function write_data(){
     analyse_path();
     let drag = paths[start].drag;
-    let reduction;
     if (drag){
-        reduction = Math.floor((paths[start].drag-last(path).drag)/drag*100);
-    }else{reduction = 0;}    
+        reduction_user = Math.floor((paths[start].drag-last(path).drag)/drag*100);
+    }else{reduction_user = 0;}    
     write(`Tirage: ${last(path).drag} / ${paths[start].drag}`, {x:10, y:canvas.height-100});
-    write(`Reduction: ${reduction}%`,{x:10, y:canvas.height-50});
+    write(`Reduction_user: ${reduction_user}%`,{x:10, y:canvas.height-50});
     write(`Degaines longues dispo: ${quickdraws_left}`, {x:canvas.width-300, y:canvas.height-50})
 }
 function draw_circle (center, fillColor, radius=2, strokeColor, strokeWidth=1){  
@@ -500,11 +512,7 @@ function draw_tension(path_nb=last(nb), width = 3){
         ctx.stroke();
     }
 }
-function draw_old_paths(percent=10){
-    for (let i = 0; i < paths.length; i++) {
-        draw_path(i, "rgba(0,0,0,"+percent/100+")");
-    }
-}
+
    
 });//end everything (window on load)
 
