@@ -12,37 +12,42 @@ canvas.height = window.innerHeight;
 /* YOU CAN CHANGE THIS */
 const BACKGROUND_COLOR = "#EEEEEE";
 const NB_OF_BOLTS = 6;
+const NB_WINS_NEXT_LEVEL = 3;
 const BORDER = 20; //how far away from the windows edge the last point will be
 let MIN_X_VARIATION = 60; //min amount of zig zag 
 let BOLT_RADIUS = 50; //length of initial quickdraws
 const BIG_RADIUS = 80; //length of long quickdraws
 const CARABINER_SCALE = 12; 
-const QUICKDRAW_SLING_COLOR = "orange";
+const SHORT_SLING_COLOR = "green";
+const BIG_SLING_COLOR = "orange";
 const PATH_COLOR = "blue"; //rope color
-const NB_QUICKDRAWS = 3; //number of long quickdraws available at start
+const NB_QUICKDRAWS = 3; //number of long quickdraws available at start 
 /* ------------------------- */
 const MAX_X_VARIATION = (canvas.width/2/(NB_OF_BOLTS+1))-(BORDER/NB_OF_BOLTS); //find x variation that doesn't leave the frame
 MIN_X_VARIATION = MAX_X_VARIATION;
 if(MIN_X_VARIATION > MAX_X_VARIATION){alert("MIN_X_VARIATION too high");};
 const Y_INCREMENT = (canvas.height-BORDER) / (NB_OF_BOLTS+1);
 const STARTING_POINT = {x:canvas.width/2, y:canvas.height};
+const nb = "path_nb";
+const path = "path";
+let reduction_user;
+let reduction_AI;
 let paths = [];
 let bolts = [];
 let quickdraws_left = 0;
-let reduction_user;
-let reduction_AI;
-const nb = "path_nb";
-const path = "path";
 let end = false; //when user has spent all his quickdraws
 let bolts_chosen = [];
 let bolts_chosen_AI = [];
+let level = 1;
+let wins = 0;
+let mouse;
 let on_display = {
     background: true,
     bolts: true,
     bolt_radius: false,
     quickdraws: true,
     path: true,
-    info: false,
+    info: true,
     straight_line: false,
     buttons: false,
     status: false,
@@ -50,7 +55,7 @@ let on_display = {
     AI_bolts: false,
     quickdraws_left: true,
 };
-let start;
+
 const buttons = [
     {
         x: 0,
@@ -109,13 +114,19 @@ const buttons = [
 while(quickdraws_left < 2){
     create_bolts();
     find_best_path();
-    start = last(nb); //remember path_nb before AI
+    var start = last(nb); //remember path_nb before AI
     AI();
 }
-
 draw();
 
-
+document.addEventListener('mousemove', e => {
+    
+    //drawLine(context, x, y, e.clientX - rect.left, e.clientY - rect.top);
+    let x = e.clientX;
+    let y = e.clientY;
+    mouse = {x:x, y:y};
+    draw();
+});
 
 document.addEventListener("click", function(event){ //on mouse click
     if(document.getElementById("myCanvas").style.display == 'block'){
@@ -154,34 +165,80 @@ document.addEventListener("click", function(event){ //on mouse click
                     console.log(`reduction_user: ${reduction_user}%`);
                     let win_ratio = reduction_user/reduction_AI;
                     console.log(`Win ratio: ${win_ratio}`);
-                    if (win_ratio>0.95){alert()};
+                    if (win_ratio>0.97){
+                        win();
+                    }else{
+                        lose();
+                    };
                 }
                 draw();
             }//end else
         };//end if
     };//end if display block
 });
+function win(){
+    console.log("win");
+    wins++;
+    if(wins == NB_WINS_NEXT_LEVEL){
+        wins = 0;
+        level++;
+        if(level >= 2){
+            on_display.tension = false;
+        }
+        if(level >= 3){
+            on_display.path = false;
+        }
+    }
+    reset();
+    while(quickdraws_left < 2){
+        create_bolts();
+        find_best_path();
+        var start = last(nb); //remember path_nb before AI
+        AI();
+    }
+    draw();
+}
+function lose(){
+    console.log("lose");
+    reset();
+    while(quickdraws_left < 2){
+        create_bolts();
+        find_best_path();
+        var start = last(nb); //remember path_nb before AI
+        AI();
+    }
+    draw();
+}
+function reset(){
+    reduction_user = 0;
+    reduction_AI = 0;
+    paths = [];
+    bolts = [];
+    quickdraws_left = 0;
+    end = false; //when user has spent all his quickdraws
+    bolts_chosen = [];
+    bolts_chosen_AI = [];
+}
 function AI(){
+    console.clear();
+    console.log("_______ AI ________");
+    bolts_chosen_AI = [];
     for (let j = 0; j < NB_QUICKDRAWS; j++) {
         let tensions = last(path).map(x => x.tension); //make array with all tensions
-        console.log(`___________ ${j+1} ____________`)
-        console.log(tensions);
         for (let i = 1; i <= NB_OF_BOLTS; i++) { //for all bolts
             if(bolts[i].radius == BIG_RADIUS){
                 tensions[i] = 0;
             }
         }
-        console.log(tensions);
         let index_of_max = tensions.reduce((iMax, x, i, arr) => x > arr[iMax] ? i : iMax, 0); //get index of max tension
         if(index_of_max != 0){ //if not first bolt (starting point)
-            console.log(`Most tension at bolt ${index_of_max}, making it big`);
+            //console.log(`Most tension at bolt ${index_of_max}, making it big`);
             bolts_chosen_AI.push(index_of_max); //add to chosen bolts
             bolts[index_of_max].radius = BIG_RADIUS; //make radius big
         }
         find_best_path();
     }
     bolts_chosen_AI.sort(function(a, b){return a-b}); //sort array
-    console.log("_______ AI ________");
     console.log(`Bolts chosen by AI: ${bolts_chosen_AI}`);
     quickdraws_left = bolts_chosen_AI.length;
     console.log(`Number of quickdraws needed: ${quickdraws_left}`);
@@ -350,11 +407,12 @@ function draw(){
     if (on_display.buttons){buttons.forEach(element => draw_button(element));}
     if(on_display.AI_bolts && end){draw_AI_bolts();}
     if(on_display.quickdraws_left){draw_quickdraws_left();}
+    if(mouse && quickdraws_left){draw_quickdraw(mouse, BIG_RADIUS);}
     
 }
 function draw_quickdraws_left(){
     for (let i = 0; i < quickdraws_left; i++) {
-        let point = {x:20, y:20+BIG_RADIUS*1.5*i*1.2};
+        let point = {x:30, y:30+BIG_RADIUS*1.5*i*1.2};
         draw_quickdraw(point, BIG_RADIUS*1.5, 0, CARABINER_SCALE*1.5);
     }
 }
@@ -389,8 +447,8 @@ function draw_path(path_nb=last(nb), color=PATH_COLOR, width=3){
     ctx.strokeStyle = color;
     ctx.stroke();
 }
-function draw_quickdraw(point={x:0, y:0}, length=100, angle=0, scale=60){
-    function carabiner(scale=60, point = {x: 0, y:0}){
+function draw_quickdraw(point={x:0, y:0}, length=BOLT_RADIUS, angle=0, scale=CARABINER_SCALE){
+    function carabiner(scale=CARABINER_SCALE, point = {x: 0, y:0}){
         let X = point.x+(scale/6);
         let Y = point.y-(scale/40);
         let A = {x:X, y:Y+(scale/10)};
@@ -419,7 +477,7 @@ function draw_quickdraw(point={x:0, y:0}, length=100, angle=0, scale=60){
         ctx.strokeStyle = "black";
         ctx.stroke();
     }
-    function carabiner_down(scale=60, point = {x: 0, y:0}){
+    function carabiner_down(scale=CARABINER_SCALE, point = {x: 0, y:0}){
         ctx.save();
         ctx.translate(point.x, point.y);
         ctx.rotate(Math.PI);
@@ -433,10 +491,12 @@ function draw_quickdraw(point={x:0, y:0}, length=100, angle=0, scale=60){
     let B = {x:0, y:length};
     let C = {x:0, y:scale*1.15};
     let D = {x:0, y:B.y-scale*1.15};
+    let color = SHORT_SLING_COLOR;
+    if(length > BOLT_RADIUS){color = BIG_SLING_COLOR}
     carabiner(scale, A);
     carabiner_down(scale, B);
     //draw_line(A, B, "red", 1);
-    draw_line(C, D, QUICKDRAW_SLING_COLOR, scale/6);
+    draw_line(C, D, color, scale/6);
     ctx.restore();
 }
 function draw_quickdraws(loose, path_nb=last(nb)){
@@ -470,14 +530,9 @@ function write(text, point={x:50, y:50}){
     ctx.fillText(text, point.x, point.y);
 }
 function write_data(){
-    analyse_path();
-    let drag = paths[start].drag;
-    if (drag){
-        reduction_user = Math.floor((paths[start].drag-last(path).drag)/drag*100);
-    }else{reduction_user = 0;}    
-    write(`Tirage: ${last(path).drag} / ${paths[start].drag}`, {x:10, y:canvas.height-100});
-    write(`Reduction_user: ${reduction_user}%`,{x:10, y:canvas.height-50});
-    write(`Degaines longues dispo: ${quickdraws_left}`, {x:canvas.width-300, y:canvas.height-50})
+    
+    write(`Victoires : ${wins} / ${NB_WINS_NEXT_LEVEL}`, {x:10, y:canvas.height-100});
+    write(`Niveau ${level}`,{x:10, y:canvas.height-50});
 }
 function draw_circle (center, fillColor, radius=2, strokeColor, strokeWidth=1){  
     ctx.beginPath();
