@@ -23,6 +23,9 @@ const BIG_SLING_COLOR = "orange";
 const PATH_COLOR = "blue"; //rope color
 const NB_QUICKDRAWS = 3; //number of long quickdraws available at start 
 /* ------------------------- */
+const audio_win = new Audio('win.mp3');
+const audio_lose = new Audio('lose.mp3');
+const audio_click = new Audio('click.mp3');
 const MAX_X_VARIATION = (canvas.width/2/(NB_OF_BOLTS+1))-(BORDER/NB_OF_BOLTS); //find x variation that doesn't leave the frame
 MIN_X_VARIATION = MAX_X_VARIATION;
 if(MIN_X_VARIATION > MAX_X_VARIATION){alert("MIN_X_VARIATION too high");};
@@ -57,7 +60,7 @@ let on_display = {
 };
 
 const buttons = [
-    {
+    /* {
         x: 0,
         y: 100,
         bgColor: "green",
@@ -108,6 +111,25 @@ const buttons = [
             on_display.tension = !on_display.tension;
             draw();
         }
+    }, */
+    {
+        x: canvas.width-150,
+        y: canvas.height-50,
+        bgColor: "yellow",
+        width: 150,
+        height: 50,
+        text: "Continuer",
+        txtColor: "black",
+        action: function () {
+            reset();
+            while(quickdraws_left < 2){
+                create_bolts();
+                find_best_path();
+                var start = last(nb); //remember path_nb before AI
+                AI();
+            }
+            draw();
+        }
     },
     ];//end buttons
 
@@ -119,13 +141,16 @@ while(quickdraws_left < 2){
 }
 draw();
 
+
 document.addEventListener('mousemove', e => {
     
-    //drawLine(context, x, y, e.clientX - rect.left, e.clientY - rect.top);
-    let x = e.clientX;
+    if(quickdraws_left){
+        let x = e.clientX;
     let y = e.clientY;
     mouse = {x:x, y:y};
     draw();
+    }
+    
 });
 
 document.addEventListener("click", function(event){ //on mouse click
@@ -137,6 +162,7 @@ document.addEventListener("click", function(event){ //on mouse click
             if (bolts[bolt].radius == BIG_RADIUS){//if bolt is already big > do nothing
                 return;
             }else{
+                audio_click.play();//click sound
                 quickdraws_left--;
                 bolts_chosen.push(bolt);
                 bolts[bolt].radius = BIG_RADIUS; //make bolt bigger
@@ -165,20 +191,26 @@ document.addEventListener("click", function(event){ //on mouse click
                     console.log(`reduction_user: ${reduction_user}%`);
                     let win_ratio = reduction_user/reduction_AI;
                     console.log(`Win ratio: ${win_ratio}`);
-                    if (win_ratio>0.97){
+                    if (win_ratio>0.9){
                         win();
                     }else{
                         lose();
                     };
+                }else{
+                    draw();
                 }
-                draw();
+                
             }//end else
         };//end if
     };//end if display block
 });
 function win(){
     console.log("win");
+    audio_win.play();
     wins++;
+    on_display.AI_bolts = false;
+    on_display.buttons = true;
+    draw();
     if(wins == NB_WINS_NEXT_LEVEL){
         wins = 0;
         level++;
@@ -189,33 +221,24 @@ function win(){
             on_display.path = false;
         }
     }
-    reset();
-    while(quickdraws_left < 2){
-        create_bolts();
-        find_best_path();
-        var start = last(nb); //remember path_nb before AI
-        AI();
-    }
-    draw();
+    
 }
 function lose(){
     console.log("lose");
-    reset();
-    while(quickdraws_left < 2){
-        create_bolts();
-        find_best_path();
-        var start = last(nb); //remember path_nb before AI
-        AI();
-    }
+    audio_lose.play();
+    on_display.AI_bolts = true;
+    on_display.buttons = true;
     draw();
 }
 function reset(){
+    if(level > 2){on_display.path = false};
     reduction_user = 0;
     reduction_AI = 0;
     paths = [];
     bolts = [];
     quickdraws_left = 0;
     end = false; //when user has spent all his quickdraws
+    on_display.buttons = false;
     bolts_chosen = [];
     bolts_chosen_AI = [];
 }
@@ -408,6 +431,7 @@ function draw(){
     if(on_display.AI_bolts && end){draw_AI_bolts();}
     if(on_display.quickdraws_left){draw_quickdraws_left();}
     if(mouse && quickdraws_left){draw_quickdraw(mouse, BIG_RADIUS);}
+    if(on_display.next){draw_next();}
     
 }
 function draw_quickdraws_left(){
@@ -525,7 +549,7 @@ function draw_bolts (){
     draw_circle(bolts[bolts.length-1].pos, PATH_COLOR, 10); //draw finish point
 } 
 function write(text, point={x:50, y:50}){
-    ctx.font = "20px arial";
+    ctx.font = "30px arial";
     ctx.fillStyle = "black";
     ctx.fillText(text, point.x, point.y);
 }
