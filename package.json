@@ -20,7 +20,7 @@
   "devDependencies": {
     "@11ty/eleventy": "^0.10.0",
     "@11ty/eleventy-navigation": "^0.1.5",
-    "@fullhuman/postcss-purgecss": "^2.1.2",
+    "@fullhuman/postcss-purgecss": "^5.0.0",
     "autoprefixer": "^9.7.4",
     "postcss-cli": "^7.1.0"
   },
