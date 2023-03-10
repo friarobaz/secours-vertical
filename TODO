@@ -35,6 +35,8 @@ mot de pass SSH: escalade
 
 utiliser forEach plus souvent ?
 
+test
+
 /* INUTILE
 function deg_to_rad(deg){
     return deg * Math.PI / 180
