@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "Secours Vertical",
   "scripts": {
-    "build": "rm -rf _site && ELEVENTY_ENV=production eleventy",
+    "build": "rd /s /q _site && ELEVENTY_ENV=production eleventy",
     "watch:html": "eleventy --serve",
-    "dev": "rm -rf _site && npm run watch:html"
+    "dev": "rd /s /q _site && npm run watch:html"
   },
   "repository": {
     "type": "git",
