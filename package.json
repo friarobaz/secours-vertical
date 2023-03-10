@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Secours Vertical",
   "scripts": {
-    "build": "rd /s /q _site && ELEVENTY_ENV=production eleventy",
+    "build": "rm -rf _site && ELEVENTY_ENV=production eleventy",
     "watch:html": "eleventy --serve",
     "dev": "rd /s /q _site && npm run watch:html"
   },
